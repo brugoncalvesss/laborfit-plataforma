@@ -1,0 +1,20 @@
+# Turn on the rewrite engine
+RewriteEngine on
+
+# If the request doesn't end in .php (Case insensitive) continue processing rules
+RewriteCond %{REQUEST_URI} !\.php$ [NC]
+
+# If the request doesn't end in a slash continue processing the rules
+RewriteCond %{REQUEST_URI} [^/]$
+
+# If the requested filename is not a directory,
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# and if the requested filename is not a regular file that exists,
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# and if the requested filename is not a symbolic link,
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# Rewrite the request with a .php extension. L means this is the 'Last' rule
+RewriteRule ^(.*) $1.php [L]
