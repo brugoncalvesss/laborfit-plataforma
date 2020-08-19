@@ -1,18 +1,9 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-	<h1>OKOKOK</h1>
-</div>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php'); ?>
 
-<div class="my-3">
-	<div class="container">
-		<div class="row justify-content-between align-items-center">
-			<div class="col">
-
-			<h6 class="d-inline-block mb-0">Clientes</h6>
-
-			</div>
-			<div class="col text-right">
-
-			</div>
-		</div>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+		<h1 class="h3">Dashboard</h1>
 	</div>
-</div>
+</main>
+
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_footer.php'); ?>

@@ -5,7 +5,7 @@ include($_header);
 
 <main>
   <div class="container">
-    <h1 class="text-primary">Página inicial</h1>
+    <h1 class="text-primary mt-5">Página inicial</h1>
   </div>
 </main>
 
