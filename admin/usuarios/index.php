@@ -7,18 +7,21 @@
             <h1 class="h3 my-0">Usuários</h1>
         </div>
         <div class="col text-sm-right">
-            <button class="btn btn-primary btn-sm">Novo</button>
+            <a class="btn btn-primary btn-sm" href="/admin/usuarios/novo.php">Novo</a>
         </div>
     </header>
     
     <div class="card mb-3">
-        <?php while ($a <= 5) : ?>
+        <?php $a = 1; while ($a <= 5) : ?>
         <div class="row align-items-center border-bottom py-1 px-3 no-gutters">
             <div class="col">João Braga</div>
             <div class="col col-auto">
-                <span class="badge badge-success-lighten badge-pill mr-3">Ativo</span>
-                <a class="btn btn-link" href="#"><i class="far fa-edit"></i></a>
-                <a class="btn btn-link" href="#"><i class="far fa-trash-alt"></i></a>
+                <button id="editarUsuario" class="btn btn-link" data-id="<?= md5($a) ?>">
+                    <i class="far fa-edit"></i>
+                </button>
+                <button id="deletarUsuario" class="btn btn-link" data-id="<?= md5($a) ?>">
+                    <i class="far fa-trash-alt"></i>
+                </button>
             </div>
         </div>
         <?php $a++; endwhile; ?>

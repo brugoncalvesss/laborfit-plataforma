@@ -6,8 +6,15 @@
 	</button>
   
 	<ul class="navbar-nav ml-auto d-none d-lg-flex">
+		<?php if ($_SESSION['nome']) : ?>
 		<li class="nav-item">
-			<a class="nav-link" href="./logout">
+			<span class="nav-link text-white">
+				Olá <?= $_SESSION['nome'] ?>
+			</span>
+		</li>
+		<?php endif; ?>
+		<li class="nav-item">
+			<a class="nav-link" href="/admin/login/logout.php">
 				<i class="fas fa-sign-out-alt"></i> Sair
 			</a>
 		</li>

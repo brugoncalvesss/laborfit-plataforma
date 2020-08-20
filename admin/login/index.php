@@ -24,12 +24,16 @@
           </div>
 
           <p class="text-right">
-            <a href="#./password-reset.php">Esqueceu sua senha?</a>
+            <a class="btn btn-link" href="#./password-reset.php">Esqueceu sua senha?</a>
           </p>
 
           <button class="btn btn-block btn-primary" type="submit">Entrar</button>
           
         </form>
+
+        <p class="text-center">
+          <a class="btn btn-warning" href="/admin/login/login.php">Clique aqui para entrar</a>
+        </p>
 
       </div><!-- end col -->
     </div><!-- end row -->
