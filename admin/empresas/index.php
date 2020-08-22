@@ -7,7 +7,7 @@
             <h1 class="h3 my-0">Empresas</h1>
         </div>
         <div class="col text-sm-right">
-            <a class="btn btn-primary btn-sm" href="/admin/empresa/nova.php">Nova</a>
+            <a class="btn btn-primary btn-sm" href="/admin/empresas/nova.php">Nova</a>
         </div>
     </header>
     

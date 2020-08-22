@@ -12,30 +12,18 @@
         <div class="col-12 col-sm-7">
             <div class="card mb-3">
                 <div class="card-body">
-                    <form action="#">
+                    <form action="/admin/usuarios/cadastrarUsuario.php" method="post">
                         <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="cpf">
+                            <label class="small text-muted text-uppercase font-weight-bold mb-1">
                                 CPF
                             </label>
-                            <input type="text" class="form-control" id="cpf" required>
+                            <input type="text" class="form-control" name="cpf" id="cpf" required>
                         </div>
                         <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="nome">
-                                Nome
-                            </label>
-                            <input type="text" class="form-control" id="nome">
-                        </div>
-                        <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="email">
-                                E-mail
-                            </label>
-                            <input type="email" class="form-control" id="email">
-                        </div>
-                        <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="empresa">
+                            <label class="small text-muted text-uppercase font-weight-bold mb-1">
                                 Empresa
                             </label>
-                            <input type="text" class="form-control" id="empresa">
+                            <input type="text" class="form-control" name="empresa" value="1" required>
                         </div>
                         <button class="btn btn-primary">Salvar</button>
                     </form>

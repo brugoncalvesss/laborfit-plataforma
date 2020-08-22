@@ -5,7 +5,7 @@
     <div class="row align-items-center justify-content-center no-gutters min-vh-100">
       <div class="col-12 col-md-8 col-lg-5">
 
-        <form class="p-5 bg-white rounded shadow-sm mb-4">
+        <form action="/admin/login/login.php" method="post" class="p-5 bg-white rounded shadow-sm mb-4">
 
           <h4 class="mb-3">Login</h4>
 
@@ -13,14 +13,14 @@
             <label class="small text-muted font-weight-bold mb-1" for="email">
               Email
             </label>
-            <input type="email" class="form-control" id="email">
+            <input type="email" class="form-control" name="email" id="email" value="bruno@google.com">
           </div>
 
           <div class="form-group">
             <label class="small text-muted font-weight-bold mb-1" for="password">
               Senha
             </label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" name="password" id="password" value="123456">
           </div>
 
           <p class="text-right">
@@ -30,10 +30,6 @@
           <button class="btn btn-block btn-primary" type="submit">Entrar</button>
           
         </form>
-
-        <p class="text-center">
-          <a class="btn btn-warning" href="/admin/login/login.php">Clique aqui para entrar</a>
-        </p>
 
       </div><!-- end col -->
     </div><!-- end row -->
