@@ -8,27 +8,21 @@
         </div>
     </header>
     
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-12 col-sm-7">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <form action="/admin/usuarios/cadastrarUsuario.php" method="post">
-                        <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1">
-                                CPF
-                            </label>
-                            <input type="text" class="form-control" name="cpf" id="cpf" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1">
-                                Empresa
-                            </label>
-                            <input type="text" class="form-control" name="empresa" value="1" required>
-                        </div>
-                        <button class="btn btn-primary">Salvar</button>
-                    </form>
+
+            <form action="/admin/usuarios/cadastrarUsuario.php" method="post">
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">CPF</label>
+                    <input type="text" class="form-control" name="cpf" id="cpf" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Empresa</label>
+                    <input type="text" class="form-control" name="empresa" value="1" required>
+                </div>
+                <button class="btn btn-primary">Salvar</button>
+            </form>
+
         </div>
     </div>
 
