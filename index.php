@@ -1,11 +1,18 @@
 <?php
 $_header = '_header.php';
 include($_header);
+
+if (!$_SESSION) {
+  header("location: /login.php");
+  exit();
+}
+
 ?>
 
 <main>
   <div class="container">
     <h1 class="text-primary mt-5">Página inicial</h1>
+    <code><?php echo ($_SESSION['empresa']) ?: 'Erro'; ?></code>
   </div>
 </main>
 

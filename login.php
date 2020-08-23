@@ -8,28 +8,18 @@ include($_header);
     <div class="row align-items-center justify-content-center no-gutters min-vh-100">
       <div class="col-12 col-md-5 col-lg-4 py-5">
 
-        <form class="mb-4">
+        <form class="mb-4" autocomplete="off">
 
-          <div class="form-group">
-            <label class="small text-muted text-uppercase font-weight-bold mb-0" for="empresa">
-              Empresa
-            </label>
-            <span class="h3 d-block">
-              <?php
-              $empresa = "Minha empresa";
-              if ($_GET['empresa']) {
-                $empresa = $_GET['empresa'];
-              }
-              echo $empresa;
-              ?>
-            </span>
+          <div class="text-left">
+            <h2 class="h2">Log In</h2>
+            <p class="text-muted">Informe seus dados para entrar.</p>
           </div>
 
           <div class="form-group">
-            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="email">
-              Email
+            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="cpf">
+              CPF
             </label>
-            <input type="email" class="form-control" id="email">
+            <input type="text" class="form-control" id="cpf">
           </div>
 
           <div class="form-group">
@@ -40,7 +30,7 @@ include($_header);
           </div>
 
           <p class="text-right">
-            <a href="./password-reset.php">Esqueceu sua senha?</a>
+            <a href="#./password-reset.php">Esqueceu sua senha?</a>
           </p>
 
           <button class="btn btn-block btn-primary" type="submit">Entrar</button>
@@ -48,7 +38,7 @@ include($_header);
         </form>
 
         <p class="text-center">
-          Ainda não tem uma conta? <a href="./signup.php">cadastre-se</a>.
+          Primeiro acesso? <a href="/acesso.php">cadastre-se</a>.
         </p>
 
       </div><!-- end col -->
