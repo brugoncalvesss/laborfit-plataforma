@@ -13,6 +13,7 @@ if (!$_SESSION) {
   <div class="container">
     <h1 class="text-primary mt-5">Página inicial</h1>
     <code><?php echo ($_SESSION['empresa']) ?: 'Erro'; ?></code>
+    <a href="/logout.php">logout</a>
   </div>
 </main>
 

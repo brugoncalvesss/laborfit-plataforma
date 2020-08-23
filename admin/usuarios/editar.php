@@ -27,7 +27,7 @@ if (empty($id)) {
         $usuario = $request->fetch(PDO::FETCH_ASSOC);
     ?>
     
-    <?php if (count($usuario)) : ?>
+    <?php if (!empty($usuario)) : ?>
     <div class="row mb-3">
         <div class="col-12 col-sm-7">
             

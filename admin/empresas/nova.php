@@ -4,43 +4,21 @@
     
     <header class="row my-3">
         <div class="col">
-            <h1 class="h3 my-0">Novo usuário</h1>
+            <h1 class="h3 my-0">Novo empresa</h1>
         </div>
     </header>
     
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-12 col-sm-7">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <form action="#">
-                        <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="cpf">
-                                CPF
-                            </label>
-                            <input type="text" class="form-control" id="cpf" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="nome">
-                                Nome
-                            </label>
-                            <input type="text" class="form-control" id="nome">
-                        </div>
-                        <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="email">
-                                E-mail
-                            </label>
-                            <input type="email" class="form-control" id="email">
-                        </div>
-                        <div class="form-group">
-                            <label class="small text-muted text-uppercase font-weight-bold mb-1" for="empresa">
-                                Empresa
-                            </label>
-                            <input type="text" class="form-control" id="empresa">
-                        </div>
-                        <button class="btn btn-primary">Salvar</button>
-                    </form>
+
+            <form action="/admin/empresas/cadastrarEmpresa.php" method="post" autocomplete="off">
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Nome da empresa</label>
+                    <input type="text" class="form-control" name="empresa" required>
                 </div>
-            </div>
+                <button class="btn btn-primary">Salvar</button>
+            </form>
+
         </div>
     </div>
 
