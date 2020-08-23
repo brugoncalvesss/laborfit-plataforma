@@ -3,18 +3,23 @@ $_header = '_header.php';
 include($_header);
 
 if (!$_SESSION) {
-  header("location: /login.php");
-  exit();
+	header("location: /login.php");
+	exit();
+}
+
+$page = [];
+
+if ($_SESSION['empresa']) {
+	$page = getPageCompany($_SESSION['empresa']);
 }
 
 ?>
 
 <main>
-  <div class="container">
-    <h1 class="text-primary mt-5">Página inicial</h1>
-    <code><?php echo ($_SESSION['empresa']) ?: 'Erro'; ?></code>
-    <a href="/logout.php">logout</a>
-  </div>
+	<div class="container">
+		<code>Página inicial</code>
+		<a href="/logout.php">logout</a>
+	</div>
 </main>
 
 <?php

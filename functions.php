@@ -16,6 +16,17 @@ function db_connect()
     return $PDO;
 }
 
+function getPageCompany(int $id) {
+
+    if (!$id) {
+        die("Erro ao carregar página. #ID não informado.");
+    }
+
+    $result = [];
+	return $result;
+
+}
+
 function limparCaracteres($valor){
     $valor = trim($valor);
     $valor = str_replace(".", "", $valor);

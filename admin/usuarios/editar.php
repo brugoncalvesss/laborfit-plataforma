@@ -3,8 +3,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
 $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
 if (empty($id)) {
-	echo "ID para alteração não definido.";
-	exit;
+	die("#ID Não informado.");
 }
 ?>
 
@@ -49,7 +48,9 @@ if (empty($id)) {
                 </div>
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Empresa</label>
-                    <input type="text" class="form-control" name="empresa" value="<?= $usuario['EMPRESA_USUARIO'] ?>">
+                    <select name="empresa" class="form-control">
+                        <?php getSelectEmpresas($usuario['EMPRESA_USUARIO']); ?>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Atualizar</button>
             </form>

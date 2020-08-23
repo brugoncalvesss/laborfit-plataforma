@@ -26,3 +26,23 @@ function formatCnpjCpf($value)
   
   return preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "\$1.\$2.\$3/\$4-\$5", $cnpj_cpf);
 }
+
+function getSelectEmpresas(int $id = null) {
+	$PDO = db_connect();
+
+	$sql = "SELECT ID_EMPRESA, NOME_EMPRESA FROM EMPRESAS";
+	$request = $PDO->prepare($sql);
+	$request->execute();
+	$empresas = $request->fetchAll(PDO::FETCH_ASSOC);
+
+	if (!empty($empresas)) {
+		foreach ($empresas as $empresa) {
+			$selected = false;
+			if ($id && ($empresa['ID_EMPRESA'] == $id)) {
+				$selected = 'selected';
+			}
+			$option = "<option {$selected} value='{$empresa['ID_EMPRESA']}'>{$empresa['NOME_EMPRESA']}</option>";
+    		echo $option;
+		}
+	}
+}

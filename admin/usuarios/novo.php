@@ -18,7 +18,9 @@
                 </div>
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Empresa</label>
-                    <input type="text" class="form-control" name="empresa" value="1" required>
+                    <select name="empresa" class="form-control" required>
+                        <?php getSelectEmpresas(); ?>
+                    </select>
                 </div>
                 <button class="btn btn-primary">Salvar</button>
             </form>
