@@ -21,7 +21,7 @@ if (!empty($usuario)) {
     }
 
     $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
-    header("location: /?status=".md5(date()));
+    header("location: /?status=".md5(date("m/d/Y")));
     exit();
 
 } else {
