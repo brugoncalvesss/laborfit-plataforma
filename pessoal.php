@@ -5,7 +5,7 @@ include($_header);
 $cpf = limparCaracteres($_POST['cpf']) ?: null;
 
 if (empty($cpf)) {
-    die("Informe seu cpf.");
+		die("Informe seu cpf.");
 }
 
 $PDO = db_connect();
@@ -20,54 +20,68 @@ $usuario = $request->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <main>
-  <div class="container">
-    <div class="row align-items-center justify-content-center no-gutters min-vh-100">
-      <div class="col-12 col-md-5 col-lg-4 py-5">
+	<div class="container">
+		<div class="row align-items-center justify-content-center no-gutters min-vh-100">
+			<div class="col-12 col-md-5 col-lg-4 py-5">
 
-        <?php if ($usuario > 0) : ?>
-        <form action="cadastrarUsuario.php" method="post" class="mb-4" autocomplete="off">
+				<?php if ($usuario > 0) : ?>
+				<form action="cadastrarUsuario.php" method="post" class="mb-4" autocomplete="off">
 
-            <div class="text-left">
-                <h2 class="h2">Dados pessoais</h2>
-                <p class="text-muted">Complete seu cadastro para entrar.</p>
-            </div>
+					<div class="text-left">
+						<h2 class="h2">Dados pessoais</h2>
+						<p class="text-muted">Complete seu cadastro para entrar.</p>
+					</div>
 
-            <input type="hidden" name="cpf" value="<?= $usuario['CPF_USUARIO'] ?>">
+					<input type="hidden" name="cpf" value="<?= $usuario['CPF_USUARIO'] ?>">
 
-            <div class="form-group">
-                <label class="small text-muted text-uppercase font-weight-bold mb-1" for="nome">
-                Nome
-                </label>
-                <input type="text" class="form-control" name="nome" required>
-            </div>
+					<div class="form-group">
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">Departamento</label>
+						<input type="text" name="departamento" class="form-control">
+					</div>
 
-            <div class="form-group">
-                <label class="small text-muted text-uppercase font-weight-bold mb-1" for="email">
-                E-mail
-                </label>
-                <input type="email" class="form-control" name="email" required>
-            </div>
+					<div class="form-group">
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">Subdepartamento</label>
+						<input type="text" name="subdepartamento" class="form-control">
+					</div>
 
-            <div class="form-group">
-                <label class="small text-muted text-uppercase font-weight-bold mb-1" for="password">
-                Senha
-                </label>
-                <input type="password" class="form-control" name="password" minlength="6" required>
-            </div>
+					<div class="form-group">
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">Nome completo</label>
+						<input type="text" class="form-control" name="nome" required>
+					</div>
 
-            <button class="btn btn-block btn-primary" type="submit">Cadastrar</button>
-          
-        </form>
-        <?php else : ?>
-        <div class="text-left">
-            <h2 class="h4">Não encontramos seu cadastro</h2>
-            <p class="text-muted">Quer tentar novamente? <a href="/acesso.php">clique aqui</a>.</p>
-        </div>
-        <?php endif; ?>
-        
-      </div><!-- end col -->
-    </div><!-- end row -->
-  </div><!-- end container -->
+					<div class="form-group">
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">Data de nascimento</label>
+						<input type="text" name="nascimento" class="form-control" id="data">
+					</div>
+
+					<div class="form-group">
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">Sexo</label>
+						<input type="text" name="sexo" class="form-control">
+					</div>
+
+					<div class="form-group">
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">E-mail</label>
+						<input type="email" class="form-control" name="email" required>
+					</div>
+
+					<div class="form-group">
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">Senha</label>
+						<input type="password" class="form-control" name="password" minlength="6" required>
+					</div>
+
+					<button class="btn btn-block btn-primary" type="submit">Cadastrar</button>
+					
+				</form>
+				<?php else : ?>
+				<div class="text-left">
+						<h2 class="h4">Não encontramos seu cadastro</h2>
+						<p class="text-muted">Quer tentar novamente? <a href="/acesso.php">clique aqui</a>.</p>
+				</div>
+				<?php endif; ?>
+				
+			</div><!-- end col -->
+		</div><!-- end row -->
+	</div><!-- end container -->
 </main>
 
 

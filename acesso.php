@@ -12,7 +12,7 @@ include($_header);
 
             <div class="text-left">
                 <h2 class="h2">Primeiros passos</h2>
-                <p class="text-muted">Informe seus cpf para continuar.</p>
+                <p class="text-muted">Informe seus CPF para continuar.</p>
             </div>
 
             <div class="form-group">

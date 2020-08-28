@@ -13,10 +13,6 @@
 
             <form action="/admin/usuarios/cadastrarUsuario.php" method="post">
                 <div class="form-group">
-                    <label class="small text-uppercase font-weight-bold">CPF</label>
-                    <input type="text" class="form-control" name="cpf" id="cpf" required>
-                </div>
-                <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Empresa</label>
                     <select name="empresa" class="form-control" required>
                         <?php getSelectEmpresas(); ?>
