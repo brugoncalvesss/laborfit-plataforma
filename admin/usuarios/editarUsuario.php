@@ -47,6 +47,5 @@ try{
     header("location: /admin/usuarios/?status=success");
     exit();
 } catch(PDOException $e) {
-    header("location: /admin/usuarios/?status=error");
-    exit();
+    throw new Exception("Erro salvar usuário: " . $e->getMessage());
 }

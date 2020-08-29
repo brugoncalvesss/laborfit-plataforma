@@ -66,12 +66,12 @@ if ($_SESSION['empresa']) {
 			<?php $a = 1; while ($a <= 12) : ?>
 			<div class="col">
 				<div class="card card-video mb-3">
-					<a href="./video.php?watch=" class="text-decoration-none">
+					<a href="./video.php?v=" class="text-decoration-none">
 						<img src="..." class="card-img-top" alt="...">
 					</a>
 					<div class="card-body">
 						<h5 class="card-title text-center text-primary mb-0">
-							<a href="./video.php?watch=" class="text-decoration-none">
+							<a href="./video.php?v=" class="text-decoration-none">
 								Card title
 							</a>
 						</h5>

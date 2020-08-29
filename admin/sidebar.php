@@ -12,7 +12,7 @@
 				</a>
       		</li>
 			<li class="nav-item">
-				<a href="#/admin/paginas/" class="nav-link">
+				<a href="/admin/paginas/" class="nav-link">
 					<i class="far fa-file-alt mr-1"></i> Páginas
 				</a>
 			</li>
