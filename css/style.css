@@ -1,0 +1,23 @@
+.text-orange {
+    color: #ffa32b!important;
+}
+
+.bg-orange {
+    color: #ffa32b!important;
+}
+
+.btn-orange {
+    color: #FFF;
+    background-color: #ffa32b;
+    border-color: #ffa32b;
+}
+
+.btn-orange:hover, .btn-orange:focus {
+    color: #FFF;
+    background-color: #ffa32b;
+    border-color: #ffa32b;
+}
+
+.card-video:hover {
+    border-color: #007bff;
+}

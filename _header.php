@@ -26,7 +26,7 @@ include('./functions.php');
     })(window,document,'script','dataLayer','GTM-T53GZ4K');</script>
     <!-- End Google Tag Manager -->
 
-    <title>Plataforma Laborfit</title>
+    <title>Plataforma</title>
   </head>
   <body>
 <!-- Google Tag Manager (noscript) -->
