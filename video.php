@@ -35,14 +35,14 @@ if ($_GET['v']) {
 		</div>
 	</nav>
 
-	<div class="container mb-5">
+	<div class="container py-4 mb-5">
 		
 		<div class="row">
 			<div class="col-12 col-md-8 offset-md-2">
 
 				<div class="card mb-3">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0&modestbranding=1" allowfullscreen></iframe>
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/<?= $video['LINK_VIDEO']; ?>?rel=0&modestbranding=1" allowfullscreen></iframe>
 					</div>
 					<div class="card-body">
 						<h5 class="card-title text-center text-primary">

@@ -56,7 +56,7 @@
                 <div class="form-group">
                     <label>Categoria</label>
                     <select name="categoria" class="form-control">
-                        <option value="1">ZYX</option>
+                        <option value="1">Em breve</option>
                     </select>
                 </div>
             </div>
