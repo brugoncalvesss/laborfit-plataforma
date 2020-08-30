@@ -7,12 +7,29 @@ if (empty($_POST)) {
 
 $nome = $_POST['nome'] ?: null;
 $link = $_POST['link'] ?: null;
-$thumb = $_POST['thumb'] ?: null;
+$thumb = null;
 $categoria = $_POST['categoria'] ?: null;
 $idEmpresa = $_POST['empresa'] ?: null;
 
 if (empty($idEmpresa)) {
     die("Erro: Empresa não informada.");
+}
+
+if ($_FILES) {
+    $target_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
+    
+    $temp = explode(".", $_FILES["arquivo"]["name"]);
+    $newfilename = round(microtime(true)) . '.' . end($temp);
+
+    $target_file = $target_dir . basename($newfilename);
+    
+    $thumb = $newfilename;
+
+    $result = move_uploaded_file($_FILES['arquivo']['tmp_name'], $target_file);
+
+    if (!$result) {
+        die("Erro ao enviar arquivo.");
+    }
 }
 
 $PDO = db_connect();
@@ -50,7 +67,7 @@ if ($video['ID_VIDEO']) {
 
 try {
     $stmt->execute();
-    header("location: /admin/paginas/videos.php?id=${idEmpresa}&status=200");
+    header("location: /admin/paginas/videos.php?id=${idEmpresa}&status=201");
     exit();
 } catch(PDOException $e) {
     throw new Exception("Erro salvar página: " . $e->getMessage());

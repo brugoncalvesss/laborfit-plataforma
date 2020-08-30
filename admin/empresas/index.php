@@ -34,7 +34,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
                     <a class="btn btn-link" href="/admin/empresas/editar.php?id=<?= $empresa['ID_EMPRESA']; ?>">
                         <i class="far fa-edit"></i>
                     </a>
-                    <a class="btn btn-link" href="/admin/empresas/deletarEmpresa.php?id=<?= $empresa['ID_EMPRESA']; ?>">
+                    <a class="btn btn-link" href="#/admin/empresas/deletarEmpresa.php?id=<?= $empresa['ID_EMPRESA']; ?>">
                         <i class="far fa-trash-alt"></i>
                     </a>
                 </div>

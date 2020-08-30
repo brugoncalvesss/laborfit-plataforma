@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col-sm-6">
 
-        <form action="cadastrarVideo.php" method="post" autocomplete="off">
+        <form action="cadastrarVideo.php" method="post" enctype="multipart/form-data" autocomplete="off">
 
             <div class="form-group-video mb-3">
                 <input type="hidden" name="empresa" value="<?= $idEmpresa; ?>">
@@ -45,11 +45,21 @@
                 </div>
                 <div class="form-group">
                     <label>Thumb do vídeo</label>
-                    <input type="text" name="thumb" class="form-control" value="img.jpg">
+                    <div class="input-group">
+                        <div class="custom-file" lang="pt-br">
+                            <input type="file" class="custom-file-input" name="arquivo" id="inputGroupFile">
+                            <label class="custom-file-label" for="inputGroupFile">
+                                
+                            </label>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <label>Categoria</label>
-                    <input type="text" name="categoria" class="form-control" value="1">
+                    <select name="categoria" class="form-control">
+                        <option value="1">ZYX</option>
+                    </select>
                 </div>
             </div>
 
@@ -60,13 +70,24 @@
         </div>
         <div class="col-sm-6">
 
+            <?php
+            $PDO = db_connect();
+            $sql = "SELECT ID_VIDEO, NOME_VIDEO FROM VIDEOS WHERE EMPRESA_VIDEO = :EMPRESA_VIDEO";
+            $stmt = $PDO->prepare($sql);
+            $stmt->bindParam(':EMPRESA_VIDEO', $idEmpresa, PDO::PARAM_INT);
+            $stmt->execute();
+            $arVideos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            ?>
+
+            <?php if (!empty($arVideos)) : ?>
             <ul class="list-group">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                <?php foreach ($arVideos as $video) : ?>
+                <li class="list-group-item"><?= $video['NOME_VIDEO'] ?></li>
+                <?php endforeach; ?>
             </ul>
+            <?php else: ?>
+            <p>Nenhum vídeo adicionado.</p>
+            <?php endif; ?>
 
         </div>
     </div>
