@@ -7,7 +7,7 @@ $password = ($_POST['password']) ?: null;
 
 $PDO = db_connect();
 
-$sql = "SELECT EMPRESA_USUARIO FROM USUARIOS WHERE CPF_USUARIO = :CPF_USUARIO AND SENHA_USUARIO = :SENHA_USUARIO";
+$sql = "SELECT EMPRESA_USUARIO, NOME_USUARIO FROM USUARIOS WHERE CPF_USUARIO = :CPF_USUARIO AND SENHA_USUARIO = :SENHA_USUARIO";
 $request = $PDO->prepare($sql);
 $request->bindParam(':CPF_USUARIO', $cpf, PDO::PARAM_INT);
 $request->bindParam(':SENHA_USUARIO', md5($password));
@@ -21,6 +21,7 @@ if (!empty($usuario)) {
     }
 
     $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
+    $_SESSION['usuario'] = $usuario['NOME_USUARIO'];
     header("location: /?status=200");
     exit();
 
