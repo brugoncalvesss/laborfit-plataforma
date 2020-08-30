@@ -21,10 +21,10 @@ if (!empty($usuario)) {
     }
 
     $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
-    header("location: /?status=".md5(date("m/d/Y")));
+    header("location: /?status=200");
     exit();
 
 } else {
-    header("location: /login.php?status=wrong");
+    header("location: /login.php?status=500");
     exit();
 }

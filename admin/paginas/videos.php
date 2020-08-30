@@ -37,20 +37,18 @@
                 <input type="hidden" name="empresa" value="<?= $idEmpresa; ?>">
                 <div class="form-group">
                     <label>Nome do vídeo</label>
-                    <input type="text" name="nome" class="form-control" value="movie <?= rand(0, 30) ?>" required>
+                    <input type="text" name="nome" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label>Link do youtube</label>
-                    <input type="text" name="link" class="form-control" value="https://www.youtube.com/watch?v=Ds6SSB2RuVI" required>
+                    <input type="text" name="link" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label>Thumb do vídeo</label>
                     <div class="input-group">
                         <div class="custom-file" lang="pt-br">
                             <input type="file" class="custom-file-input" name="arquivo" id="inputGroupFile">
-                            <label class="custom-file-label" for="inputGroupFile">
-                                
-                            </label>
+                            <label class="custom-file-label" for="inputGroupFile"></label>
                         </div>
                     </div>
                 </div>
