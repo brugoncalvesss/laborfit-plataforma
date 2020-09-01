@@ -1,11 +1,5 @@
 <?php
-$_header = '_header.php';
-include($_header);
-
-if (!$_SESSION) {
-	header("location: /login.php");
-	exit();
-}
+require('_header.php');
 
 $page = [];
 
@@ -124,7 +118,4 @@ if ($_SESSION['empresa']) {
 	</div>
 </main>
 
-<?php
-$_footer = '_footer.php';
-include($_footer);
-?>
+<?php require('_footer.php'); ?>
