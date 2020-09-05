@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-if (!$_SESSION['empresa']) {
-	header("location: /login.php");
-	exit();
-}
-?>
-
 <!doctype html>
 <html lang="pt-br">
 	<head>

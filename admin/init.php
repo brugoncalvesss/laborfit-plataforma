@@ -1,10 +1,10 @@
 <?php
 
 // MySQL
-define('DB_HOST', 'db4free.net');
-define('DB_USER', 'devlocalhost');
-define('DB_PASS', 'TSFW8gDqw3#JmLY');
-define('DB_NAME', 'devplataforma');
+define('DB_HOST', '192.185.213.43');
+define('DB_USER', 'wowlif90_prod');
+define('DB_PASS', '^R[7LWG!8xI7');
+define('DB_NAME', 'wowlif90_plataforma');
 
 ini_set('display_errors', true);
 error_reporting(E_ALL);

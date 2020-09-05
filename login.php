@@ -1,7 +1,4 @@
-<?php
-$_header = './_header.php';
-include($_header);
-?>
+<?php require('_header.php'); ?>
 
 <main>
   <div class="container">
@@ -50,7 +47,4 @@ include($_header);
   </div><!-- end container -->
 </main>
 
-<?php
-$_footer = './_footer.php';
-include($_footer);
-?>
+<?php require('_footer.php'); ?>

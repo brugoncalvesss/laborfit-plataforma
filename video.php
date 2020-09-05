@@ -1,11 +1,6 @@
 <?php
-$_header = '_header.php';
-include($_header);
-
-if (!$_SESSION) {
-	header("location: /login.php");
-	exit();
-}
+require('control.php');
+require('_header.php');
 
 if ($_GET['v']) {
 	$video = getVideoId($_GET['v']);

@@ -1,4 +1,5 @@
 <?php
+require('control.php');
 require('_header.php');
 
 $page = [];
