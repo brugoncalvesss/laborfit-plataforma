@@ -16,21 +16,17 @@ if (empty($idEmpresa)) {
 }
 
 if ($link) {
-    $link = getYoutubeId($link);
+    $link = getVimeoId($link);
 }
 
 if ($_FILES) {
     $thumb = uploadFile($_FILES);
 }
 
-$video = getVideoId($idEmpresa);
-// $sql = "UPDATE VIDEOS
-//             SET NOME_VIDEO = :NOME_VIDEO, LINK_VIDEO = :LINK_VIDEO, THUMB_VIDEO = :THUMB_VIDEO,
-//                 CATEGORIA_VIDEO = :CATEGORIA_VIDEO, EMPRESA_VIDEO = :EMPRESA_VIDEO
-//             WHERE ID_VIDEO = :ID_VIDEO";
-
-$sql = "INSERT INTO VIDEOS (NOME_VIDEO, LINK_VIDEO, THUMB_VIDEO, CATEGORIA_VIDEO, EMPRESA_VIDEO, CADASTRO_VIDEO)
-        VALUES(:NOME_VIDEO, :LINK_VIDEO, :THUMB_VIDEO, :CATEGORIA_VIDEO, :EMPRESA_VIDEO, CURRENT_TIMESTAMP)";
+$sql = "INSERT INTO
+            VIDEOS (NOME_VIDEO, LINK_VIDEO, THUMB_VIDEO, CATEGORIA_VIDEO, EMPRESA_VIDEO, CADASTRO_VIDEO)
+        VALUES
+            (:NOME_VIDEO, :LINK_VIDEO, :THUMB_VIDEO, :CATEGORIA_VIDEO, :EMPRESA_VIDEO, CURRENT_TIMESTAMP)";
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
@@ -39,10 +35,6 @@ $stmt->bindParam(':LINK_VIDEO', $link);
 $stmt->bindParam(':THUMB_VIDEO', $thumb);
 $stmt->bindParam(':CATEGORIA_VIDEO', $categoria);
 $stmt->bindParam(':EMPRESA_VIDEO', $idEmpresa);
-
-// if ($video['ID_VIDEO']) {
-//     $stmt->bindParam(':ID_VIDEO', $video['ID_VIDEO'], PDO::PARAM_INT);
-// }
 
 try {
     $stmt->execute();
@@ -56,6 +48,14 @@ function getYoutubeId(string $link) {
 
     $partVideo = explode('?v=', $link);
     $idVideo = $partVideo[1] ?: '000001';
+
+    return $idVideo;
+}
+
+function getVimeoId(string $link) {
+
+    $partVideo = explode('vimeo.com/', $link);
+    $idVideo = $partVideo[1] ?: '000000001';
 
     return $idVideo;
 }

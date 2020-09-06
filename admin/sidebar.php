@@ -16,6 +16,16 @@
 					<i class="far fa-file-alt mr-1"></i> Páginas
 				</a>
 			</li>
+			<li class="nav-item">
+				<a href="/admin/categorias/" class="nav-link">
+					<i class="fas fa-list mr-1"></i> Categorias
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/admin/banners/" class="nav-link">
+					<i class="far fa-images mr-1"></i> Banners
+				</a>
+			</li>
         </ul>
 	</div>
 </nav>

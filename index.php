@@ -6,8 +6,8 @@ $page = [];
 
 if ($_SESSION['empresa']) {
 	$page = getPageCompany($_SESSION['empresa']);
+	$arBanner = getBannerCompany($_SESSION['empresa']);
 }
-
 ?>
 
 <main>
@@ -30,13 +30,30 @@ if ($_SESSION['empresa']) {
 		</div>
 	</nav>
 
-	<section class="banner bg-dark text-light">
-		<div class="text-center py-5 mb-4">
-			BANNER
+	<?php if (!empty($arBanner)) : ?>
+	<div id="carouselBanners" class="carousel slide section-banner" data-ride="carousel">
+		<div class="carousel-inner">
+		<?php foreach ($arBanner as $key => $banner) : ?>
+			<?php $active = ($key < 1) ? 'active' : ''; ?>
+			<?php if (file_exists('./uploads/'.$banner['IMG_BANNER'])) : ?>
+				<div class="carousel-item <?= $active ?>">
+					<img src="/uploads/<?= $banner['IMG_BANNER'] ?>" class="img-banner d-block w-100" alt="<?= $banner['IMG_BANNER'] ?>">
+				</div>
+			<?php endif; ?>
+		<?php endforeach; ?>
 		</div>
-	</section>
+		<a class="carousel-control-prev" href="#carouselBanners" role="button" data-slide="prev">
+			<i class="fas fa-chevron-left"></i>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselBanners" role="button" data-slide="next">
+			<i class="fas fa-chevron-right"></i>
+			<span class="sr-only">Next</span>
+		</a>
+	<div>
+	<?php endif; ?>
 
-	<section class="filter">
+	<section class="filter mt-4">
 		<div class="container">
 			<div class="row flex-wrap">
 				<div class="col-sm-8">
@@ -52,7 +69,7 @@ if ($_SESSION['empresa']) {
 						</header>
 
 						<select name="filtro" class="form-control mx-auto" style="max-width:560px">
-							<option value="0">Filtrar</option>
+							<option value="0">Todos</option>
 						</select>
 
 					</div>
@@ -94,7 +111,7 @@ if ($_SESSION['empresa']) {
 						class="text-decoration-none"
 						data-empresa="<?= $video['NOME_EMPRESA']; ?>"
 						data-video="<?= $video['NOME_VIDEO']; ?>">
-						<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="card-img-top" alt="<?= $video['NOME_VIDEO']; ?>">
+						<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="card-img-top img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
 					</a>
 					<?php endif; ?>
 					<div class="card-body">

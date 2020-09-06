@@ -21,3 +21,17 @@
 .card-video:hover {
     border-color: #007bff;
 }
+
+.img-cover {
+    min-height: 190px;
+    object-fit: cover;
+}
+
+.section-banner,
+.section-banner .img-banner {
+    height: 300px;
+}
+
+.img-banner {
+    object-fit: cover;
+}

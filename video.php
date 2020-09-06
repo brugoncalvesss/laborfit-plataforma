@@ -37,7 +37,7 @@ if ($_GET['v']) {
 
 				<div class="card mb-3">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/<?= $video['LINK_VIDEO']; ?>?rel=0&modestbranding=1" allowfullscreen></iframe>
+						<iframe class="embed-responsive-item" src="https://player.vimeo.com/video/<?= $video['LINK_VIDEO']; ?>?rel=0&modestbranding=1" allowfullscreen></iframe>
 					</div>
 					<div class="card-body">
 						<h5 class="card-title text-center text-primary">

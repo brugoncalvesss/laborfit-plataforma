@@ -1,13 +1,10 @@
 <?php
 
 // MySQL
-define('DB_HOST', 'db4free.net');
-define('DB_USER', 'devlocalhost');
-define('DB_PASS', 'TSFW8gDqw3#JmLY');
-define('DB_NAME', 'devplataforma');
-
-ini_set('display_errors', true);
-error_reporting(E_ALL);
+define('DB_HOST', '192.185.213.43');
+define('DB_USER', 'wowlif90_prod');
+define('DB_PASS', '^R[7LWG!8xI7');
+define('DB_NAME', 'wowlif90_plataforma');
 
 function db_connect()
 {
@@ -26,10 +23,15 @@ function getPageCompany(int $id) {
     
     $PDO = db_connect();
     $sql = "SELECT *
-            FROM VIDEOS
-            INNER JOIN EMPRESAS
-            ON VIDEOS.EMPRESA_VIDEO = EMPRESAS.ID_EMPRESA
-            WHERE EMPRESA_VIDEO = :EMPRESA_VIDEO AND STATUS_VIDEO = :STATUS_VIDEO";
+            FROM
+                VIDEOS
+            INNER JOIN EMPRESAS ON
+                VIDEOS.EMPRESA_VIDEO = EMPRESAS.ID_EMPRESA
+            WHERE
+                EMPRESA_VIDEO = :EMPRESA_VIDEO
+                AND STATUS_VIDEO = :STATUS_VIDEO
+            ORDER BY ID_VIDEO DESC";
+
     $stmt = $PDO->prepare($sql);
 
     $stmt->bindParam(':STATUS_VIDEO', $statusVideo, PDO::PARAM_INT);
@@ -44,6 +46,23 @@ function getPageCompany(int $id) {
 
 	return $result;
 
+}
+
+function getBannerCompany(int $idEmpresa)
+{
+    $PDO = db_connect();
+    $sql = "SELECT * FROM BANNERS WHERE EMPRESA_BANNER = :EMPRESA_BANNER ORDER BY ID_BANNER DESC";
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':EMPRESA_BANNER', $idEmpresa, PDO::PARAM_INT);
+
+    try{
+        $stmt->execute();
+        $arBanners = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar banners: " . $e->getMessage());
+    }
+
+    return $arBanners;
 }
 
 function getVideoId(int $id) {

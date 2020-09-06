@@ -1,6 +1,5 @@
 <?php
-$_header = './_header.php';
-include($_header);
+require('./_header.php');
 
 $cpf = (limparCaracteres($_POST['cpf'])) ?: null;
 $password = ($_POST['password']) ?: null;
@@ -16,9 +15,7 @@ $usuario = $request->fetch(PDO::FETCH_ASSOC);
 
 if (!empty($usuario)) {
 
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    session_start();
 
     $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
     $_SESSION['usuario'] = $usuario['NOME_USUARIO'];

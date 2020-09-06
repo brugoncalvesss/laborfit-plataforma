@@ -11,9 +11,9 @@ error_reporting(E_ALL);
 
 function db_connect()
 {
-    $PDO = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
+	$PDO = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
   
-    return $PDO;
+	return $PDO;
 }
 
 function formatCnpjCpf($value)
@@ -21,7 +21,7 @@ function formatCnpjCpf($value)
   $cnpj_cpf = preg_replace("/\D/", '', $value);
   
   if (strlen($cnpj_cpf) === 11) {
-    return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cnpj_cpf);
+	return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cnpj_cpf);
   } 
   
   return preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "\$1.\$2.\$3/\$4-\$5", $cnpj_cpf);
@@ -42,16 +42,16 @@ function getSelectEmpresas(int $id = null) {
 				$selected = 'selected';
 			}
 			$option = "<option {$selected} value='{$empresa['ID_EMPRESA']}'>{$empresa['NOME_EMPRESA']}</option>";
-    		echo $option;
+			echo $option;
 		}
 	}
 }
 
 function limparCaracteres($valor) {
-    $valor = trim($valor);
-    $valor = str_replace(".", "", $valor);
-    $valor = str_replace(",", "", $valor);
-    $valor = str_replace("-", "", $valor);
-    $valor = str_replace("/", "", $valor);
-    return $valor;
+	$valor = trim($valor);
+	$valor = str_replace(".", "", $valor);
+	$valor = str_replace(",", "", $valor);
+	$valor = str_replace("-", "", $valor);
+	$valor = str_replace("/", "", $valor);
+	return $valor;
 }
