@@ -13,29 +13,48 @@ function db_connect()
     return $PDO;
 }
 
-function getPageCompany(int $id) {
+function getPageCompany(int $id, int $idCategoria = null) {
 
     if (!$id) {
         die("Erro ao carregar página. #ID não informado.");
     }
 
     $statusVideo = 1;
-    
     $PDO = db_connect();
-    $sql = "SELECT *
-            FROM
-                VIDEOS
-            INNER JOIN EMPRESAS ON
-                VIDEOS.EMPRESA_VIDEO = EMPRESAS.ID_EMPRESA
-            WHERE
-                EMPRESA_VIDEO = :EMPRESA_VIDEO
-                AND STATUS_VIDEO = :STATUS_VIDEO
-            ORDER BY ID_VIDEO DESC";
 
-    $stmt = $PDO->prepare($sql);
+    if ($idCategoria) {
+        $sql = "SELECT *
+                FROM
+                    VIDEOS
+                INNER JOIN EMPRESAS ON
+                    VIDEOS.EMPRESA_VIDEO = EMPRESAS.ID_EMPRESA
+                WHERE
+                    EMPRESA_VIDEO = :EMPRESA_VIDEO
+                    AND STATUS_VIDEO = :STATUS_VIDEO
+                    AND CATEGORIA_VIDEO = :CATEGORIA_VIDEO
+                ORDER BY ID_VIDEO DESC";
 
-    $stmt->bindParam(':STATUS_VIDEO', $statusVideo, PDO::PARAM_INT);
-    $stmt->bindParam(':EMPRESA_VIDEO', $id, PDO::PARAM_INT);
+        $stmt = $PDO->prepare($sql);
+
+        $stmt->bindParam(':STATUS_VIDEO', $statusVideo, PDO::PARAM_INT);
+        $stmt->bindParam(':EMPRESA_VIDEO', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':CATEGORIA_VIDEO', $idCategoria, PDO::PARAM_INT);
+    } else {
+        $sql = "SELECT *
+                FROM
+                    VIDEOS
+                INNER JOIN EMPRESAS ON
+                    VIDEOS.EMPRESA_VIDEO = EMPRESAS.ID_EMPRESA
+                WHERE
+                    EMPRESA_VIDEO = :EMPRESA_VIDEO
+                    AND STATUS_VIDEO = :STATUS_VIDEO
+                ORDER BY ID_VIDEO DESC";
+
+        $stmt = $PDO->prepare($sql);
+
+        $stmt->bindParam(':STATUS_VIDEO', $statusVideo, PDO::PARAM_INT);
+        $stmt->bindParam(':EMPRESA_VIDEO', $id, PDO::PARAM_INT);
+    }
 
     try{
         $stmt->execute();
@@ -84,6 +103,31 @@ function getVideoId(int $id) {
     }
 
 	return $result;
+}
+
+function getSelectCategoriasVideo(int $id = null) {
+    
+    $PDO = db_connect();
+    $sql = "SELECT * FROM CATEGORIAS";
+    $stmt = $PDO->prepare($sql);
+    
+    try{
+        $stmt->execute();
+        $arCategorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar categorias: " . $e->getMessage());
+    }
+
+	if (!empty($arCategorias)) {
+		foreach ($arCategorias as $categoria) {
+			$selected = false;
+			if ($id && ($categoria['ID_CATEGORIA'] == $id)) {
+				$selected = 'selected';
+			}
+			$option = "<option {$selected} value='{$categoria['ID_CATEGORIA']}'>{$categoria['NOME_CATEGORIA']}</option>";
+			echo $option;
+		}
+	}
 }
 
 function limparCaracteres($valor){

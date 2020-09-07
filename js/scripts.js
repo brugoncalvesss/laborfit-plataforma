@@ -14,4 +14,10 @@ $(document).ready(function(){
             'empresa': $nomeEmpresa
         });
     });
+
+    $('#filtro').on('change', function() {
+        if (this.value) {
+            window.location.href = '/?categoria='+ this.value;
+        }
+    });
 });

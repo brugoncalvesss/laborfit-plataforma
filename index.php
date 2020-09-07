@@ -4,8 +4,10 @@ require('_header.php');
 
 $page = [];
 
+$idCategoria = $_GET['categoria'] ?: null;
+
 if ($_SESSION['empresa']) {
-	$page = getPageCompany($_SESSION['empresa']);
+	$page = getPageCompany($_SESSION['empresa'], $idCategoria);
 	$arBanner = getBannerCompany($_SESSION['empresa']);
 }
 ?>
@@ -68,8 +70,9 @@ if ($_SESSION['empresa']) {
 							</h5>
 						</header>
 
-						<select name="filtro" class="form-control mx-auto" style="max-width:560px">
+						<select id="filtro" name="filtro" class="form-control mx-auto" style="max-width:560px">
 							<option value="0">Todos</option>
+							<?php getSelectCategoriasVideo($idCategoria); ?>
 						</select>
 
 					</div>
@@ -131,7 +134,7 @@ if ($_SESSION['empresa']) {
 			<?php endforeach; ?>
 		</div>
 		<?php else: ?>
-		<div class="alert alert-warning">Nenhum vídeo adicionado</div>
+		<div class="alert alert-warning">Nenhum resultado</div>
 		<?php endif; ?>
 	</div>
 </main>
