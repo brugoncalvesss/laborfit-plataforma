@@ -1,9 +1,3 @@
-<?php
-if (!$_SESSION) {
-    header("location: /admin/login/?logout=1");
-    exit();
-}
-?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<a class="navbar-brand" href="#">Plataforma</a>
 

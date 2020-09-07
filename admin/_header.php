@@ -1,6 +1,7 @@
 <?php
 session_start();
-include($_SERVER['DOCUMENT_ROOT'] . '/admin/init.php');
+
+required($_SERVER['DOCUMENT_ROOT'] . '/admin/init.php');
 ?>
 <!doctype html>
 <html lang="pt-br">

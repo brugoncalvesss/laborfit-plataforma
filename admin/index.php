@@ -1,10 +1,5 @@
 <?php
 
-if (!$_SESSION) {
-    header("location: /admin/login/index.php");
-    exit();
-}
-
 $_header = $_SERVER['DOCUMENT_ROOT'] . '/admin/_header.php';
 include($_header);
 
