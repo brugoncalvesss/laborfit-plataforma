@@ -12,7 +12,7 @@
             <p class="text-muted">Informe seus dados para entrar.</p>
           </div>
 
-          <?php if (isset($_GET['status']) && $_GET['status'] == 'wrong') : ?>
+          <?php if (isset($_GET['status']) && $_GET['status'] == '500') : ?>
           <code>Senha incorreta.</code>
           <?php endif; ?>
 

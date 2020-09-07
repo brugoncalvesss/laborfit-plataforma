@@ -13,15 +13,17 @@ $request->bindParam(':SENHA_USUARIO', md5($password));
 $request->execute();
 $usuario = $request->fetch(PDO::FETCH_ASSOC);
 
-if (!empty($usuario)) {
+$stmt = $PDO->prepare($sql);
+$stmt->bindParam(':CPF_USUARIO', $cpf, PDO::PARAM_INT);
+$stmt->bindParam(':SENHA_USUARIO', md5($password));
+$stmt->execute();
 
-    session_start();
-
+if ($stmt->rowCount() > 0) {
+    $stmt->fetch(PDO::FETCH_ASSOC);
     $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
     $_SESSION['usuario'] = $usuario['NOME_USUARIO'];
     header("location: /?status=200");
     exit();
-
 } else {
     header("location: /login.php?status=500");
     exit();
