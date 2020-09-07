@@ -75,7 +75,9 @@
             <div class="card">
                 <img src="/uploads/<?= $banner['IMG_BANNER'] ?>" alt="<?= $banner['IMG_BANNER'] ?>" class="card-img-top">
                 <div class="card-body">
-                    <a href="#" class="btn btn-danger">Deletar</a>
+                    <a href="/admin/banners/deletarBanner.php?id=<?= $banner['ID_BANNER']; ?>&empresa=<?= $idEmpresa; ?>" class="btn btn-danger">
+						Deletar
+					</a>
                 </div>
             </div>
         </div>

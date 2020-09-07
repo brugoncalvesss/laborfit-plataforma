@@ -26,6 +26,11 @@
 					<i class="far fa-images mr-1"></i> Banners
 				</a>
 			</li>
+			<li class="nav-item">
+				<a href="/admin/administradores/" class="nav-link">
+				<i class="fas fa-user-shield mr-1"></i> Administradores
+				</a>
+			</li>
         </ul>
 	</div>
 </nav>
