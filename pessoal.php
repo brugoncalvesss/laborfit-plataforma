@@ -13,7 +13,7 @@ $PDO = db_connect();
 $sql = "SELECT CPF_USUARIO FROM USUARIOS WHERE CPF_USUARIO = :CPF_USUARIO";
 
 $request = $PDO->prepare($sql);
-$request->bindParam(':CPF_USUARIO', $cpf, PDO::PARAM_INT);
+$request->bindParam(':CPF_USUARIO', $cpf);
 $request->execute();
 $usuario = $request->fetch(PDO::FETCH_ASSOC);
 

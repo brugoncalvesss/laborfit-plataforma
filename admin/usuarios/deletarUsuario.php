@@ -23,3 +23,5 @@ if ($request->execute()) {
     header("location: /admin/usuarios/?status=2");
     exit();
 }
+
+?>

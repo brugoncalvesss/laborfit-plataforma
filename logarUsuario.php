@@ -8,13 +8,13 @@ $PDO = db_connect();
 
 $sql = "SELECT EMPRESA_USUARIO, NOME_USUARIO FROM USUARIOS WHERE CPF_USUARIO = :CPF_USUARIO AND SENHA_USUARIO = :SENHA_USUARIO";
 $request = $PDO->prepare($sql);
-$request->bindParam(':CPF_USUARIO', $cpf, PDO::PARAM_INT);
+$request->bindParam(':CPF_USUARIO', $cpf);
 $request->bindParam(':SENHA_USUARIO', md5($password));
 $request->execute();
 $usuario = $request->fetch(PDO::FETCH_ASSOC);
 
 $stmt = $PDO->prepare($sql);
-$stmt->bindParam(':CPF_USUARIO', $cpf, PDO::PARAM_INT);
+$stmt->bindParam(':CPF_USUARIO', $cpf);
 $stmt->bindParam(':SENHA_USUARIO', md5($password));
 $stmt->execute();
 

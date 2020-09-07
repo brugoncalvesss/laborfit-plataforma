@@ -26,7 +26,7 @@ $PDO = db_connect();
 
 $sql = "SELECT EMPRESA_USUARIO FROM USUARIOS WHERE CPF_USUARIO = :CPF_USUARIO";
 $request = $PDO->prepare($sql);
-$request->bindParam(':CPF_USUARIO', $cpf, PDO::PARAM_INT);
+$request->bindParam(':CPF_USUARIO', $cpf);
 $request->execute();
 $usuario = $request->fetch(PDO::FETCH_ASSOC);
 
@@ -43,7 +43,7 @@ $sql = "UPDATE USUARIOS
         WHERE CPF_USUARIO = :CPF_USUARIO";
 
 $request = $PDO->prepare($sql);
-$request->bindParam(':CPF_USUARIO', $cpf, PDO::PARAM_INT);
+$request->bindParam(':CPF_USUARIO', $cpf);
 $request->bindParam(':DEPARTAMENTO_USUARIO', $departamento);
 $request->bindParam(':SUBDEPARTAMENTO_USUARIO', $subdepartamento);
 $request->bindParam(':NOME_USUARIO', $nome);
@@ -53,15 +53,9 @@ $request->bindParam(':EMAIL_USUARIO', $email);
 $request->bindParam(':SENHA_USUARIO', $password);
 
 if ($request->execute()) {
-
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-
     $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
-
-    header("location: /?status=".md5($usuario['EMPRESA_USUARIO']));
-    exit();
+    header("location: /index.php?status=".md5($usuario['EMPRESA_USUARIO']));
+    exit;
 } else {
     header("location: /login.php?status=erro1");
     exit();

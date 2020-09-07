@@ -1,5 +1,4 @@
 <?php
-require('control.php');
 
 $_header = $_SERVER['DOCUMENT_ROOT'] . '/admin/_header.php';
 include($_header);
