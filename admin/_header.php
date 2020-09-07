@@ -1,8 +1,3 @@
-<?php
-session_start();
-
-required($_SERVER['DOCUMENT_ROOT'] . '/admin/init.php');
-?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -24,3 +19,5 @@ required($_SERVER['DOCUMENT_ROOT'] . '/admin/init.php');
     <title>Plataforma</title>
   </head>
   <body>
+
+  <?php required($_SERVER['DOCUMENT_ROOT'] . '/admin/init.php'); ?>
