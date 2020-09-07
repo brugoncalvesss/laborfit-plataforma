@@ -1,6 +1,5 @@
 <?php
-$_header = './_header.php';
-include($_header);
+require('./functions.php');
 
 $cpf = $_POST['cpf'] ?: null;
 $departamento = $_POST['departamento'] ?: null;
@@ -53,13 +52,21 @@ $request->bindParam(':EMAIL_USUARIO', $email);
 $request->bindParam(':SENHA_USUARIO', $password);
 
 if ($request->execute()) {
+
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    
     $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
-    header("location: /index.php?status=".md5($usuario['EMPRESA_USUARIO']));
-    exit;
+    $_SESSION['usuario'] = $nome;
+
+    header('Location: /?status=200');
+    exit();
 } else {
-    header("location: /login.php?status=erro1");
+    header("Location: /login.php?status=erro1");
     exit();
 }
 
 $_footer = './_footer.php';
 include($_footer);
+?>

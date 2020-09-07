@@ -1,5 +1,5 @@
 <?php
-require('./_header.php');
+require('./functions.php');
 
 $cpf = (limparCaracteres($_POST['cpf'])) ?: null;
 $password = ($_POST['password']) ?: null;
@@ -19,12 +19,15 @@ $stmt->bindParam(':SENHA_USUARIO', md5($password));
 $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
-    $stmt->fetch(PDO::FETCH_ASSOC);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    session_start();
+
     $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
     $_SESSION['usuario'] = $usuario['NOME_USUARIO'];
-    header("location: /?status=200");
+
+    header('Location: /?status=200');
     exit();
 } else {
-    header("location: /login.php?status=500");
+    header("Location: /login.php?status=500");
     exit();
 }
