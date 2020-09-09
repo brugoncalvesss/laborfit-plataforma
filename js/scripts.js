@@ -15,9 +15,9 @@ $(document).ready(function(){
         });
     });
 
-    $('#filtro').on('change', function() {
-        if (this.value) {
-            window.location.href = '/?categoria='+ this.value;
-        }
-    });
+    // $('#filtro').on('change', function() {
+    //     if (this.value) {
+    //         window.location.href = '/?categoria='+ this.value;
+    //     }
+    // });
 });
