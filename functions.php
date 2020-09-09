@@ -106,7 +106,7 @@ function getVideoId(int $id) {
 }
 
 function getSelectCategoriasVideo(int $id = null) {
-    
+
     $PDO = db_connect();
     $sql = "SELECT * FROM CATEGORIAS";
     $stmt = $PDO->prepare($sql);

@@ -22,7 +22,7 @@
 		})(window,document,'script','dataLayer','GTM-T53GZ4K');</script>
 		<!-- End Google Tag Manager -->
 
-		<title>Wowlife</title>
+		<title>WoW Life</title>
 	</head>
 <body>
 	<!-- Google Tag Manager (noscript) -->
