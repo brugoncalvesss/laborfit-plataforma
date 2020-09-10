@@ -11,20 +11,26 @@ if ($_GET['v']) {
 ?>
 
 <main>
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-light bg-white">
 		<div class="container">
-			<a href="/" class="navbar-brand">Plataforma</a>
+			<a href="/" class="navbar-brand">WoW Life</a>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<div class="nav-link">
-						Olá,
-						<span id="usuario"><?= $_SESSION['usuario']; ?></span>
-					</div>
+					<a href="/" class="nav-link">Home</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="/logout.php">
-					<i class="fas fa-sign-out-alt"></i>
+				<li class="nav-item">
+					<a href="./aulas.php" class="nav-link">Aulas</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+						<i class="far fa-user-circle text-primary"></i>
+						<span id="usuario" class="sr-only">
+							<?= $_SESSION['usuario']; ?>
+						</span>
 					</a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="/logout.php">Sair</a>
+					</div>
 				</li>
 			</ul>
 		</div>

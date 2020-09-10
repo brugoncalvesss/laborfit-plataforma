@@ -12,7 +12,7 @@ if ($_SESSION['empresa']) {
 ?>
 
 <main>
-    <nav class="navbar navbar-expand-md navbar-light bg-white">
+	<nav class="navbar navbar-expand-md navbar-light bg-white">
 		<div class="container">
 			<a href="/" class="navbar-brand">WoW Life</a>
 			<ul class="navbar-nav ml-auto">
@@ -25,7 +25,9 @@ if ($_SESSION['empresa']) {
 				<li class="nav-item dropdown">
 					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
 						<i class="far fa-user-circle text-primary"></i>
-						<span class="sr-only"><?= $_SESSION['usuario']; ?></span>
+						<span id="usuario" class="sr-only">
+							<?= $_SESSION['usuario']; ?>
+						</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="/logout.php">Sair</a>
