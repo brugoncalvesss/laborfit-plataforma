@@ -29,7 +29,7 @@
                     <span><i class="fas fa-images mr-2"></i> <?= $empresa['NOME_EMPRESA'] ?></span>
                 </div>
                 <div class="col col-auto">
-                    <a class="btn btn-link" href="/admin/banners/banners.php?id=<?= $empresa['ID_EMPRESA'] ?>">
+                    <a class="btn btn-link" href="/admin/banners/lista.php?id=<?= $empresa['ID_EMPRESA'] ?>">
                         <i class="far fa-edit"></i>
                     </a>
                 </div>

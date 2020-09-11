@@ -18,10 +18,10 @@ $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':ID_BANNER', $id, PDO::PARAM_INT);
 
 if ($stmt->execute()) {
-    header("location: /admin/banners/banners.php?status=200&id=${idEmpresa}");
+    header("location: /admin/banners/lista.php?status=200&id=${idEmpresa}");
     exit();
 } else {
-    header("location: /admin/banners/banners.php?status=500&id=${idEmpresa}");
+    header("location: /admin/banners/lista.php?status=500&id=${idEmpresa}");
     exit();
 }
 ?>
