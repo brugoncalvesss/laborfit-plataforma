@@ -32,6 +32,9 @@
                     <span><?= $categoria['NOME_CATEGORIA'] ?></span>
                 </div>
                 <div class="col col-auto">
+                    <a class="btn btn-link" href="/admin/categorias/editar.php?id=<?= $categoria['ID_CATEGORIA'] ?>">
+                        <i class="far fa-edit"></i>
+                    </a>
                     <a class="btn btn-link" href="/admin/categorias/deletarCategoria.php?id=<?= $categoria['ID_CATEGORIA'] ?>">
                         <i class="far fa-trash-alt"></i>
                     </a>

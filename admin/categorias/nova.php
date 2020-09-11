@@ -11,12 +11,36 @@
     <div class="row mb-3">
         <div class="col-12 col-sm-7">
 
-            <form action="/admin/categorias/cadastrarCategoria.php" method="post" autocomplete="off">
+            <form action="/admin/categorias/cadastrarCategoria.php" method="post" enctype="multipart/form-data" autocomplete="off">
+
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Nome da categoria</label>
                     <input type="text" class="form-control" name="categoria" required>
                 </div>
-                <button class="btn btn-primary">Salvar</button>
+
+				<div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Capa</label>
+					<div class="input-group">
+						<div class="custom-file" lang="pt-br">
+							<input type="file" class="custom-file-input" name="arquivo" id="inputGroupFile">
+							<label class="custom-file-label" for="inputGroupFile"></label>
+						</div>
+					</div>
+				</div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="1" name="destaque" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Categoria destaque?
+                    </label>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="small text-uppercase font-weight-bold">Descrição</label>
+                    <textarea name="descricao" rows="2" class="form-control"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
 
         </div>
