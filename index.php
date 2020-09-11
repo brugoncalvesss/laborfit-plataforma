@@ -3,10 +3,12 @@ require('control.php');
 require('_header.php');
 
 $page = [];
+$idEmpresa = $_SESSION['empresa'] ?: null;
 
 if ($_SESSION['empresa']) {
-	$page = getPageCompany($_SESSION['empresa']);
 	$arBanner = getBannerCompany($_SESSION['empresa']);
+	$arDestaques = getPageDestaques($idEmpresa);
+	$arAlbums = getPageAlbums($idEmpresa);
 }
 ?>
 
@@ -41,7 +43,9 @@ if ($_SESSION['empresa']) {
 			<?php $active = ($key < 1) ? 'active' : ''; ?>
 			<?php if (file_exists('./uploads/'.$banner['IMG_BANNER'])) : ?>
 				<div class="carousel-item <?= $active ?>">
+					<a href="<?= $banner['LINK_BANNER'] ?>">
 					<img src="/uploads/<?= $banner['IMG_BANNER'] ?>" class="img-banner d-block w-100" alt="<?= $banner['IMG_BANNER'] ?>">
+					</a>
 				</div>
 			<?php endif; ?>
 		<?php endforeach; ?>
@@ -103,42 +107,60 @@ if ($_SESSION['empresa']) {
 		</div>
 	</section>
 
-	<div class="container py-5 mb-5">
-		<?php if (!empty($page)) : ?>
-		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-			<?php foreach ($page as $video) : ?>
-			<div class="col">
-				<div class="card card-video mb-3">
-					<?php if ($video['THUMB_VIDEO']) : ?>
-					<a
-						id="assistir-video"
-						href="./video.php?v=<?= $video['ID_VIDEO']; ?>"
-						class="text-decoration-none"
-						data-empresa="<?= $video['NOME_EMPRESA']; ?>"
-						data-video="<?= $video['NOME_VIDEO']; ?>">
-						<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="card-img-top img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
-					</a>
-					<?php endif; ?>
-					<div class="card-body">
-						<h5 class="card-title text-center text-primary mb-0">
-							<a
-								id="assistir-video"
-								href="./video.php?v=<?= $video['ID_VIDEO']; ?>"
-								class="text-decoration-none"
-								data-empresa="<?= $video['NOME_EMPRESA']; ?>"
-								data-video="<?= $video['NOME_VIDEO']; ?>">
-								<?= $video['NOME_VIDEO']; ?>
-							</a>
-						</h5>
+	<?php if (!empty($arDestaques)) : ?>
+	<section id="destaques" class="destaques mt-5 mb-4">
+		<div class="container">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+				<?php foreach ($arDestaques as $destaque) : ?>
+				<div class="col">
+					<div class="card card-video mb-3">
+						<?php if ($destaque['IMG_CATEGORIA']) : ?>
+						<a href="./album.php?q=<?= $destaque['ID_CATEGORIA']; ?>" class="text-decoration-none">
+							<img src="./uploads/<?= $destaque['IMG_CATEGORIA']; ?>" class="img-fluid img-cover" alt="<?= $destaque['NOME_CATEGORIA']; ?>">
+						</a>
+						<?php endif; ?>
+						<div class="card-body">
+							<h5 class="card-title text-center text-primary mb-0">
+								<a href="./album.php?q=<?= $destaque['ID_CATEGORIA']; ?>" class="text-decoration-none">
+									<?= $destaque['NOME_CATEGORIA']; ?>
+								</a>
+							</h5>
+						</div>
 					</div>
 				</div>
+				<?php endforeach; ?>
 			</div>
-			<?php endforeach; ?>
 		</div>
-		<?php else: ?>
-		<div class="alert alert-warning">Nenhum resultado</div>
-		<?php endif; ?>
-	</div>
+	</section>
+	<?php endif; ?>
+
+	<?php if (!empty($arAlbums)) : ?>
+	<section id="albums" class="albums py-5 bg-light">
+	<div class="container">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+				<?php foreach ($arAlbums as $album) : ?>
+				<div class="col">
+					<div class="card card-video mb-3">
+						<?php if ($album['IMG_CATEGORIA']) : ?>
+						<a href="./album.php?q=<?= $album['ID_CATEGORIA']; ?>" class="text-decoration-none">
+							<img src="./uploads/<?= $album['IMG_CATEGORIA']; ?>" class="img-cover" alt="<?= $album['NOME_CATEGORIA']; ?>">
+						</a>
+						<?php endif; ?>
+						<div class="card-body">
+							<h5 class="card-title text-center text-primary mb-0">
+								<a href="./album.php?q=<?= $album['ID_CATEGORIA']; ?>" class="text-decoration-none">
+									<?= $album['NOME_CATEGORIA']; ?>
+								</a>
+							</h5>
+						</div>
+					</div>
+				</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
+	<?php endif; ?>
+
 </main>
 
 <?php require('_footer.php'); ?>

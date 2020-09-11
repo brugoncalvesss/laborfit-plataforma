@@ -91,9 +91,9 @@ function getVideoId(int $id) {
     }
 
     $PDO = db_connect();
-    $sql = "SELECT * FROM VIDEOS WHERE ID_VIDEO = :ID_VIDEO LIMIT 1";
+    $sql = "SELECT * FROM VIDEOS WHERE LINK_VIDEO = :LINK_VIDEO LIMIT 1";
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':ID_VIDEO', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':LINK_VIDEO', $id, PDO::PARAM_INT);
 
     try{
         $stmt->execute();
@@ -137,4 +137,122 @@ function limparCaracteres($valor){
     $valor = str_replace("-", "", $valor);
     $valor = str_replace("/", "", $valor);
     return $valor;
+}
+
+function getPageDestaques(int $id) {
+
+    if (!$id) {
+        die("Erro ao carregar página. #ID não informado.");
+    }
+
+    $status = 1;
+    $PDO = db_connect();
+
+    $sql = "SELECT *
+            FROM
+                VIDEOS
+            INNER JOIN EMPRESAS ON
+                VIDEOS.EMPRESA_VIDEO = EMPRESAS.ID_EMPRESA
+            INNER JOIN CATEGORIAS ON
+	            CATEGORIAS.ID_CATEGORIA = VIDEOS.CATEGORIA_VIDEO
+            WHERE
+                EMPRESA_VIDEO = :EMPRESA_VIDEO
+                AND STATUS_VIDEO = :STATUS_VIDEO
+                AND DESTAQUE_CATEGORIA = :DESTAQUE_CATEGORIA
+            GROUP BY
+                CATEGORIAS.NOME_CATEGORIA
+            ORDER BY
+                ID_VIDEO DESC";
+
+    $stmt = $PDO->prepare($sql);
+
+    $stmt->bindParam(':STATUS_VIDEO', $status, PDO::PARAM_INT);
+    $stmt->bindParam(':DESTAQUE_CATEGORIA', $status, PDO::PARAM_INT);
+    $stmt->bindParam(':EMPRESA_VIDEO', $id, PDO::PARAM_INT);
+
+    try{
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeos: " . $e->getMessage());
+    }
+
+	return $result;
+}
+
+function getPageAlbums(int $id) {
+
+    if (!$id) {
+        die("Erro ao carregar página. #ID não informado.");
+    }
+
+    $status = 1;
+    $album = 0;
+    $PDO = db_connect();
+
+    $sql = "SELECT *
+            FROM
+                VIDEOS
+            INNER JOIN EMPRESAS ON
+                VIDEOS.EMPRESA_VIDEO = EMPRESAS.ID_EMPRESA
+            INNER JOIN CATEGORIAS ON
+	            CATEGORIAS.ID_CATEGORIA = VIDEOS.CATEGORIA_VIDEO
+            WHERE
+                EMPRESA_VIDEO = :EMPRESA_VIDEO
+                AND STATUS_VIDEO = :STATUS_VIDEO
+                AND DESTAQUE_CATEGORIA = :DESTAQUE_CATEGORIA
+            GROUP BY
+                CATEGORIAS.NOME_CATEGORIA
+            ORDER BY
+                ID_VIDEO DESC";
+
+    $stmt = $PDO->prepare($sql);
+
+    $stmt->bindParam(':STATUS_VIDEO', $status, PDO::PARAM_INT);
+    $stmt->bindParam(':DESTAQUE_CATEGORIA', $album, PDO::PARAM_INT);
+    $stmt->bindParam(':EMPRESA_VIDEO', $id, PDO::PARAM_INT);
+
+    try{
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeos: " . $e->getMessage());
+    }
+
+	return $result;
+}
+
+function getVideosAlbums(int $idAlbum) {
+
+    if (!$idAlbum) {
+        die("Erro ao carregar página. #ID não informado.");
+    }
+
+    $status = 1;
+
+    $PDO = db_connect();
+    $sql = "SELECT *
+            FROM
+                VIDEOS
+            INNER JOIN CATEGORIAS ON
+	            CATEGORIAS.ID_CATEGORIA = VIDEOS.CATEGORIA_VIDEO
+            WHERE
+                STATUS_VIDEO = :STATUS_VIDEO
+                AND ID_CATEGORIA = :ID_CATEGORIA
+            ORDER BY
+                ID_VIDEO DESC";
+
+    $stmt = $PDO->prepare($sql);
+
+    $stmt->bindParam(':STATUS_VIDEO', $status, PDO::PARAM_INT);
+    $stmt->bindParam(':ID_CATEGORIA', $idAlbum, PDO::PARAM_INT);
+
+    try{
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeos: " . $e->getMessage());
+    }
+
+	return $result;
 }

@@ -46,3 +46,8 @@
 .img-banner {
     object-fit: cover;
 }
+
+.destaques .img-cover {
+    min-height: 280px;
+    object-fit: cover;
+}
