@@ -1,44 +1,44 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
 
-if (empty($_POST)) {
-    die("Erro: Nenhuma informação enviada.");
+$data = filter_input_array(INPUT_POST);
+
+if (empty($data)) {
+    die('Erro: Nenhuma informação enviada.');
 }
 
-$nome = $_POST['nome'] ?: null;
-$link = $_POST['link'] ?: null;
-$thumb = null;
-$categoria = $_POST['categoria'] ?: null;
-$idEmpresa = $_POST['empresa'] ?: null;
-
-if (empty($idEmpresa)) {
+if (empty($data['empresa'])) {
     die("Erro: Empresa não informada.");
 }
 
-if ($link) {
-    $link = getVimeoId($link);
+if ($data['link']) {
+    $data['link'] = getVimeoId($data['link']);
 }
 
-if ($_FILES) {
-    $thumb = uploadFile($_FILES);
+if (!empty($_FILES['arquivo']['name'])) {
+    $imagem = uploadFile($_FILES);
+} else {
+    $imagem = null;
 }
 
 $sql = "INSERT INTO
-            VIDEOS (NOME_VIDEO, LINK_VIDEO, THUMB_VIDEO, CATEGORIA_VIDEO, EMPRESA_VIDEO, CADASTRO_VIDEO)
+            VIDEOS (NOME_VIDEO, LINK_VIDEO, THUMB_VIDEO, CATEGORIA_VIDEO, EMPRESA_VIDEO, DESC_VIDEO, CADASTRO_VIDEO)
         VALUES
-            (:NOME_VIDEO, :LINK_VIDEO, :THUMB_VIDEO, :CATEGORIA_VIDEO, :EMPRESA_VIDEO, CURRENT_TIMESTAMP)";
+            (:NOME_VIDEO, :LINK_VIDEO, :THUMB_VIDEO, :CATEGORIA_VIDEO, :EMPRESA_VIDEO, :DESC_VIDEO, CURRENT_TIMESTAMP)";
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
-$stmt->bindParam(':NOME_VIDEO', $nome);
-$stmt->bindParam(':LINK_VIDEO', $link);
-$stmt->bindParam(':THUMB_VIDEO', $thumb);
-$stmt->bindParam(':CATEGORIA_VIDEO', $categoria);
-$stmt->bindParam(':EMPRESA_VIDEO', $idEmpresa);
+$stmt->bindParam(':NOME_VIDEO', $data['nome']);
+$stmt->bindParam(':LINK_VIDEO', $data['link']);
+$stmt->bindParam(':THUMB_VIDEO', $imagem);
+$stmt->bindParam(':CATEGORIA_VIDEO', $data['categoria']);
+$stmt->bindParam(':EMPRESA_VIDEO', $data['empresa']);
+$stmt->bindParam(':DESC_VIDEO', $data['descricao']);
 
 try {
     $stmt->execute();
-    header("location: /admin/paginas/videos.php?id=${idEmpresa}&status=201");
+    $idEmpresa = $data['empresa'];
+    header("location: /admin/paginas/lista.php?id=${idEmpresa}&status=201");
     exit();
 } catch(PDOException $e) {
     throw new Exception("Erro salvar página: " . $e->getMessage());
@@ -71,7 +71,7 @@ function uploadFile($file) {
     $result = move_uploaded_file($file['arquivo']['tmp_name'], $target_file);
 
     if (!$result) {
-        die("Erro ao enviar arquivo.");
+        $newfilename = 'Error: file upload';
     }
 
     return $newfilename;

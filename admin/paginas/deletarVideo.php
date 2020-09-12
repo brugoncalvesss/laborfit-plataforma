@@ -19,9 +19,9 @@ $request = $PDO->prepare($sql);
 $request->bindParam(':ID_VIDEO', $id, PDO::PARAM_INT);
 
 if ($request->execute()) {
-    header("location: /admin/paginas/videos.php?id={$idEmpresa}&status=200");
+    header("location: /admin/paginas/lista.php?id={$idEmpresa}&status=200");
     exit();
 } else {
-    header("location: /admin/paginas/videos.php?id={$idEmpresa}&status=500");
+    header("location: /admin/paginas/lista.php?id={$idEmpresa}&status=500");
     exit();
 }

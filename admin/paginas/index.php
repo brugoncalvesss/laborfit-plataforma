@@ -29,7 +29,7 @@
                     <span><?= $empresa['NOME_EMPRESA'] ?></span>
                 </div>
                 <div class="col col-auto">
-                    <a class="btn btn-link" href="/admin/paginas/videos.php?id=<?= $empresa['ID_EMPRESA'] ?>">
+                    <a class="btn btn-link" href="/admin/paginas/lista.php?id=<?= $empresa['ID_EMPRESA'] ?>">
                         <i class="far fa-edit"></i>
                     </a>
                 </div>
