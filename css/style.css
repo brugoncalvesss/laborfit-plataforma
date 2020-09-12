@@ -29,15 +29,6 @@
     font-weight: 500;
 }
 
-.card-video:hover {
-    border-color: #007bff;
-}
-
-.img-cover {
-    min-height: 190px;
-    object-fit: cover;
-}
-
 .section-banner,
 .section-banner .img-banner {
     height: 350px;
@@ -47,7 +38,23 @@
     object-fit: cover;
 }
 
-.destaques .img-cover {
-    min-height: 280px;
+/*
+ * Card
+ */
+.card-hover:hover {
+    border-color: #007bff;
+}
+
+.card-cover {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-cover .img-cover {
+    max-width: 100%;
+    width: 100%;
+    flex-grow: 1;
     object-fit: cover;
+    height: 250px;
 }

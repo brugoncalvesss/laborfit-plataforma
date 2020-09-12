@@ -45,9 +45,11 @@ if ($idAlbum) {
 				<div class="col">
 					<div class="card card-video mb-3">
 						<?php if ($video['THUMB_VIDEO']) : ?>
-						<a href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none">
-							<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-fluid img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
-						</a>
+						<div class="card-cover">
+							<a href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none">
+								<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-fluid img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
+							</a>
+						</div>
 						<?php endif; ?>
 						<div class="card-body">
 							<h5 class="card-title text-center text-primary mb-0">

@@ -25,7 +25,7 @@ session_start();
 	<body>
 	
 	<?php
-	if (!$_SESSION['nome']) {
+	if (empty($_SESSION['nome'])) {
 		header("location: /admin/login/index.php?status=301");
 		exit;
 	}

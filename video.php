@@ -42,7 +42,7 @@ if ($_GET['v']) {
 			<div class="col-12 col-md-8 offset-md-2">
 				<div class="card mb-3">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="https://player.vimeo.com/video/<?= $video['LINK_VIDEO']; ?>?color=ffffff&title=0&byline=0&portrait=0" frameborder="0"></iframe>
+						<iframe class="embed-responsive-item" src="https://player.vimeo.com/video/<?= $video['LINK_VIDEO']; ?>?title=0&byline=0&portrait=0&badge=0&showinfo=0&modestbranding=0" frameborder="0"></iframe>
 					</div>
 					<div class="card-body">
 						<h5 class="card-title text-center text-primary">
