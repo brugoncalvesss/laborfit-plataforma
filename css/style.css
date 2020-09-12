@@ -58,3 +58,20 @@
     object-fit: cover;
     height: 250px;
 }
+
+/*
+ * Page vídeo
+ */
+
+.video-header {
+    min-height: 200px;
+}
+
+.video-content {
+    position: relative;
+    top: -80px;
+}
+
+.video-content .video-border {
+    border: 8px solid #FFF;
+}

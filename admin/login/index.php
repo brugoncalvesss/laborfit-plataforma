@@ -33,20 +33,24 @@ session_start();
 
 					<div class="text-left">
 						<h2 class="h2">Log In</h2>
+						<p>
+						<code>e-mail: admin@wowlife.com.br</code><br>
+						<code>senha: admin</code>
+						</p>
 					</div>
 
 					<div class="form-group">
 						<label class="small text-muted font-weight-bold mb-1" for="email">
 							Email
 						</label>
-						<input type="email" class="form-control" name="email" id="email" value="bruno@google.com">
+						<input type="email" class="form-control" name="email" id="email">
 					</div>
 
 					<div class="form-group">
 						<label class="small text-muted font-weight-bold mb-1" for="password">
 							Senha
 						</label>
-						<input type="password" class="form-control" name="password" id="password" value="123456">
+						<input type="password" class="form-control" name="password" id="password">
 					</div>
 
 					<p class="text-right">

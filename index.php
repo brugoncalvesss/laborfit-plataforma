@@ -67,7 +67,7 @@ if ($_SESSION['empresa']) {
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 				<?php foreach ($arDestaques as $destaque) : ?>
 				<div class="col">
-					<div class="card card-video mb-3">
+					<div class="card card-hover mb-3">
 						<?php if ($destaque['IMG_CATEGORIA']) : ?>
 						<div class="card-cover">
 							<a href="./album.php?q=<?= $destaque['ID_CATEGORIA']; ?>" class="text-decoration-none">
@@ -92,7 +92,15 @@ if ($_SESSION['empresa']) {
 
 	<?php if (!empty($arAlbums)) : ?>
 	<section id="albums" class="albums py-5 bg-light">
-	<div class="container">
+		<div class="container">
+
+			<div class="mb-4 pb-3 text-center">
+				<h2 class="h3 font-weight-bold text-primary mb-3">Faça seu dia ser WOW!</h2>
+				<span class="px-2 py-2 px-md-4 rounded-pill bg-primary text-light">
+					Veja sugestões especiais abaixo:
+				</span>
+			</div>
+
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 				<?php foreach ($arAlbums as $album) : ?>
 				<div class="col">
