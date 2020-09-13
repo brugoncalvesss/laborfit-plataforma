@@ -45,14 +45,14 @@ if ($_SESSION['empresa']) {
 				<div class="card card-video mb-4">
 					<?php if ($video['THUMB_VIDEO']) : ?>
 					<div class="card-cover">
-						<a id="assistir-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $video['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>">
+						<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $video['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>">
 							<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
 						</a>
 					</div>
 					<?php endif; ?>
 					<div class="card-body">
 						<h5 class="card-title text-center text-primary mb-0">
-							<a id="assistir-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $video['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>">
+							<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $video['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>">
 								<?= $video['NOME_VIDEO']; ?>
 							</a>
 						</h5>
