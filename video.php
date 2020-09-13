@@ -83,14 +83,14 @@ if (!empty($video)) {
 					<div class="card card-video mb-3">
 						<?php if ($relacionado['THUMB_VIDEO']) : ?>
 						<div class="card-cover">
-							<a href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none">
+							<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $relacionado['NOME_EMPRESA']; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['usuario']; ?>">
 								<img src="./uploads/<?= $relacionado['THUMB_VIDEO']; ?>" class="img-fluid img-cover" alt="<?= $relacionado['NOME_VIDEO']; ?>">
 							</a>
 						</div>
 						<?php endif; ?>
 						<div class="card-body">
 							<h5 class="card-title text-center text-primary mb-0">
-								<a href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none">
+							<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $relacionado['NOME_EMPRESA']; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['usuario']; ?>">
 									<?= $relacionado['NOME_VIDEO']; ?>
 								</a>
 							</h5>
