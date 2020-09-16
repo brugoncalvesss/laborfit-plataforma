@@ -15,17 +15,13 @@ if ($_SESSION['empresa']) {
 <main>
 	<nav class="navbar navbar-expand-md navbar-light bg-white">
 		<div class="container">
-			<a href="/" class="navbar-brand">WoW Life</a>
+			<a href="/" class="navbar-brand">
+				<img src="./img/logo.png" alt="Logo WoW Life" height="60">
+			</a>
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active">
-					<a href="/" class="nav-link">Home</a>
-				</li>
-				<li class="nav-item">
-					<a href="./aulas.php" class="nav-link">Aulas</a>
-				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-						<i class="far fa-user-circle text-primary"></i>
+						<img src="./img/user.png" alt="Perfil">
 						<span id="usuario" class="sr-only"><?= $_SESSION['usuario']; ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
@@ -91,36 +87,29 @@ if ($_SESSION['empresa']) {
 	<?php endif; ?>
 
 	<?php if (!empty($arAlbums)) : ?>
-	<section id="albums" class="albums py-5 bg-light">
+	<section id="albums" class="albums py-4 bg-wave">
 		<div class="container">
 
-			<div class="mb-4 pb-3 text-center">
+			<div class="mb-5 text-center">
 				<h2 class="h3 font-weight-bold text-primary mb-3">Faça seu dia ser WOW!</h2>
-				<span class="px-2 py-2 px-md-4 rounded-pill bg-primary text-light">
-					Veja sugestões especiais abaixo:
+				<span class="btn rounded-pill bg-primary px-sm-3 text-light font-weight-800">
+					Veja sugestões especiais abaixo 
 				</span>
 			</div>
 
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 				<?php foreach ($arAlbums as $album) : ?>
-				<div class="col">
-					<div class="card card-hover mb-3">
-						<?php if ($album['IMG_CATEGORIA']) : ?>
-						<div class="card-cover">
-							<a href="./album.php?q=<?= $album['ID_CATEGORIA']; ?>" class="text-decoration-none">
-								<img src="./uploads/<?= $album['IMG_CATEGORIA']; ?>" class="img-cover" alt="<?= $album['NOME_CATEGORIA']; ?>">
+					<?php if ($album['IMG_CATEGORIA']) : ?>
+					<div class="col">
+						<div class="card mb-3 bg-dark bg-cover card-album" style="background-image:url(./uploads/<?= $album['IMG_CATEGORIA']; ?>)">
+							<a href="./album.php?q=<?= $album['ID_CATEGORIA']; ?>" class="card-body text-decoration-none">
+								<h5 class="card-title text-center mb-0 text-light">
+									<?= $album['NOME_CATEGORIA']; ?>
+								</h5>
 							</a>
 						</div>
-						<?php endif; ?>
-						<div class="card-body">
-							<h5 class="card-title text-center text-primary mb-0">
-								<a href="./album.php?q=<?= $album['ID_CATEGORIA']; ?>" class="text-decoration-none">
-									<?= $album['NOME_CATEGORIA']; ?>
-								</a>
-							</h5>
-						</div>
 					</div>
-				</div>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			</div>
 		</div>

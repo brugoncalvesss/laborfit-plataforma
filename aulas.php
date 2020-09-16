@@ -14,20 +14,14 @@ if ($_SESSION['empresa']) {
 <main>
 	<nav class="navbar navbar-expand-md navbar-light bg-white">
 		<div class="container">
-			<a href="/" class="navbar-brand">WoW Life</a>
+			<a href="/" class="navbar-brand">
+				<img src="./img/logo.png" alt="Logo WoW Life" height="60">
+			</a>
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a href="/" class="nav-link">Home</a>
-				</li>
-				<li class="nav-item active">
-					<a href="./aulas.php" class="nav-link">Aulas</a>
-				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-						<i class="far fa-user-circle text-primary"></i>
-						<span id="usuario" class="sr-only">
-							<?= $_SESSION['usuario']; ?>
-						</span>
+						<img src="./img/user.png" alt="Perfil">
+						<span id="usuario" class="sr-only"><?= $_SESSION['usuario']; ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="/logout.php">Sair</a>

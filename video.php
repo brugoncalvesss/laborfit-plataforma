@@ -17,20 +17,14 @@ if (!empty($video)) {
 <main>
 	<nav class="navbar navbar-expand-md navbar-light bg-white">
 		<div class="container">
-			<a href="/" class="navbar-brand">WoW Life</a>
+			<a href="/" class="navbar-brand">
+				<img src="./img/logo.png" alt="Logo WoW Life" height="60">
+			</a>
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a href="/" class="nav-link">Home</a>
-				</li>
-				<li class="nav-item">
-					<a href="./aulas.php" class="nav-link">Aulas</a>
-				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-						<i class="far fa-user-circle text-primary"></i>
-						<span id="usuario" class="sr-only">
-							<?= $_SESSION['usuario']; ?>
-						</span>
+						<img src="./img/user.png" alt="Perfil">
+						<span id="usuario" class="sr-only"><?= $_SESSION['usuario']; ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="/logout.php">Sair</a>
@@ -40,7 +34,7 @@ if (!empty($video)) {
 		</div>
 	</nav>
 
-	<header class="video-header bg-primary text-light text-center py-3">
+	<header class="video-header bg-wave-primary text-light text-center py-3">
 		<div class="mb-3">
 			<a href="./album.php?q=<?= $video['ID_CATEGORIA']; ?>" class="btn btn-link text-white rounded-pill text-decoration-none border-bottom pb-0">
 				<?= $video['NOME_CATEGORIA']; ?>
@@ -70,7 +64,7 @@ if (!empty($video)) {
 	</section>
 
 	<?php if (!empty($arRelacionados)) : ?>
-	<section class="video-related bg-light pt-4 pb-5">
+	<section class="video-related bg-wave py-4">
 		<div class="container">
 
 			<div class="mb-4 text-center">

@@ -1,37 +1,70 @@
-.text-orange {
-    color: #ffa32b!important;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
 }
 
-.bg-orange {
-    color: #ffa32b!important;
+/*
+ * Fonte
+ */  
+
+.h1, h1, .h2, h2, .h3, h3, .h4, h4, .h5, h5, .h6, h6 {
+    font-family: 'Montserrat', sans-serif;
 }
 
-.btn-orange {
-    color: #FFF;
-    background-color: #ffa32b;
-    border-color: #ffa32b;
+.font-weight-800 {
+    font-weight: 800;
 }
 
-.btn-orange:hover, .btn-orange:focus {
-    color: #FFF;
-    background-color: #ff9409;
-    border-color: #ff9409;
+a {
+    color: #618ac5;
+}
+
+a:hover, a:focus {
+    color: #4878bc;
+}
+
+/*
+ * Cores
+ */
+
+.text-primary {
+    color: #618ac5!important;
+}
+
+.bg-primary {
+    background-color: #618ac5!important;
+}
+
+/*
+ * Backgrounds
+ */
+.bg-cover {
+    background: no-repeat center center/cover;
+}
+
+.bg-wave {
+    background-image: url('../img/bg-wave.jpg');
+    background-repeat: repeat;
+    background-position: top left;
+}
+
+.bg-wave-primary {
+    background-image: url('../img/bg-wave-primary.png');
+    background-repeat: repeat;
+    background-position: top center;
 }
 
 .navbar-light .navbar-nav .active>.nav-link,
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show>.nav-link {
-    color: #007bff!important;
-}
-
-.navbar-light .navbar-nav .nav-link {
-    font-weight: 500;
+    color: #618ac5!important;
 }
 
 .section-banner,
 .section-banner .img-banner {
-    height: 350px;
+    height: 560px;
 }
 
 .img-banner {
@@ -42,7 +75,7 @@
  * Card
  */
 .card-hover:hover {
-    border-color: #007bff;
+    border-color: #618ac5;
 }
 
 .card-cover {
@@ -74,4 +107,30 @@
 
 .video-content .video-border {
     border: 8px solid #FFF;
+}
+
+/*
+ * Destaques
+ */
+
+.destaques .card-cover .img-cover {
+    height: 205px;
+}
+
+/*
+ * Albuns
+ */
+
+.card-album {
+    height: 147px;
+}
+
+.card-album .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-album .card-body .card-title {
+    font-weight: 800;
 }
