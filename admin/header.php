@@ -6,10 +6,10 @@
 	</button>
   
 	<ul class="navbar-nav ml-auto d-none d-lg-flex">
-		<?php if ($_SESSION['nome']) : ?>
+		<?php if ($_SESSION['usuario']) : ?>
 		<li class="nav-item">
 			<span class="nav-link text-white">
-				Olá <?= $_SESSION['nome'] ?>
+				Olá <?= $_SESSION['usuario'] ?>
 			</span>
 		</li>
 		<?php endif; ?>

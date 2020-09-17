@@ -43,14 +43,14 @@ session_start();
 						<label class="small text-muted font-weight-bold mb-1" for="email">
 							Email
 						</label>
-						<input type="email" class="form-control" name="email" id="email">
+						<input type="email" class="form-control" name="email" id="email" required>
 					</div>
 
 					<div class="form-group">
 						<label class="small text-muted font-weight-bold mb-1" for="password">
 							Senha
 						</label>
-						<input type="password" class="form-control" name="password" id="password">
+						<input type="password" class="form-control" name="password" required>
 					</div>
 
 					<p class="text-right">

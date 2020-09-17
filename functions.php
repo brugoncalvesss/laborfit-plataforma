@@ -244,6 +244,7 @@ function getVideosAlbums(int $idAlbum) {
             WHERE
                 STATUS_VIDEO = :STATUS_VIDEO
                 AND ID_CATEGORIA = :ID_CATEGORIA
+                AND EMPRESA_VIDEO = :EMPRESA_VIDEO
             ORDER BY
                 ID_VIDEO DESC";
 
@@ -251,6 +252,7 @@ function getVideosAlbums(int $idAlbum) {
 
     $stmt->bindParam(':STATUS_VIDEO', $status, PDO::PARAM_INT);
     $stmt->bindParam(':ID_CATEGORIA', $idAlbum, PDO::PARAM_INT);
+    $stmt->bindParam(':EMPRESA_VIDEO', $_SESSION['empresa'], PDO::PARAM_INT);
 
     try{
         $stmt->execute();
