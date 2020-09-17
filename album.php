@@ -40,14 +40,14 @@ if ($idAlbum) {
 					<div class="card card-video mb-3">
 						<?php if ($video['THUMB_VIDEO']) : ?>
 						<div class="card-cover">
-						<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $video['EMPRESA_VIDEO']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['usuario']; ?>">
+						<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $video['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['usuario']; ?>">
 								<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
 							</a>
 						</div>
 						<?php endif; ?>
 						<div class="card-body">
 							<h5 class="card-title text-center text-primary mb-0">
-								<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $video['EMPRESA_VIDEO']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['usuario']; ?>">
+								<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $video['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['usuario']; ?>">
 									<?= $video['NOME_VIDEO']; ?>
 								</a>
 							</h5>

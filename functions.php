@@ -241,6 +241,8 @@ function getVideosAlbums(int $idAlbum) {
                 VIDEOS
             INNER JOIN CATEGORIAS ON
 	            CATEGORIAS.ID_CATEGORIA = VIDEOS.CATEGORIA_VIDEO
+            INNER JOIN EMPRESAS ON
+                EMPRESAS.ID_EMPRESA = VIDEOS.EMPRESA_VIDEO
             WHERE
                 STATUS_VIDEO = :STATUS_VIDEO
                 AND ID_CATEGORIA = :ID_CATEGORIA
