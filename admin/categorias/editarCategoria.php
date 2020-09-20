@@ -20,9 +20,12 @@ if ($_FILES["arquivo"]["name"]) {
 $destaque = $data['destaque'] ?: 0;
 
 $PDO = db_connect();
-$sql = "UPDATE CATEGORIAS
-        SET NOME_CATEGORIA = :NOME_CATEGORIA, IMG_CATEGORIA = :IMG_CATEGORIA, DESTAQUE_CATEGORIA = :DESTAQUE_CATEGORIA, DESC_CATEGORIA = :DESC_CATEGORIA
-        WHERE ID_CATEGORIA = :ID_CATEGORIA;";
+$sql = "UPDATE
+            CATEGORIAS
+        SET
+            NOME_CATEGORIA = :NOME_CATEGORIA, IMG_CATEGORIA = :IMG_CATEGORIA, DESTAQUE_CATEGORIA = :DESTAQUE_CATEGORIA, DESC_CATEGORIA = :DESC_CATEGORIA
+        WHERE
+            ID_CATEGORIA = :ID_CATEGORIA;";
 
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_CATEGORIA', $data['nome']);
@@ -36,7 +39,7 @@ try{
     header("location: /admin/categorias/?status=200");
     exit();
 } catch(PDOException $e) {
-    throw new Exception("Erro ao cadastrar categoria: " . $e->getMessage());
+    throw new Exception("Erro ao editar álbum: " . $e->getMessage());
 }
 
 function uploadFile($file) {

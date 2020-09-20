@@ -19,19 +19,17 @@ if ($_FILES["arquivo"]["name"]) {
 
 $PDO = db_connect();
 $sql = "UPDATE BANNERS
-        SET IMG_BANNER = :IMG_BANNER, EMPRESA_BANNER = :EMPRESA_BANNER, LINK_BANNER = :LINK_BANNER
+        SET IMG_BANNER = :IMG_BANNER, LINK_BANNER = :LINK_BANNER
         WHERE ID_BANNER = :ID_BANNER";
 
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':IMG_BANNER', $imagem);
-$stmt->bindParam(':EMPRESA_BANNER', $data['empresa']);
-$stmt->bindParam(':LINK_BANNER', $data['link']);
+$stmt->bindParam(':LINK_BANNER', $data['LINK_BANNER']);
 $stmt->bindParam(':ID_BANNER', $data['id'], PDO::PARAM_INT);
 
 try{
     $stmt->execute();
-    $idEmpresa = $data['empresa'];
-    header("Location: /admin/banners/lista.php?id=${idEmpresa}&status=201");
+    header("Location: /admin/banners/?status=201");
     exit();
 } catch(PDOException $e) {
     throw new Exception("Erro ao cadastrar banner: " . $e->getMessage());

@@ -4,18 +4,25 @@
     
     <header class="row my-3">
         <div class="col">
-            <h1 class="h3 my-0">Categorias</h1>
+            <h1 class="h3 my-0">Álbuns</h1>
         </div>
         <div class="col text-sm-right">
-            <a class="btn btn-primary btn-sm" href="/admin/categorias/nova.php">Nova</a>
+            <a class="btn btn-primary btn-sm" href="/admin/categorias/nova.php">Novo</a>
         </div>
     </header>
     
     <div class="card mb-3">
         <?php
         $PDO = db_connect();
-        $sql = "SELECT ID_CATEGORIA, NOME_CATEGORIA FROM CATEGORIAS";
+        $sql = "SELECT * FROM
+                    CATEGORIAS
+                WHERE
+                    EMPRESA_CATEGORIA = :EMPRESA_CATEGORIA
+                ORDER BY
+                    ID_CATEGORIA
+                DESC";
         $stmt = $PDO->prepare($sql);
+        $stmt->bindParam(':EMPRESA_CATEGORIA', $_SESSION['ID_EMPRESA']);
         
         try{
             $stmt->execute();

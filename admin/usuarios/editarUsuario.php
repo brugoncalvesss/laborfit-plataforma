@@ -1,24 +1,16 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
 
-$id = $_POST['id'] ?: null;
-$cpf = limparCaracteres($_POST['cpf']);
-$empresa = $_POST['empresa'] ?: null;
-$departamento = $_POST['departamento'] ?: null;
-$subdepartamento = $_POST['subdepartamento'] ?: null;
-$nome = $_POST['nome'] ?: null;
-$nascimento = $_POST['nascimento'] ?: null;
-$sexo = $_POST['sexo'] ?: null;
-$email = $_POST['email'] ?: null;
+$data = filter_input_array(INPUT_POST);
 
-if (empty($id) || empty($cpf) || empty($empresa)) {
-    header("location: /admin/usuarios/?status=500");
-    exit();
+if (empty($data)) {
+    die('Erro: Nenhuma informação enviada.');
 }
 
-if ($nascimento) {
-    $parts = explode('/', $nascimento);
-    $nascimento = "$parts[2]-$parts[1]-$parts[0]";
+$data['CPF_USUARIO'] = limparCaracteres($data['CPF_USUARIO']);
+if ($data['DT_NASCIMENTO_USUARIO']) {
+    $parts = explode('/', $data['DT_NASCIMENTO_USUARIO']);
+    $data['DT_NASCIMENTO_USUARIO'] = "$parts[2]-$parts[1]-$parts[0]";
 }
 
 $PDO = db_connect();
@@ -38,15 +30,15 @@ $sql = "UPDATE
             ID_USUARIO = :ID_USUARIO";
 
 $stmt = $PDO->prepare($sql);
-$stmt->bindParam(':EMPRESA_USUARIO', $empresa, PDO::PARAM_INT);
-$stmt->bindParam(':DEPARTAMENTO_USUARIO', $departamento);
-$stmt->bindParam(':SUBDEPARTAMENTO_USUARIO', $subdepartamento);
-$stmt->bindParam(':NOME_USUARIO', $nome);
-$stmt->bindParam(':DT_NASCIMENTO_USUARIO', $nascimento);
-$stmt->bindParam(':SEXO_USUARIO', $sexo);
-$stmt->bindParam(':CPF_USUARIO', $cpf);
-$stmt->bindParam(':EMAIL_USUARIO', $email);
-$stmt->bindParam(':ID_USUARIO', $id, PDO::PARAM_INT);
+$stmt->bindParam(':EMPRESA_USUARIO', $_SESSION['ID_EMPRESA'], PDO::PARAM_INT);
+$stmt->bindParam(':DEPARTAMENTO_USUARIO', $data['DEPARTAMENTO_USUARIO']);
+$stmt->bindParam(':SUBDEPARTAMENTO_USUARIO', $data['SUBDEPARTAMENTO_USUARIO']);
+$stmt->bindParam(':NOME_USUARIO', $data['NOME_USUARIO']);
+$stmt->bindParam(':DT_NASCIMENTO_USUARIO', $data['DT_NASCIMENTO_USUARIO']);
+$stmt->bindParam(':SEXO_USUARIO', $data['SEXO_USUARIO']);
+$stmt->bindParam(':CPF_USUARIO', $data['CPF_USUARIO']);
+$stmt->bindParam(':EMAIL_USUARIO', $data['EMAIL_USUARIO']);
+$stmt->bindParam(':ID_USUARIO', $data['ID_USUARIO'], PDO::PARAM_INT);
 
 try{
     $stmt->execute();

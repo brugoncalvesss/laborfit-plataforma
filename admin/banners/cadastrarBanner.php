@@ -7,10 +7,6 @@ if (empty($data)) {
     die('Erro: Nenhuma informação enviada.');
 }
 
-if (empty($data['empresa'])) {
-    die("Erro: Empresa não informada.");
-}
-
 if ($_FILES) {
     $imagem = uploadFile($_FILES);
 } else {
@@ -25,13 +21,12 @@ $sql = "INSERT INTO
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':IMG_BANNER', $imagem);
-$stmt->bindParam(':EMPRESA_BANNER', $data['empresa']);
-$stmt->bindParam(':LINK_BANNER', $data['link']);
+$stmt->bindParam(':EMPRESA_BANNER', $_SESSION['ID_EMPRESA']);
+$stmt->bindParam(':LINK_BANNER', $data['LINK_BANNER']);
 
 try {
     $stmt->execute();
-    $idEmpresa = $data['empresa'];
-    header("location: /admin/banners/lista.php?id=${idEmpresa}&status=201");
+    header("location: /admin/banners/?status=201");
     exit();
 } catch(PDOException $e) {
     throw new Exception("Erro salvar página: " . $e->getMessage());

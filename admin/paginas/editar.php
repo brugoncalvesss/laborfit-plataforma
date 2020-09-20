@@ -39,7 +39,6 @@ if (empty($id)) {
 				<form action="/admin/paginas/editarVideo.php" enctype="multipart/form-data" method="post" autocomplete="off">
 
 					<input type="hidden" name="id" value="<?= $video['ID_VIDEO'] ?>">
-					<input type="hidden" name="empresa" value="<?= $video['EMPRESA_VIDEO'] ?>">
 
                     <div class="form-group">
                         <label>Nome do vídeo</label>
@@ -65,13 +64,13 @@ if (empty($id)) {
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Categoria</label>
-                        <select name="categoria" class="form-control">
-                            <option value="0">Sem categoria</option>
-                            <?= getSelectAlbuns($video['CATEGORIA_VIDEO']); ?>
-                        </select>
-                    </div>
+					<div class="form-group">
+						<label>Álbum do vídeo</label>
+						<select name="album" class="form-control">
+							<option value="0">Sem álbum</option>
+							<?php carregarSelectAlbuns($video['ALBUM_VIDEO']); ?>
+						</select>
+					</div>
 
                     <div class="form-group">
                         <label>Descrição</label>
@@ -87,7 +86,7 @@ if (empty($id)) {
 				<?php if ($video['THUMB_VIDEO']) : ?>
 				<div class="mx-sm-5">
 					<label class="small text-uppercase font-weight-bold">
-						Banner
+						Thumb do vídeo
 					</label>
 					<div class="border">
 						<img src="/uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-fluid">
@@ -95,10 +94,6 @@ if (empty($id)) {
 				</div>
 				<?php endif; ?>
 			</div>
-		</div>
-		<?php else: ?>
-		<div>
-			<div class="alert alert-warning">Banner não encontrada.</div>
 		</div>
 		<?php endif; ?>
 

@@ -1,16 +1,13 @@
-<?php
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php'); ?>
 
-$_header = $_SERVER['DOCUMENT_ROOT'] . '/admin/_header.php';
-include($_header);
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    
+    <header class="row my-3">
+        <div class="col">
+            <h1 class="h3 my-0">Plataforma</h1>
+        </div>
+    </header>
 
-$header = $_SERVER['DOCUMENT_ROOT'] . '/admin/header.php';
-include($header);
+</main>
 
-$sidebar = $_SERVER['DOCUMENT_ROOT'] . '/admin/sidebar.php';
-include($sidebar);
-
-$footer = $_SERVER['DOCUMENT_ROOT'] . '/admin/footer.php';
-include($footer);
-
-$_footer = $_SERVER['DOCUMENT_ROOT'] . '/admin/_footer.php';
-include($_footer);
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_footer.php'); ?>

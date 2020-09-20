@@ -19,9 +19,11 @@ if (empty($data['password'])) {
 $PDO = db_connect();
 $sql = "SELECT * FROM
             ADMINS
+        LEFT JOIN EMPRESAS ON
+            ADMINS.EMPRESA_ADMIN = EMPRESAS.ID_EMPRESA
         WHERE
-        EMAIL_ADMIN = :EMAIL_ADMIN 
-        AND SENHA_ADMIN = :SENHA_ADMIN
+            ADMINS.EMAIL_ADMIN = :EMAIL_ADMIN 
+            AND ADMINS.SENHA_ADMIN = :SENHA_ADMIN
         LIMIT 1";
 
 $stmt = $PDO->prepare($sql);
@@ -30,15 +32,16 @@ $stmt->bindParam(':SENHA_ADMIN', md5($data['password']));
 $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
-    print_r($stmt->errorInfo());
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     
     session_start();
 
-    $_SESSION['empresa'] = 1;
-    $_SESSION['usuario'] = $usuario['EMAIL_ADMIN'];
+    $_SESSION['ID_EMPRESA'] = $usuario['ID_EMPRESA'];
+    $_SESSION['NOME_EMPRESA'] = $usuario['NOME_EMPRESA'];
+    $_SESSION['EMAIL'] = $usuario['EMAIL_ADMIN'];
+    $_SESSION['SUPER_ADMIN'] = $usuario['SUPER_ADMIN'];
 
-    header("location: /admin/empresas/?status=200");
+    header("location: /admin/paginas/?status=200");
     exit();
 } else {
     header("Location: /admin/login/?status=500");

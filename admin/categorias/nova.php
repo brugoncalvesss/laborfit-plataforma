@@ -4,7 +4,7 @@
     
     <header class="row my-3">
         <div class="col">
-            <h1 class="h3 my-0">Nova categoria</h1>
+            <h1 class="h3 my-0">Novo álbum</h1>
         </div>
     </header>
     
@@ -14,8 +14,8 @@
             <form action="/admin/categorias/cadastrarCategoria.php" method="post" enctype="multipart/form-data" autocomplete="off">
 
                 <div class="form-group">
-                    <label class="small text-uppercase font-weight-bold">Nome da categoria</label>
-                    <input type="text" class="form-control" name="categoria" required>
+                    <label class="small text-uppercase font-weight-bold">Nome do álbum</label>
+                    <input type="text" class="form-control" name="nome" required>
                 </div>
 
 				<div class="form-group">
@@ -31,7 +31,7 @@
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="1" name="destaque" id="defaultCheck1">
                     <label class="form-check-label" for="defaultCheck1">
-                        Categoria destaque?
+                        Álbum destaque?
                     </label>
                 </div>
 

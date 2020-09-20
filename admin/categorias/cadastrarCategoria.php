@@ -1,13 +1,13 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
 
-$nomeCategoria = $_POST['categoria'] ?: null;
+$nomeCategoria = $_POST['nome'] ?: null;
 $destaque = (int)$_POST['destaque'] ?: 0;
 $descricao = $_POST['descricao'] ?: null;
 $imagem = null;
 
 if (empty($nomeCategoria)) {
-    die('Erro: Informe o nome da categoria.');
+    die('Erro: Informe o nome do álbum.');
 }
 
 if ($_FILES["arquivo"]["name"]) {
@@ -16,22 +16,23 @@ if ($_FILES["arquivo"]["name"]) {
 
 $PDO = db_connect();
 $sql = "INSERT INTO
-            CATEGORIAS (NOME_CATEGORIA, IMG_CATEGORIA, DESTAQUE_CATEGORIA, DESC_CATEGORIA)
+            CATEGORIAS (NOME_CATEGORIA, IMG_CATEGORIA, DESTAQUE_CATEGORIA, DESC_CATEGORIA, EMPRESA_CATEGORIA)
         VALUES
-            (:NOME_CATEGORIA, :IMG_CATEGORIA, :DESTAQUE_CATEGORIA, :DESC_CATEGORIA)";
+            (:NOME_CATEGORIA, :IMG_CATEGORIA, :DESTAQUE_CATEGORIA, :DESC_CATEGORIA, :EMPRESA_CATEGORIA)";
 
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_CATEGORIA', $nomeCategoria);
 $stmt->bindParam(':IMG_CATEGORIA', $imagem);
 $stmt->bindParam(':DESTAQUE_CATEGORIA', $destaque);
 $stmt->bindParam(':DESC_CATEGORIA', $descricao);
+$stmt->bindParam(':EMPRESA_CATEGORIA', $_SESSION['ID_EMPRESA']);
 
 try{
     $stmt->execute();
     header("location: /admin/categorias/?status=200");
     exit();
 } catch(PDOException $e) {
-    throw new Exception("Erro ao cadastrar categoria: " . $e->getMessage());
+    throw new Exception("Erro ao cadastrar álbum: " . $e->getMessage());
 }
 
 function uploadFile($file) {

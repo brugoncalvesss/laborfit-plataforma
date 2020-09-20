@@ -7,10 +7,6 @@ if (empty($data)) {
     die('Erro: Nenhuma informação enviada.');
 }
 
-if (empty($data['empresa'])) {
-    die("Erro: Empresa não informada.");
-}
-
 if ($data['link']) {
     $data['link'] = getVimeoId($data['link']);
 }
@@ -22,34 +18,25 @@ if (!empty($_FILES['arquivo']['name'])) {
 }
 
 $sql = "INSERT INTO
-            VIDEOS (NOME_VIDEO, LINK_VIDEO, THUMB_VIDEO, CATEGORIA_VIDEO, EMPRESA_VIDEO, DESC_VIDEO, CADASTRO_VIDEO)
+            VIDEOS (NOME_VIDEO, LINK_VIDEO, THUMB_VIDEO, EMPRESA_VIDEO, DESC_VIDEO, ALBUM_VIDEO, CADASTRO_VIDEO)
         VALUES
-            (:NOME_VIDEO, :LINK_VIDEO, :THUMB_VIDEO, :CATEGORIA_VIDEO, :EMPRESA_VIDEO, :DESC_VIDEO, CURRENT_TIMESTAMP)";
+            (:NOME_VIDEO, :LINK_VIDEO, :THUMB_VIDEO, :EMPRESA_VIDEO, :DESC_VIDEO, :ALBUM_VIDEO, CURRENT_TIMESTAMP)";
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_VIDEO', $data['nome']);
 $stmt->bindParam(':LINK_VIDEO', $data['link']);
 $stmt->bindParam(':THUMB_VIDEO', $imagem);
-$stmt->bindParam(':CATEGORIA_VIDEO', $data['categoria']);
-$stmt->bindParam(':EMPRESA_VIDEO', $data['empresa']);
+$stmt->bindParam(':EMPRESA_VIDEO', $_SESSION['ID_EMPRESA']);
 $stmt->bindParam(':DESC_VIDEO', $data['descricao']);
+$stmt->bindParam(':ALBUM_VIDEO', $data['album']);
 
 try {
     $stmt->execute();
-    $idEmpresa = $data['empresa'];
-    header("location: /admin/paginas/lista.php?id=${idEmpresa}&status=201");
+    header("location: /admin/paginas/?status=201");
     exit();
 } catch(PDOException $e) {
     throw new Exception("Erro salvar página: " . $e->getMessage());
-}
-
-function getYoutubeId(string $link) {
-
-    $partVideo = explode('?v=', $link);
-    $idVideo = $partVideo[1] ?: '000001';
-
-    return $idVideo;
 }
 
 function getVimeoId(string $link) {
@@ -75,20 +62,4 @@ function uploadFile($file) {
     }
 
     return $newfilename;
-}
-
-function getVideoId(int $id) {
-    $PDO = db_connect();
-    $sql = "SELECT ID_VIDEO FROM VIDEOS WHERE EMPRESA_VIDEO = :EMPRESA_VIDEO";
-    $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':EMPRESA_VIDEO', $id, PDO::PARAM_INT);
-    
-    try{
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch(PDOException $e) {
-        throw new Exception("Erro ao carregar empresa: " . $e->getMessage());
-    }
-
-    return $result;
 }

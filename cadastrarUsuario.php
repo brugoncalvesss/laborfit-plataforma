@@ -57,8 +57,8 @@ if ($request->execute()) {
         session_start();
     }
     
-    $_SESSION['empresa'] = $usuario['EMPRESA_USUARIO'];
-    $_SESSION['usuario'] = $nome;
+    $_SESSION['EMPRESA_USUARIO'] = $usuario['EMPRESA_USUARIO'];
+    $_SESSION['NOME_USUARIO'] = $nome;
 
     header('Location: /?status=200');
     exit();

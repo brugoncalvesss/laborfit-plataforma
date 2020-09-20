@@ -22,22 +22,24 @@ if ($_FILES["arquivo"]["name"]) {
 }
 
 $PDO = db_connect();
-$sql = "UPDATE VIDEOS
-        SET NOME_VIDEO = :NOME_VIDEO, LINK_VIDEO = :LINK_VIDEO, THUMB_VIDEO = :THUMB_VIDEO, CATEGORIA_VIDEO = :CATEGORIA_VIDEO, DESC_VIDEO = :DESC_VIDEO
-        WHERE ID_VIDEO = :ID_VIDEO";
+$sql = "UPDATE
+            VIDEOS
+        SET
+            NOME_VIDEO = :NOME_VIDEO, LINK_VIDEO = :LINK_VIDEO, THUMB_VIDEO = :THUMB_VIDEO, DESC_VIDEO = :DESC_VIDEO, ALBUM_VIDEO = :ALBUM_VIDEO
+        WHERE
+            ID_VIDEO = :ID_VIDEO";
 
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_VIDEO', $data['nome']);
 $stmt->bindParam(':LINK_VIDEO', $data['link']);
 $stmt->bindParam(':THUMB_VIDEO', $imagem);
-$stmt->bindParam(':CATEGORIA_VIDEO', $data['categoria']);
 $stmt->bindParam(':DESC_VIDEO', $data['descricao']);
+$stmt->bindParam(':ALBUM_VIDEO', $data['album']);
 $stmt->bindParam(':ID_VIDEO', $data['id'], PDO::PARAM_INT);
 
 try{
     $stmt->execute();
-    $idEmpresa = $data['empresa'];
-    header("Location: /admin/paginas/lista.php?id=${idEmpresa}&status=201");
+    header("Location: /admin/paginas/?status=201");
     exit();
 } catch(PDOException $e) {
     throw new Exception("Erro ao cadastrar banner: " . $e->getMessage());

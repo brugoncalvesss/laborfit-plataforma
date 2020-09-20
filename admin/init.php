@@ -44,18 +44,25 @@ function getSelectEmpresas(int $id = null) {
 	}
 }
 
-function getSelectAlbuns(int $id = null) {
+function carregarSelectAlbuns(int $idAlbum = null) {
 	$PDO = db_connect();
 
-	$sql = "SELECT * FROM CATEGORIAS";
-	$request = $PDO->prepare($sql);
-	$request->execute();
-	$albuns = $request->fetchAll(PDO::FETCH_ASSOC);
+	$sql = "SELECT * FROM
+				CATEGORIAS
+			WHERE
+				EMPRESA_CATEGORIA = :EMPRESA_CATEGORIA
+			ORDER BY
+				NOME_CATEGORIA
+			ASC";
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindParam(':EMPRESA_CATEGORIA', $_SESSION['ID_EMPRESA']);
+	$stmt->execute();
+	$albuns = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 	if (!empty($albuns)) {
 		foreach ($albuns as $album) {
 			$selected = false;
-			if ($id && ($album['ID_CATEGORIA'] == $id)) {
+			if ($idAlbum && ($album['ID_CATEGORIA'] == $idAlbum)) {
 				$selected = 'selected';
 			}
 			$option = "<option {$selected} value='{$album['ID_CATEGORIA']}'>{$album['NOME_CATEGORIA']}</option>";

@@ -41,7 +41,7 @@ if (empty($id)) {
 					<input type="hidden" name="id" value="<?= $categoria['ID_CATEGORIA'] ?>">
 
 					<div class="form-group">
-						<label class="small text-uppercase font-weight-bold">Nome da categoria</label>
+						<label class="small text-uppercase font-weight-bold">Nome do álbum</label>
 						<input type="text" class="form-control" name="nome" value="<?= $categoria['NOME_CATEGORIA'] ?>" required>
 					</div>
 
@@ -62,7 +62,7 @@ if (empty($id)) {
 						<?php $checked = $categoria['DESTAQUE_CATEGORIA'] ? 'checked' : ''; ?>
 						<input class="form-check-input" type="checkbox" value="1" name="destaque" id="defaultCheck1" <?= $checked ?>>
 						<label class="form-check-label" for="defaultCheck1">
-							Categoria destaque?
+							Álbum destaque?
 						</label>
 					</div>
 
@@ -91,7 +91,7 @@ if (empty($id)) {
 		</div>
 		<?php else: ?>
 		<div>
-			<div class="alert alert-warning">Categoria não encontrada.</div>
+			<div class="alert alert-warning">Álbum não encontrado.</div>
 		</div>
 		<?php endif; ?>
 

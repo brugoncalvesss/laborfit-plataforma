@@ -1,12 +1,4 @@
-<?php
-require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
-
-$idEmpresa = $_GET['empresa'] ?: null;
-
-if (!$idEmpresa) {
-    die('Erro: Não foi rncontrado o #ID da empresa.');
-}
-?>
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php'); ?>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 	
@@ -20,8 +12,6 @@ if (!$idEmpresa) {
         <div class="col-12 col-sm-7">
             
             <form action="/admin/paginas/cadastrarVideo.php" enctype="multipart/form-data" method="post" autocomplete="off">
-
-                <input type="hidden" name="empresa" value="<?= $idEmpresa; ?>">
 
                 <div class="form-group">
                     <label>Nome do vídeo</label>
@@ -47,10 +37,10 @@ if (!$idEmpresa) {
                 </div>
 
                 <div class="form-group">
-                    <label>Categoria</label>
-                    <select name="categoria" class="form-control">
-                        <option value="0">Sem categoria</option>
-                        <?= getSelectAlbuns(); ?>
+                    <label>Álbum do vídeo</label>
+                    <select name="album" class="form-control">
+                        <option value="0">Sem álbum</option>
+                        <?php carregarSelectAlbuns(); ?>
                     </select>
                 </div>
 

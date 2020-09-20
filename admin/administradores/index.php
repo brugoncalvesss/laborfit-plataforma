@@ -14,19 +14,33 @@
     <div class="card mb-3">
         <?php
         $PDO = db_connect();
-        $sql = "SELECT * FROM ADMINS";
+
+        if ($_SESSION['SUPER_ADMIN']) {
+            $sql = "SELECT * FROM
+                    ADMINS
+                WHERE
+                    EMPRESA_ADMIN = :EMPRESA_ADMIN";
+        } else {
+            $sql = "SELECT * FROM
+                        ADMINS
+                    WHERE
+                        EMPRESA_ADMIN = :EMPRESA_ADMIN
+                        AND SUPER_ADMIN <> 1";
+        }
+
         $stmt = $PDO->prepare($sql);
-        
+        $stmt->bindParam(':EMPRESA_ADMIN', $_SESSION['ID_EMPRESA']);
+    
         try{
             $stmt->execute();
-            $arUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $arResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
             throw new Exception("Erro ao carregar admins: " . $e->getMessage());
         }
         ?>
 
-        <?php if (count($arUsuarios) > 0) : ?>
-            <?php foreach ($arUsuarios as $usuario) : ?>
+        <?php if (count($arResult) > 0) : ?>
+            <?php foreach ($arResult as $usuario) : ?>
             <div class="row align-items-center no-gutters border-bottom pl-2">
                 <div class="col">
                     <span><?= $usuario['EMAIL_ADMIN'] ?></span>

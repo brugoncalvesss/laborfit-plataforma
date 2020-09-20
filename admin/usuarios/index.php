@@ -7,22 +7,31 @@
             <h1 class="h3 my-0">Usuários</h1>
         </div>
         <div class="col text-sm-right">
+            <a class="btn btn-secondary btn-sm" href="/admin/usuarios/lote.php">Cadastrar em lote</a>
             <a class="btn btn-primary btn-sm" href="/admin/usuarios/novo.php">Novo</a>
         </div>
     </header>
     
     <div class="card mb-3">
-        <?php
+    <?php
         $PDO = db_connect();
-
-        $sql = "SELECT ID_USUARIO, CPF_USUARIO, NOME_USUARIO, EMAIL_USUARIO, EMPRESA_USUARIO, STATUS_USUARIO FROM USUARIOS";
-        $request = $PDO->prepare($sql);
-        $request->execute();
-        $arUsuarios = $request->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "SELECT * FROM
+                    USUARIOS
+                WHERE
+                    EMPRESA_USUARIO = :EMPRESA_USUARIO";
+        $stmt = $PDO->prepare($sql);
+        $stmt->bindParam(':EMPRESA_USUARIO', $_SESSION['ID_EMPRESA']);
+    
+        try{
+            $stmt->execute();
+            $arResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            throw new Exception("Erro ao carregar admins: " . $e->getMessage());
+        }
         ?>
 
-        <?php if (count($arUsuarios) > 0) : ?>
-            <?php foreach ($arUsuarios as $usuario) : ?>
+        <?php if (count($arResult) > 0) : ?>
+            <?php foreach ($arResult as $usuario) : ?>
             <div class="row align-items-center no-gutters border-bottom pl-2">
                 <div class="col">
                     <i class="far fa-user mr-2"></i>

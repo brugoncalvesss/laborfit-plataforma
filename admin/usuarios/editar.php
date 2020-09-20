@@ -19,7 +19,7 @@ if (empty($id)) {
         $PDO = db_connect();
 
         $sql = "SELECT *
-                FROM USUARIOS WHERE ID_USUARIO = :ID_USUARIO";
+                FROM USUARIOS WHERE ID_USUARIO = :ID_USUARIO LIMIT 1";
         $request = $PDO->prepare($sql);
         $request->bindParam(':ID_USUARIO', $id, PDO::PARAM_INT);
         $request->execute();
@@ -32,28 +32,21 @@ if (empty($id)) {
             
             <form action="/admin/usuarios/editarUsuario.php" method="post" autocomplete="off">
 
-                <input type="hidden" class="form-control" name="id" value="<?= $usuario['ID_USUARIO'] ?>">
-                
-                <div class="form-group">
-                    <label class="small text-uppercase font-weight-bold">Empresa</label>
-                    <select name="empresa" class="form-control">
-                        <?php getSelectEmpresas($usuario['EMPRESA_USUARIO']); ?>
-                    </select>
-                </div>
+                <input type="hidden" class="form-control" name="ID_USUARIO" value="<?= $usuario['ID_USUARIO'] ?>">
 
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Departamento</label>
-                    <input type="text" class="form-control" name="departamento" value="<?= $usuario['DEPARTAMENTO_USUARIO'] ?>">
+                    <input type="text" class="form-control" name="DEPARTAMENTO_USUARIO" value="<?= $usuario['DEPARTAMENTO_USUARIO'] ?>">
                 </div>
 
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Subdepartamento</label>
-                    <input type="text" class="form-control" name="subdepartamento" value="<?= $usuario['SUBDEPARTAMENTO_USUARIO'] ?>">
+                    <input type="text" class="form-control" name="SUBDEPARTAMENTO_USUARIO" value="<?= $usuario['SUBDEPARTAMENTO_USUARIO'] ?>">
                 </div>
 
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Nome completo</label>
-                    <input type="text" class="form-control" name="nome" value="<?= $usuario['NOME_USUARIO'] ?>">
+                    <input type="text" class="form-control" name="NOME_USUARIO" value="<?= $usuario['NOME_USUARIO'] ?>">
                 </div>
 
                 <div class="form-group">
@@ -63,25 +56,25 @@ if (empty($id)) {
                         $data = limparCaracteres($data);
                     ?>
                     <label class="small text-uppercase font-weight-bold">Data de nascimento</label>
-                    <input type="text" class="form-control" name="nascimento" id="data" value="<?= $data ?>">
+                    <input type="text" class="form-control" name="DT_NASCIMENTO_USUARIO" id="data" value="<?= $data ?>">
                 </div>
 
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Sexo</label>
-                    <input type="text" class="form-control" name="sexo" value="<?= $usuario['SEXO_USUARIO'] ?>">
+                    <input type="text" class="form-control" name="SEXO_USUARIO" value="<?= $usuario['SEXO_USUARIO'] ?>">
                 </div>
 
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">CPF</label>
-                    <input type="text" class="form-control" name="cpf" id="cpf" value="<?= $usuario['CPF_USUARIO'] ?>" required>
+                    <input type="text" class="form-control" name="CPF_USUARIO" id="cpf" value="<?= $usuario['CPF_USUARIO'] ?>" required>
                 </div>
 
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">E-mail</label>
-                    <input type="email" class="form-control" name="email" value="<?= $usuario['EMAIL_USUARIO'] ?>">
+                    <input type="email" class="form-control" name="EMAIL_USUARIO" value="<?= $usuario['EMAIL_USUARIO'] ?>">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Atualizar</button>
+                <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
 
         </div>

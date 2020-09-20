@@ -64,7 +64,7 @@ a:hover, a:focus {
 
 .section-banner,
 .section-banner .img-banner {
-    height: 560px;
+    max-height: 560px;
 }
 
 .img-banner {

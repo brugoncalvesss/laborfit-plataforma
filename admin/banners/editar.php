@@ -39,11 +39,10 @@ if (empty($id)) {
 				<form action="/admin/banners/editarBanner.php" enctype="multipart/form-data" method="post" autocomplete="off">
 
 					<input type="hidden" name="id" value="<?= $banner['ID_BANNER'] ?>">
-					<input type="hidden" name="empresa" value="<?= $banner['EMPRESA_BANNER'] ?>">
 
 					<div class="form-group">
 						<label class="small text-uppercase font-weight-bold">Link</label>
-						<input type="url" class="form-control" name="link" value="<?= $banner['LINK_BANNER'] ?>">
+						<input type="url" class="form-control" name="LINK_BANNER" value="<?= $banner['LINK_BANNER'] ?>">
 					</div>
 
 					<div class="form-group">
