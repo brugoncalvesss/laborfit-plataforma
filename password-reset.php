@@ -14,9 +14,9 @@
 
           <div class="form-group">
             <label class="small text-muted text-uppercase font-weight-bold mb-1">
-              E-mail
+              CPF
             </label>
-            <input type="email" class="form-control" name="email" required>
+            <input type="text" class="form-control" id="cpf" name="CPF_USUARIO" required>
           </div>
 
           <button class="btn btn-block btn-primary" type="submit">Recuperar</button>

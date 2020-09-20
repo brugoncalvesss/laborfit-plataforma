@@ -6,6 +6,15 @@ define('DB_USER', 'wowlif90_prod');
 define('DB_PASS', '^R[7LWG!8xI7');
 define('DB_NAME', 'wowlif90_plataforma');
 
+function limparCaracteres($valor){
+    $valor = trim($valor);
+    $valor = str_replace(".", "", $valor);
+    $valor = str_replace(",", "", $valor);
+    $valor = str_replace("-", "", $valor);
+    $valor = str_replace("/", "", $valor);
+    return $valor;
+}
+
 function db_connect()
 {
     $PDO = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
@@ -118,7 +127,33 @@ function getAlbum(int $id)
 	return $result;
 }
 
-function getVideoId(int $id) {
+function getCategoria(int $id)
+{
+    if (!$id) {
+        return false;
+    }
+
+    $PDO = db_connect();
+    $sql = "SELECT * FROM
+                CATEGORIAS
+            WHERE
+                CATEGORIAS.ID_CATEGORIA = :ID_CATEGORIA
+            LIMIT 1";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':ID_CATEGORIA', $id, PDO::PARAM_INT);
+
+    try{
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
+    }
+
+	return $result;
+}
+
+function getVideo(int $id) {
 
     if (!$id) {
         die("Erro ao carregar vídeo. #ID não informado.");
@@ -146,38 +181,24 @@ function getVideoId(int $id) {
 	return $result;
 }
 
-function limparCaracteres($valor){
-    $valor = trim($valor);
-    $valor = str_replace(".", "", $valor);
-    $valor = str_replace(",", "", $valor);
-    $valor = str_replace("-", "", $valor);
-    $valor = str_replace("/", "", $valor);
-    return $valor;
-}
+function getVideosRelacionados(int $idVideo, int $idCategoria) {
 
-function getVideosRelacionados(int $idCategoria) {
-
-    if (!$idCategoria) {
+    if (!$idVideo || !$idCategoria) {
         return false;
     }
 
-    $status = 1;
-
     $PDO = db_connect();
-    $sql = "SELECT *
-            FROM
+    $sql = "SELECT * FROM
                 VIDEOS
-            INNER JOIN CATEGORIAS ON
-	            CATEGORIAS.ID_CATEGORIA = VIDEOS.CATEGORIA_VIDEO
             WHERE
-                STATUS_VIDEO = :STATUS_VIDEO
-                AND ID_CATEGORIA = :ID_CATEGORIA
+                VIDEOS.STATUS_VIDEO = 1
+                AND VIDEOS.LINK_VIDEO <> :LINK_VIDEO
+                AND VIDEOS.ALBUM_VIDEO = :ALBUM_VIDEO
             ORDER BY RAND() LIMIT 3";
 
     $stmt = $PDO->prepare($sql);
-
-    $stmt->bindParam(':STATUS_VIDEO', $status, PDO::PARAM_INT);
-    $stmt->bindParam(':ID_CATEGORIA', $idCategoria, PDO::PARAM_INT);
+    $stmt->bindParam(':LINK_VIDEO', $idVideo, PDO::PARAM_INT);
+    $stmt->bindParam(':ALBUM_VIDEO', $idCategoria, PDO::PARAM_INT);
 
     try{
         $stmt->execute();

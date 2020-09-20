@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -12,8 +12,41 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.font-weight-600 {
+    font-weight: 600;
+}
+
 .font-weight-800 {
     font-weight: 800;
+}
+
+.title-line {
+    position: relative;
+    display: inline-block;
+    color: #000;
+    font-weight: 600;
+}
+
+.title-line:after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background-color: #618ac5;
+    top: 7px;
+    left: 100%;
+    margin-left: 15px;
+}
+
+.title-line::before {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background-color: #618ac5;
+    top: 7px;
+    right: 100%;
+    margin-right: 15px;
 }
 
 a {
@@ -55,6 +88,22 @@ a:hover, a:focus {
     background-position: top center;
 }
 
+/*
+ * Botões
+ */
+
+.btn-categoria {
+    font-weight: 600;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #FFF;
+}
+
+.btn-categoria:hover {
+    text-decoration: none;
+}
+
 .navbar-light .navbar-nav .active>.nav-link,
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
@@ -67,14 +116,56 @@ a:hover, a:focus {
     max-height: 560px;
 }
 
+@media (min-width: 1100px) {
+    .section-banner .img-banner {
+        height: 560px;
+    }
+}
+
 .img-banner {
     object-fit: cover;
 }
 
 /*
+ * Page vídeo
+ */
+
+.video-header {
+    min-height: 300px;
+}
+
+.video-content {
+    position: relative;
+    margin-top: -170px;
+}
+
+.video-content .video-border {
+    border: 8px solid #FFF;
+}
+
+/*
+ * Destaques
+ */
+
+.destaques .card-cover .img-cover {
+    height: 205px;
+}
+
+.card-destaque .cover {
+    width: 100%;
+    max-height: 350px;
+}
+
+@media (min-width: 992px) {
+    .card-destaque .cover {
+        max-height: 450px;
+    } 
+}
+
+/*
  * Card
  */
-.card-hover:hover {
+ .card-hover:hover {
     border-color: #618ac5;
 }
 
@@ -92,29 +183,8 @@ a:hover, a:focus {
     height: 250px;
 }
 
-/*
- * Page vídeo
- */
-
-.video-header {
-    min-height: 200px;
-}
-
-.video-content {
-    position: relative;
-    top: -80px;
-}
-
-.video-content .video-border {
-    border: 8px solid #FFF;
-}
-
-/*
- * Destaques
- */
-
-.destaques .card-cover .img-cover {
-    height: 205px;
+.card .card-title {
+    font-weight: 600;
 }
 
 /*

@@ -31,7 +31,7 @@
           </div>
 
           <p class="text-right">
-            <a href="#/password-reset.php">Esqueceu sua senha?</a>
+            <a href="/password-reset.php">Esqueceu sua senha?</a>
           </p>
 
           <button class="btn btn-block btn-primary" type="submit">Entrar</button>

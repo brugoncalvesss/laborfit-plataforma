@@ -64,6 +64,13 @@ $arAlbums = getAlbums();
 				<?php foreach ($arDestaques as $destaque) : ?>
 				<div class="col">
 					<div class="card card-hover mb-3">
+						<?php if ($destaque['DESC_CATEGORIA']) : ?>
+						<div class="card-header bg-white text-center">
+							<h5 class="card-title text-primary mb-0">
+							<?= $destaque['DESC_CATEGORIA']; ?>
+							</h5>
+						</div>
+						<?php endif; ?>
 						<?php if ($destaque['IMG_CATEGORIA']) : ?>
 						<div class="card-cover">
 							<a href="./album.php?q=<?= $destaque['ID_CATEGORIA']; ?>" class="text-decoration-none">
@@ -71,8 +78,8 @@ $arAlbums = getAlbums();
 							</a>
 						</div>
 						<?php endif; ?>
-						<div class="card-body">
-							<h5 class="card-title text-center text-primary mb-0">
+						<div class="card-body text-center">
+							<h5 class="card-title text-primary mb-0">
 								<a href="./album.php?q=<?= $destaque['ID_CATEGORIA']; ?>" class="text-decoration-none">
 									<?= $destaque['NOME_CATEGORIA']; ?>
 								</a>
@@ -91,13 +98,15 @@ $arAlbums = getAlbums();
 		<div class="container">
 
 			<div class="mb-5 text-center">
-				<h2 class="h3 font-weight-bold text-primary mb-3">Faça seu dia ser WOW!</h2>
-				<span class="btn rounded-pill bg-primary px-sm-3 text-light font-weight-800">
-					Veja sugestões especiais abaixo 
-				</span>
+				<div class="d-block mb-2">
+					<h4 class="h6 title-line">Tenha um dia WOW!</h4>
+				</div>
+				<div class="d-inline-block rounded-pill bg-primary text-light font-weight-800 px-4 py-3">
+					O que você precisa hoje? <i class="fas fa-chevron-down pl-1"></i>
+				</div>
 			</div>
 
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
 				<?php foreach ($arAlbums as $album) : ?>
 					<?php if ($album['IMG_CATEGORIA']) : ?>
 					<div class="col">

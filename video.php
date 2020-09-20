@@ -8,21 +8,22 @@ if (!$idVideo) {
 	die("Erro: Não foi possível enontrar o vídeo.");
 }
 
-$video = getVideoId($idVideo);
-
-if ($video['ALBUM_VIDEO']) {
-	$arRelacionados = getVideosRelacionados($video['ALBUM_VIDEO']);
-}
+$video = getVideo($idVideo);
+$videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 ?>
 
 <main>
-	<nav class="navbar navbar-expand-md navbar-light bg-white">
+<nav class="navbar navbar-expand-md navbar-light bg-white">
 		<div class="container">
 			<a href="/" class="navbar-brand">
 				<img src="./img/logo.png" alt="Logo WoW Life" height="60">
 			</a>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item dropdown">
+					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+						<img src="./img/user.png" alt="Perfil">
+						<span id="usuario" class="sr-only"><?= $usuario['NOME_USUARIO']; ?></span>
+					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="/logout.php">Sair</a>
 					</div>
@@ -33,11 +34,11 @@ if ($video['ALBUM_VIDEO']) {
 
 	<header class="video-header bg-wave-primary text-light text-center py-3">
 		<div class="mb-3">
-			<a href="./album.php?q=<?= $video['ALBUM_VIDEO']; ?>" class="btn btn-link text-white rounded-pill text-decoration-none border-bottom pb-0">
+			<a href="./album.php?q=<?= $video['ALBUM_VIDEO']; ?>" class="btn btn-link btn-categoria text-white rounded-pill">
 				<?= $video['NOME_CATEGORIA']; ?>
 			</a>
 		</div>
-		<h2 class="h4 font-weight-bold"><?= $video['NOME_VIDEO']; ?></h2>
+		<h2 class="h4 font-weight-600"><?= $video['NOME_VIDEO']; ?></h2>
 	</header>
 
 	<section class="video-content">
@@ -49,9 +50,9 @@ if ($video['ALBUM_VIDEO']) {
 							<iframe class="embed-responsive-item" src="https://player.vimeo.com/video/<?= $video['LINK_VIDEO']; ?>?title=0&byline=0&portrait=0&badge=0&showinfo=0&modestbranding=0" frameborder="0"></iframe>
 						</div>
 						<?php if (!empty($video['DESC_VIDEO'])) : ?>
-						<div class="card-body text-center">
+						<div class="card-body text-center mb-3">
 							<h5 class="card-title text-primary font-weight-bold">Descrição</h5>
-							<p><?= $video['DESC_VIDEO']; ?></p>
+							<p class="font-weight-600"><?= $video['DESC_VIDEO']; ?></p>
 						</div>
 						<?php endif; ?>
 					</div>
@@ -60,7 +61,7 @@ if ($video['ALBUM_VIDEO']) {
 		</div>
 	</section>
 
-	<?php if (!empty($arRelacionados)) : ?>
+	<?php if (!empty($videosRelacionados)) : ?>
 	<section class="video-related bg-wave py-4">
 		<div class="container">
 
@@ -69,19 +70,19 @@ if ($video['ALBUM_VIDEO']) {
 			</div>
 
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-				<?php foreach ($arRelacionados as $relacionado) : ?>
+				<?php foreach ($videosRelacionados as $relacionado) : ?>
 				<div class="col">
-					<div class="card card-video mb-3">
+					<div class="card card-hover mb-3">
 						<?php if ($relacionado['THUMB_VIDEO']) : ?>
 						<div class="card-cover">
-							<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $relacionado['NOME_EMPRESA']; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $usuario['NOME_USUARIO']; ?>">
+							<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['EMPRESA_USUARIO']; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
 								<img src="./uploads/<?= $relacionado['THUMB_VIDEO']; ?>" class="img-fluid img-cover" alt="<?= $relacionado['NOME_VIDEO']; ?>">
 							</a>
 						</div>
 						<?php endif; ?>
 						<div class="card-body">
 							<h5 class="card-title text-center text-primary mb-0">
-							<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $relacionado['NOME_EMPRESA']; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $usuario['NOME_USUARIO']; ?>">
+							<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['EMPRESA_USUARIO']; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
 									<?= $relacionado['NOME_VIDEO']; ?>
 								</a>
 							</h5>
