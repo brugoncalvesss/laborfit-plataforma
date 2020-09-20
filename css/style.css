@@ -204,3 +204,7 @@ a:hover, a:focus {
 .card-album .card-body .card-title {
     font-weight: 800;
 }
+
+.custom-dropdown {
+    min-width: 270px;
+}

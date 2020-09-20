@@ -209,3 +209,31 @@ function getVideosRelacionados(int $idVideo, int $idCategoria) {
 
 	return $result;
 }
+
+function getTemas()
+{
+    $PDO = db_connect();
+
+    $sql = "SELECT * FROM
+                TEMAS
+            WHERE
+                TEMAS.EMPRESA_TEMA = :EMPRESA_TEMA
+            ORDER BY
+                TEMAS.NOME_TEMA ASC";
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':EMPRESA_TEMA', $_SESSION['EMPRESA_USUARIO'], PDO::PARAM_INT);
+
+    try{
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeos: " . $e->getMessage());
+    }
+
+	return $result;
+}
+
+function getTemaURL($idAlbum = null, $idTema = null) {
+    $url = "/album.php?q=".$idAlbum."&idTema=".$idTema;
+    return $url;
+}

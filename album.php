@@ -3,6 +3,7 @@ require('control.php');
 require('_header.php');
 
 $idAlbum = $_GET['q'] ?: null;
+$idTema = $_GET['idTema'] ?: null;
 
 if (!$idAlbum) {
 	die("Erro: Não foi informado o álbum.");
@@ -10,6 +11,15 @@ if (!$idAlbum) {
 
 $arVideos = getAlbum($idAlbum);
 $categoria = getCategoria($idAlbum);
+$arTemas = getTemas();
+
+if ($arVideos && $idTema) {
+	foreach ($arVideos as $key => $value) {
+		if ($value['TEMA_VIDEO'] != $idTema) {
+			unset($arVideos[$key]);
+		}
+	}
+}
 ?>
 
 <main>
@@ -22,7 +32,7 @@ $categoria = getCategoria($idAlbum);
 				<li class="nav-item dropdown">
 					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
 						<img src="./img/user.png" alt="Perfil">
-						<span id="usuario" class="sr-only"><?= $usuario['NOME_USUARIO']; ?></span>
+						<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="/logout.php">Sair</a>
@@ -55,7 +65,6 @@ $categoria = getCategoria($idAlbum);
 	</section>
 	<?php endif; ?>
 
-	<?php if ($arVideos): ?>
 	<section id="videos" class="videos py-5">
 		<div class="container">
 			
@@ -63,8 +72,17 @@ $categoria = getCategoria($idAlbum);
 				<div class="d-block mb-2">
 					<h4 class="h6 title-line">Lista de vídeos WOW!</h4>
 				</div>
-				<div class="d-inline-block rounded-pill bg-primary text-light font-weight-800 px-4 py-3">
-					Faça um filtro por tema <i class="fas fa-chevron-down pl-1"></i>
+				<div class="dropdown">
+					<div class="d-inline-block rounded-pill bg-primary text-light font-weight-800 px-4 py-3" type="button" data-toggle="dropdown">
+						Faça um filtro por tema <i class="fas fa-chevron-down pl-1"></i>
+					</div>
+					<div class="dropdown-menu custom-dropdown">
+						<?php foreach ($arTemas as $tema) : ?>
+						<a class="dropdown-item" href="<?= getTemaURL($idAlbum, $tema['ID_TEMA']); ?>">
+							<?= $tema['NOME_TEMA'] ?>
+						</a>
+						<?php endforeach; ?>
+					</div>
 				</div>
 			</div>
 
@@ -101,7 +119,6 @@ $categoria = getCategoria($idAlbum);
 
 		</div>
 	</section>
-	<?php endif; ?>
 
 </main>
 

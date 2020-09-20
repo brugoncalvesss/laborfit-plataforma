@@ -22,7 +22,7 @@ $arAlbums = getAlbums();
 				<li class="nav-item dropdown">
 					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
 						<img src="./img/user.png" alt="Perfil">
-						<span id="usuario" class="sr-only"><?= $usuario['NOME_USUARIO']; ?></span>
+						<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="/logout.php">Sair</a>
