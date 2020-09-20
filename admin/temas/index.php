@@ -4,10 +4,10 @@
 	
 	<header class="row my-3">
 		<div class="col">
-            <h1 class="h3 my-0">Vídeos</h1>
+            <h1 class="h3 my-0">Temas</h1>
 		</div>
         <div class="col text-sm-right">
-            <a class="btn btn-primary btn-sm" href="/admin/paginas/novo.php">Novo</a>
+            <a class="btn btn-primary btn-sm" href="/admin/temas/novo.php">Novo</a>
         </div>
 	</header>
     
@@ -15,34 +15,34 @@
 		<?php
 		$PDO = db_connect();
 		$sql = "SELECT * FROM
-                    VIDEOS
+                    TEMAS
                 WHERE
-                    EMPRESA_VIDEO = :EMPRESA_VIDEO
+                    TEMAS.EMPRESA_TEMA = :EMPRESA_TEMA
                 ORDER BY
-                    ID_VIDEO
-                DESC";
+                    TEMAS.NOME_TEMA
+                ASC";
 		$stmt = $PDO->prepare($sql);
-		$stmt->bindParam(':EMPRESA_VIDEO', $_SESSION['ID_EMPRESA'], PDO::PARAM_INT);
+		$stmt->bindParam(':EMPRESA_TEMA', $_SESSION['ID_EMPRESA'], PDO::PARAM_INT);
 
 		try{
 			$stmt->execute();
-			$arVideos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$arResult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		} catch(PDOException $e) {
-			throw new Exception("Erro ao carregar banners: " . $e->getMessage());
+			throw new Exception("Erro ao carregar os temas: " . $e->getMessage());
 		}
 		?>
 
-		<?php if (count($arVideos) > 0) : ?>
-			<?php foreach ($arVideos as $video) : ?>
+		<?php if (count($arResult) > 0) : ?>
+			<?php foreach ($arResult as $tema) : ?>
 			<div class="row align-items-center no-gutters border-bottom mb-2 pb-2">
 				<div class="col">
-					<?= $video['NOME_VIDEO']; ?>
+					<?= $tema['NOME_TEMA']; ?>
 				</div>
 				<div class="col col-auto">
-					<a class="btn btn-link" href="/admin/paginas/editar.php?id=<?= $video['ID_VIDEO']; ?>">
+					<a class="btn btn-link" href="/admin/temas/editar.php?id=<?= $tema['ID_TEMA']; ?>">
 						<i class="far fa-edit"></i>
 					</a>
-					<a class="btn btn-link" href="/admin/paginas/deletarVideo.php?id=<?= $video['ID_VIDEO'] ?>">
+					<a class="btn btn-link" href="/admin/temas/delete.php?id=<?= $tema['ID_TEMA']; ?>">
 						<i class="far fa-trash-alt"></i>
 					</a>
 				</div>

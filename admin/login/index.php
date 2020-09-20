@@ -53,10 +53,6 @@ session_start();
 						<input type="password" class="form-control" name="password" required>
 					</div>
 
-					<p class="text-right">
-						<a class="btn btn-link" href="#./password-reset.php">Esqueceu sua senha?</a>
-					</p>
-
 					<button class="btn btn-block btn-primary" type="submit">Entrar</button>
 					
 				</form>
