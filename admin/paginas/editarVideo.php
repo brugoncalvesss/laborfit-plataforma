@@ -25,7 +25,7 @@ $PDO = db_connect();
 $sql = "UPDATE
             VIDEOS
         SET
-            NOME_VIDEO = :NOME_VIDEO, LINK_VIDEO = :LINK_VIDEO, THUMB_VIDEO = :THUMB_VIDEO, DESC_VIDEO = :DESC_VIDEO, ALBUM_VIDEO = :ALBUM_VIDEO
+            NOME_VIDEO = :NOME_VIDEO, LINK_VIDEO = :LINK_VIDEO, THUMB_VIDEO = :THUMB_VIDEO, DESC_VIDEO = :DESC_VIDEO, ALBUM_VIDEO = :ALBUM_VIDEO, TEMA_VIDEO = :TEMA_VIDEO
         WHERE
             ID_VIDEO = :ID_VIDEO";
 
@@ -35,6 +35,7 @@ $stmt->bindParam(':LINK_VIDEO', $data['link']);
 $stmt->bindParam(':THUMB_VIDEO', $imagem);
 $stmt->bindParam(':DESC_VIDEO', $data['descricao']);
 $stmt->bindParam(':ALBUM_VIDEO', $data['album']);
+$stmt->bindParam(':TEMA_VIDEO', $data['TEMA_VIDEO']);
 $stmt->bindParam(':ID_VIDEO', $data['id'], PDO::PARAM_INT);
 
 try{

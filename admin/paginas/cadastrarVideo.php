@@ -18,9 +18,9 @@ if (!empty($_FILES['arquivo']['name'])) {
 }
 
 $sql = "INSERT INTO
-            VIDEOS (NOME_VIDEO, LINK_VIDEO, THUMB_VIDEO, EMPRESA_VIDEO, DESC_VIDEO, ALBUM_VIDEO, CADASTRO_VIDEO)
+            VIDEOS (NOME_VIDEO, LINK_VIDEO, THUMB_VIDEO, EMPRESA_VIDEO, DESC_VIDEO, ALBUM_VIDEO, TEMA_VIDEO, CADASTRO_VIDEO)
         VALUES
-            (:NOME_VIDEO, :LINK_VIDEO, :THUMB_VIDEO, :EMPRESA_VIDEO, :DESC_VIDEO, :ALBUM_VIDEO, CURRENT_TIMESTAMP)";
+            (:NOME_VIDEO, :LINK_VIDEO, :THUMB_VIDEO, :EMPRESA_VIDEO, :DESC_VIDEO, :ALBUM_VIDEO, :TEMA_VIDEO, CURRENT_TIMESTAMP)";
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
@@ -30,6 +30,7 @@ $stmt->bindParam(':THUMB_VIDEO', $imagem);
 $stmt->bindParam(':EMPRESA_VIDEO', $_SESSION['ID_EMPRESA']);
 $stmt->bindParam(':DESC_VIDEO', $data['descricao']);
 $stmt->bindParam(':ALBUM_VIDEO', $data['album']);
+$stmt->bindParam(':TEMA_VIDEO', $data['TEMA_VIDEO']);
 
 try {
     $stmt->execute();

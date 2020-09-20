@@ -71,6 +71,34 @@ function carregarSelectAlbuns(int $idAlbum = null) {
 	}
 }
 
+function carregarSelectTemas(int $idTema = null)
+{
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM
+				TEMAS
+			WHERE
+				EMPRESA_TEMA = :EMPRESA_TEMA
+			ORDER BY
+				NOME_TEMA
+			ASC";
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindParam(':EMPRESA_TEMA', $_SESSION['ID_EMPRESA']);
+	$stmt->execute();
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	if (!empty($result)) {
+		foreach ($result as $tema) {
+			$selected = false;
+			if ($idTema && ($tema['ID_TEMA'] == $idTema)) {
+				$selected = 'selected';
+			}
+			$option = "<option {$selected} value='{$tema['ID_TEMA']}'>{$tema['NOME_TEMA']}</option>";
+			echo $option;
+		}
+	}
+}
+
 function limparCaracteres($valor) {
 	$valor = trim($valor);
 	$valor = str_replace(".", "", $valor);

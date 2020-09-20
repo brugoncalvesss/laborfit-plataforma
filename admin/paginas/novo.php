@@ -45,6 +45,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Tema</label>
+                    <select name="TEMA_VIDEO" class="form-control">
+                        <option value="0">Sem tema</option>
+                        <?php carregarSelectTemas(); ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label>Descrição</label>
                     <textarea name="descricao" rows="3" class="form-control"></textarea>
                 </div>
