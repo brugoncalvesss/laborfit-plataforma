@@ -25,15 +25,11 @@ function db_connect()
 function getBannerFrontPage()
 {
     $PDO = db_connect();
-    $sql = "SELECT * FROM
-                BANNERS
-            WHERE
-                EMPRESA_BANNER = :EMPRESA_BANNER
+    $sql = "SELECT * FROM BANNERS
             ORDER BY
                 ID_BANNER
             DESC";
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':EMPRESA_BANNER', $_SESSION['EMPRESA_USUARIO'], PDO::PARAM_INT);
 
     try{
         $stmt->execute();
@@ -53,12 +49,10 @@ function getAlbumDestaque()
                 CATEGORIAS
             WHERE
                 DESTAQUE_CATEGORIA = 1
-                AND EMPRESA_CATEGORIA = :EMPRESA_CATEGORIA
             ORDER BY
                 ID_CATEGORIA DESC
             LIMIT 3";
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':EMPRESA_CATEGORIA', $_SESSION['EMPRESA_USUARIO'], PDO::PARAM_INT);
 
     try{
         $stmt->execute();
@@ -78,12 +72,10 @@ function getAlbums()
                 CATEGORIAS
             WHERE
                 DESTAQUE_CATEGORIA <> 1
-                AND EMPRESA_CATEGORIA = :EMPRESA_CATEGORIA
             ORDER BY
                 ID_CATEGORIA DESC
             LIMIT 3";
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':EMPRESA_CATEGORIA', $_SESSION['EMPRESA_USUARIO'], PDO::PARAM_INT);
 
     try{
         $stmt->execute();
@@ -108,13 +100,11 @@ function getAlbum(int $id)
                 CATEGORIAS.ID_CATEGORIA = VIDEOS.ALBUM_VIDEO
             WHERE
                 VIDEOS.STATUS_VIDEO = 1
-                AND VIDEOS.EMPRESA_VIDEO = :EMPRESA_VIDEO
                 AND CATEGORIAS.ID_CATEGORIA = :ID_CATEGORIA
             ORDER BY
                 VIDEOS.ID_VIDEO DESC";
 
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':EMPRESA_VIDEO', $_SESSION['EMPRESA_USUARIO'], PDO::PARAM_INT);
     $stmt->bindParam(':ID_CATEGORIA', $id, PDO::PARAM_INT);
 
     try{
@@ -216,12 +206,9 @@ function getTemas()
 
     $sql = "SELECT * FROM
                 TEMAS
-            WHERE
-                TEMAS.EMPRESA_TEMA = :EMPRESA_TEMA
             ORDER BY
                 TEMAS.NOME_TEMA ASC";
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':EMPRESA_TEMA', $_SESSION['EMPRESA_USUARIO'], PDO::PARAM_INT);
 
     try{
         $stmt->execute();

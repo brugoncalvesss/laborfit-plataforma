@@ -16,7 +16,7 @@ $arAlbums = getAlbums();
 	<nav class="navbar navbar-expand-md navbar-light bg-white">
 		<div class="container">
 			<a href="/" class="navbar-brand">
-				<img src="./img/logo.png" alt="Logo WoW Life" height="60">
+				<img src="./img/logo.png" alt="Logo WoW Life" height="50">
 			</a>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item dropdown">
