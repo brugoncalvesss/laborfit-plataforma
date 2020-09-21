@@ -16,13 +16,10 @@
 		$PDO = db_connect();
 		$sql = "SELECT * FROM
                     BANNERS
-                WHERE
-                    EMPRESA_BANNER = :EMPRESA_BANNER
                 ORDER BY
                     ID_BANNER
                 DESC";
 		$stmt = $PDO->prepare($sql);
-        $stmt->bindParam(':EMPRESA_BANNER', $_SESSION['ID_EMPRESA']);
 
 		try{
 			$stmt->execute();

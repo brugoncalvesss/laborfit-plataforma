@@ -16,13 +16,10 @@
         $PDO = db_connect();
         $sql = "SELECT * FROM
                     CATEGORIAS
-                WHERE
-                    EMPRESA_CATEGORIA = :EMPRESA_CATEGORIA
                 ORDER BY
                     ID_CATEGORIA
                 DESC";
         $stmt = $PDO->prepare($sql);
-        $stmt->bindParam(':EMPRESA_CATEGORIA', $_SESSION['ID_EMPRESA']);
         
         try{
             $stmt->execute();

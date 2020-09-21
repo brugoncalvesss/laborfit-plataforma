@@ -16,13 +16,10 @@
 		$PDO = db_connect();
 		$sql = "SELECT * FROM
                     TEMAS
-                WHERE
-                    TEMAS.EMPRESA_TEMA = :EMPRESA_TEMA
                 ORDER BY
                     TEMAS.NOME_TEMA
                 ASC";
 		$stmt = $PDO->prepare($sql);
-		$stmt->bindParam(':EMPRESA_TEMA', $_SESSION['ID_EMPRESA'], PDO::PARAM_INT);
 
 		try{
 			$stmt->execute();

@@ -15,7 +15,7 @@ $sql = "INSERT INTO USUARIOS (CPF_USUARIO, EMPRESA_USUARIO, CADASTRO_USUARIO)
 
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':CPF_USUARIO', $data['CPF_USUARIO'], PDO::PARAM_STR);
-$stmt->bindParam(':EMPRESA_USUARIO', $_SESSION['ID_EMPRESA']);
+$stmt->bindParam(':EMPRESA_USUARIO', $data['EMPRESA_USUARIO']);
 
 try {
     $stmt->execute();

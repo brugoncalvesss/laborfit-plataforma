@@ -16,13 +16,10 @@
 		$PDO = db_connect();
 		$sql = "SELECT * FROM
                     VIDEOS
-                WHERE
-                    EMPRESA_VIDEO = :EMPRESA_VIDEO
                 ORDER BY
                     ID_VIDEO
                 DESC";
 		$stmt = $PDO->prepare($sql);
-		$stmt->bindParam(':EMPRESA_VIDEO', $_SESSION['ID_EMPRESA'], PDO::PARAM_INT);
 
 		try{
 			$stmt->execute();

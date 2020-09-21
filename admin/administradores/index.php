@@ -15,21 +15,8 @@
         <?php
         $PDO = db_connect();
 
-        if ($_SESSION['SUPER_ADMIN']) {
-            $sql = "SELECT * FROM
-                    ADMINS
-                WHERE
-                    EMPRESA_ADMIN = :EMPRESA_ADMIN";
-        } else {
-            $sql = "SELECT * FROM
-                        ADMINS
-                    WHERE
-                        EMPRESA_ADMIN = :EMPRESA_ADMIN
-                        AND SUPER_ADMIN <> 1";
-        }
-
+        $sql = "SELECT * FROM ADMINS";
         $stmt = $PDO->prepare($sql);
-        $stmt->bindParam(':EMPRESA_ADMIN', $_SESSION['ID_EMPRESA']);
     
         try{
             $stmt->execute();

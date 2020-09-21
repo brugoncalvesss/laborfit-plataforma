@@ -36,10 +36,8 @@ if ($stmt->rowCount() > 0) {
     
     session_start();
 
-    $_SESSION['ID_EMPRESA'] = $usuario['ID_EMPRESA'];
     $_SESSION['NOME_EMPRESA'] = $usuario['NOME_EMPRESA'];
     $_SESSION['EMAIL'] = $usuario['EMAIL_ADMIN'];
-    $_SESSION['SUPER_ADMIN'] = $usuario['SUPER_ADMIN'];
 
     header("location: /admin/paginas/?status=200");
     exit();

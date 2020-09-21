@@ -19,7 +19,7 @@ foreach ($data['CPF_USUARIO'] as $cpf) {
         
         $stmt = $PDO->prepare($sql);
         $stmt->bindParam(':CPF_USUARIO', $cpfUsuario, PDO::PARAM_STR);
-        $stmt->bindParam(':EMPRESA_USUARIO', $_SESSION['ID_EMPRESA']);
+        $stmt->bindParam(':EMPRESA_USUARIO', $data['EMPRESA_USUARIO']);
         $stmt->execute();
     }
 }

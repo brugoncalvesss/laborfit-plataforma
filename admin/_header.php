@@ -25,7 +25,7 @@ session_start();
 	<body>
 	
 	<?php
-	if (empty($_SESSION['ID_EMPRESA'])) {
+	if (empty($_SESSION['EMAIL'])) {
 		header("location: /admin/login/index.php?status=301");
 		exit;
 	}

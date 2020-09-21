@@ -15,12 +15,8 @@
     <div class="card mb-3">
     <?php
         $PDO = db_connect();
-        $sql = "SELECT * FROM
-                    USUARIOS
-                WHERE
-                    EMPRESA_USUARIO = :EMPRESA_USUARIO";
+        $sql = "SELECT * FROM USUARIOS";
         $stmt = $PDO->prepare($sql);
-        $stmt->bindParam(':EMPRESA_USUARIO', $_SESSION['ID_EMPRESA']);
     
         try{
             $stmt->execute();

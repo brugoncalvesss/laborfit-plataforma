@@ -17,7 +17,6 @@ $PDO = db_connect();
 $sql = "UPDATE
             USUARIOS
         SET
-            EMPRESA_USUARIO = :EMPRESA_USUARIO,
             DEPARTAMENTO_USUARIO = :DEPARTAMENTO_USUARIO,
             SUBDEPARTAMENTO_USUARIO = :SUBDEPARTAMENTO_USUARIO,
             NOME_USUARIO = :NOME_USUARIO,
@@ -30,7 +29,6 @@ $sql = "UPDATE
             ID_USUARIO = :ID_USUARIO";
 
 $stmt = $PDO->prepare($sql);
-$stmt->bindParam(':EMPRESA_USUARIO', $_SESSION['ID_EMPRESA'], PDO::PARAM_INT);
 $stmt->bindParam(':DEPARTAMENTO_USUARIO', $data['DEPARTAMENTO_USUARIO']);
 $stmt->bindParam(':SUBDEPARTAMENTO_USUARIO', $data['SUBDEPARTAMENTO_USUARIO']);
 $stmt->bindParam(':NOME_USUARIO', $data['NOME_USUARIO']);

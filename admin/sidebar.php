@@ -26,13 +26,11 @@
 					<i class="far fa-user mr-1"></i> Usuários
 				</a>
     		</li>
-			<?php if ($_SESSION['SUPER_ADMIN']) : ?>
 			<li class="nav-item">
 			 	<a class="nav-link" href="/admin/empresas/">
 					<i class="far fa-building mr-1"></i> Empresas
 				</a>
       		</li>
-			<?php endif; ?>
 			<li class="nav-item">
 				<a href="/admin/administradores/" class="nav-link">
 				<i class="fas fa-user-shield mr-1"></i> Administradores

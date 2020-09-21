@@ -14,14 +14,13 @@ if ($_FILES) {
 }
 
 $sql = "INSERT INTO
-            BANNERS (IMG_BANNER, EMPRESA_BANNER, LINK_BANNER)
+            BANNERS (IMG_BANNER, LINK_BANNER)
         VALUES
-            (:IMG_BANNER, :EMPRESA_BANNER, :LINK_BANNER)";
+            (:IMG_BANNER, :LINK_BANNER)";
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':IMG_BANNER', $imagem);
-$stmt->bindParam(':EMPRESA_BANNER', $_SESSION['ID_EMPRESA']);
 $stmt->bindParam(':LINK_BANNER', $data['LINK_BANNER']);
 
 try {

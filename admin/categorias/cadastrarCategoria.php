@@ -16,16 +16,15 @@ if ($_FILES["arquivo"]["name"]) {
 
 $PDO = db_connect();
 $sql = "INSERT INTO
-            CATEGORIAS (NOME_CATEGORIA, IMG_CATEGORIA, DESTAQUE_CATEGORIA, DESC_CATEGORIA, EMPRESA_CATEGORIA)
+            CATEGORIAS (NOME_CATEGORIA, IMG_CATEGORIA, DESTAQUE_CATEGORIA, DESC_CATEGORIA)
         VALUES
-            (:NOME_CATEGORIA, :IMG_CATEGORIA, :DESTAQUE_CATEGORIA, :DESC_CATEGORIA, :EMPRESA_CATEGORIA)";
+            (:NOME_CATEGORIA, :IMG_CATEGORIA, :DESTAQUE_CATEGORIA, :DESC_CATEGORIA)";
 
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_CATEGORIA', $nomeCategoria);
 $stmt->bindParam(':IMG_CATEGORIA', $imagem);
 $stmt->bindParam(':DESTAQUE_CATEGORIA', $destaque);
 $stmt->bindParam(':DESC_CATEGORIA', $descricao);
-$stmt->bindParam(':EMPRESA_CATEGORIA', $_SESSION['ID_EMPRESA']);
 
 try{
     $stmt->execute();

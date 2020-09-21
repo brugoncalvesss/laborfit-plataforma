@@ -12,6 +12,15 @@
         <div class="col-12 col-sm-7">
 
             <form action="/admin/usuarios/loteUsuario.php" method="post" autocomplete="off">
+
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Empresa</label>
+                    <select name="EMPRESA_USUARIO" class="form-control">
+                        <option value="0">Selecionar empresa</option>
+                        <?= carregarSelectEmpresas(); ?>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">CPF</label>
                     <textarea name="CPF_USUARIO" rows="4" class="form-control" required></textarea>

@@ -6,6 +6,15 @@ define('DB_USER', 'wowlif90_prod');
 define('DB_PASS', '^R[7LWG!8xI7');
 define('DB_NAME', 'wowlif90_plataforma');
 
+function limparCaracteres($valor) {
+	$valor = trim($valor);
+	$valor = str_replace(".", "", $valor);
+	$valor = str_replace(",", "", $valor);
+	$valor = str_replace("-", "", $valor);
+	$valor = str_replace("/", "", $valor);
+	return $valor;
+}
+
 function db_connect()
 {
 	$PDO = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
@@ -49,13 +58,10 @@ function carregarSelectAlbuns(int $idAlbum = null) {
 
 	$sql = "SELECT * FROM
 				CATEGORIAS
-			WHERE
-				EMPRESA_CATEGORIA = :EMPRESA_CATEGORIA
 			ORDER BY
 				NOME_CATEGORIA
 			ASC";
 	$stmt = $PDO->prepare($sql);
-	$stmt->bindParam(':EMPRESA_CATEGORIA', $_SESSION['ID_EMPRESA']);
 	$stmt->execute();
 	$albuns = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -77,13 +83,10 @@ function carregarSelectTemas(int $idTema = null)
 
 	$sql = "SELECT * FROM
 				TEMAS
-			WHERE
-				EMPRESA_TEMA = :EMPRESA_TEMA
 			ORDER BY
 				NOME_TEMA
 			ASC";
 	$stmt = $PDO->prepare($sql);
-	$stmt->bindParam(':EMPRESA_TEMA', $_SESSION['ID_EMPRESA']);
 	$stmt->execute();
 	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -99,11 +102,27 @@ function carregarSelectTemas(int $idTema = null)
 	}
 }
 
-function limparCaracteres($valor) {
-	$valor = trim($valor);
-	$valor = str_replace(".", "", $valor);
-	$valor = str_replace(",", "", $valor);
-	$valor = str_replace("-", "", $valor);
-	$valor = str_replace("/", "", $valor);
-	return $valor;
+function carregarSelectEmpresas(int $idEmpresa = null)
+{
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM EMPRESAS
+			ORDER BY
+				NOME_EMPRESA
+			ASC";
+	$stmt = $PDO->prepare($sql);
+	$stmt->execute();
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	if (!empty($result)) {
+		foreach ($result as $empresa) {
+			$selected = false;
+			if ($idEmpresa && ($empresa['ID_EMPRESA'] == $idEmpresa)) {
+				$selected = 'selected';
+			}
+			$option = "<option {$selected} value='{$empresa['ID_EMPRESA']}'>{$empresa['NOME_EMPRESA']}</option>";
+			echo $option;
+		}
+	}
 }
+

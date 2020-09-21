@@ -5,7 +5,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
 $empresa = $_POST['empresa'] ?: null;
 
 if (empty($empresa)) {
-    header("location: /admin/usuarios/?status=2");
+    header("location: /admin/empresas/?status=2");
     exit();
 }
 

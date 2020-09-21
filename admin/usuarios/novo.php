@@ -17,6 +17,14 @@
                     <input type="text" name="CPF_USUARIO" id="cpf" class="form-control" required>
                 </div>
 
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Empresa</label>
+                    <select name="EMPRESA_USUARIO" class="form-control">
+                        <option value="0">Selecionar empresa</option>
+                        <?= carregarSelectEmpresas(); ?>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
 

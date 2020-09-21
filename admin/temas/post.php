@@ -9,14 +9,13 @@ if (empty($data)) {
 
 
 $sql = "INSERT INTO
-            TEMAS (NOME_TEMA, EMPRESA_TEMA)
+            TEMAS (NOME_TEMA)
         VALUES
-            (:NOME_TEMA, :EMPRESA_TEMA)";
+            (:NOME_TEMA)";
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_TEMA', $data['NOME_TEMA']);
-$stmt->bindParam(':EMPRESA_TEMA', $_SESSION['ID_EMPRESA'], PDO::PARAM_INT);
 
 try {
     $stmt->execute();
