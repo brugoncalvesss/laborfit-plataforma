@@ -77,31 +77,6 @@ function carregarSelectAlbuns(int $idAlbum = null) {
 	}
 }
 
-function carregarSelectTemas(int $idTema = null)
-{
-	$PDO = db_connect();
-
-	$sql = "SELECT * FROM
-				TEMAS
-			ORDER BY
-				NOME_TEMA
-			ASC";
-	$stmt = $PDO->prepare($sql);
-	$stmt->execute();
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-	if (!empty($result)) {
-		foreach ($result as $tema) {
-			$selected = false;
-			if ($idTema && ($tema['ID_TEMA'] == $idTema)) {
-				$selected = 'selected';
-			}
-			$option = "<option {$selected} value='{$tema['ID_TEMA']}'>{$tema['NOME_TEMA']}</option>";
-			echo $option;
-		}
-	}
-}
-
 function carregarSelectEmpresas(int $idEmpresa = null)
 {
 	$PDO = db_connect();

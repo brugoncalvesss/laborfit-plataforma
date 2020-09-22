@@ -74,10 +74,7 @@ if (empty($id)) {
 
 					<div class="form-group">
 						<label>Tema</label>
-						<select name="TEMA_VIDEO" class="form-control">
-							<option value="0">Sem tema</option>
-							<?php carregarSelectTemas($video['TEMA_VIDEO']); ?>
-						</select>
+						<input type="text" name="TEMA_VIDEO" data-role="tagsinput" id="tags" value="<?= $video['TEMA_VIDEO']; ?>" class="form-control">
 					</div>
 
                     <div class="form-group">
@@ -85,7 +82,7 @@ if (empty($id)) {
                         <textarea name="descricao" rows="3" class="form-control"><?= $video['DESC_VIDEO']; ?></textarea>
                     </div>
 
-					<button type="submit" class="btn btn-primary">Salvar</button>
+					<button class="btn btn-primary">Salvar</button>
 					
 				</form>
 

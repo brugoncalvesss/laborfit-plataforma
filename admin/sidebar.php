@@ -12,11 +12,6 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a href="/admin/temas/" class="nav-link">
-					<i class="fas fa-tags mr-1"></i> Temas
-				</a>
-			</li>
-			<li class="nav-item">
 				<a href="/admin/banners/" class="nav-link">
 					<i class="far fa-images mr-1"></i> Banners
 				</a>

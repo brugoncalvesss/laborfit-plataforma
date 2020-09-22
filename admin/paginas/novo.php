@@ -46,10 +46,7 @@
 
                 <div class="form-group">
                     <label>Tema</label>
-                    <select name="TEMA_VIDEO" class="form-control">
-                        <option value="0">Sem tema</option>
-                        <?php carregarSelectTemas(); ?>
-                    </select>
+                    <input type="text" name="TEMA_VIDEO" data-role="tagsinput" id="tags" class="form-control">
                 </div>
 
                 <div class="form-group">

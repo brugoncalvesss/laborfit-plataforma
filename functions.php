@@ -204,23 +204,70 @@ function getTemas()
 {
     $PDO = db_connect();
 
-    $sql = "SELECT * FROM
-                TEMAS
-            ORDER BY
-                TEMAS.NOME_TEMA ASC";
+    $sql = "SELECT TEMA_VIDEO
+            FROM VIDEOS
+            WHERE VIDEOS.TEMA_VIDEO IS NOT NULL
+            ORDER BY VIDEOS.TEMA_VIDEO ASC";
     $stmt = $PDO->prepare($sql);
 
     try{
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
-        throw new Exception("Erro ao carregar vídeos: " . $e->getMessage());
+        throw new Exception("Erro ao carregar temas: " . $e->getMessage());
+    }
+
+    if ($result) {
+        foreach ($result as $tema) {
+            $temas[] = explode(',', $tema['TEMA_VIDEO']);
+        }
+        
+        $tags = [];
+        foreach ($temas as $value) {
+            foreach ($value as $tag) {
+                $tags[] = $tag;
+            }
+        }
+        
+        $result = array_unique($tags);
     }
 
 	return $result;
 }
 
-function getTemaURL($idAlbum = null, $idTema = null) {
-    $url = "/album.php?q=".$idAlbum."&idTema=".$idTema;
+function getTemaURL($idAlbum = null, $filtro = null) {
+    $url = "/album.php?q=".$idAlbum."&filtro=".$filtro;
     return $url;
+}
+
+function getAlbumFiltro(int $id, string $filtro)
+{
+    if (!$id || !$filtro) {
+        return false;
+    }
+
+    $PDO = db_connect();
+    $sql = "SELECT * FROM
+                VIDEOS
+            INNER JOIN CATEGORIAS ON
+                CATEGORIAS.ID_CATEGORIA = VIDEOS.ALBUM_VIDEO
+            WHERE
+                VIDEOS.STATUS_VIDEO = 1
+                AND CATEGORIAS.ID_CATEGORIA = :ID_CATEGORIA
+                AND VIDEOS.TEMA_VIDEO LIKE :TEMA_VIDEO
+            ORDER BY
+                VIDEOS.ID_VIDEO DESC";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':ID_CATEGORIA', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':TEMA_VIDEO', '%'.$filtro.'%');
+
+    try{
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
+    }
+
+	return $result;
 }

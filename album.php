@@ -2,24 +2,21 @@
 require('control.php');
 require('_header.php');
 
-$idAlbum = $_GET['q'] ?: null;
-$idTema = $_GET['idTema'] ?: null;
+$idAlbum = isset($_GET['q']) ? $_GET['q'] : null;
+$filtro = isset($_GET['filtro']) ? $_GET['filtro'] : null;
 
 if (!$idAlbum) {
 	die("Erro: Não foi informado o álbum.");
 }
 
-$arVideos = getAlbum($idAlbum);
-$categoria = getCategoria($idAlbum);
-$arTemas = getTemas();
-
-if ($arVideos && $idTema) {
-	foreach ($arVideos as $key => $value) {
-		if ($value['TEMA_VIDEO'] != $idTema) {
-			unset($arVideos[$key]);
-		}
-	}
+if ($filtro) {
+	$arVideos = getAlbumFiltro($idAlbum, $filtro);
+} else {
+	$arVideos = getAlbum($idAlbum);
 }
+
+$categoria = getCategoria($idAlbum);
+$arTags = getTemas();
 ?>
 
 <main>
@@ -77,9 +74,9 @@ if ($arVideos && $idTema) {
 						Faça um filtro por tema <i class="fas fa-chevron-down pl-1"></i>
 					</div>
 					<div class="dropdown-menu custom-dropdown">
-						<?php foreach ($arTemas as $tema) : ?>
-						<a class="dropdown-item" href="<?= getTemaURL($idAlbum, $tema['ID_TEMA']); ?>">
-							<?= $tema['NOME_TEMA'] ?>
+						<?php foreach ($arTags as $tag) : ?>
+						<a class="dropdown-item" href="<?= getTemaURL($idAlbum, $tag); ?>">
+							<?= $tag ?>
 						</a>
 						<?php endforeach; ?>
 					</div>
