@@ -6,4 +6,8 @@ $(document).ready(function(){
         var fileName = e.target.files[0].name;
         $(this).next('.custom-file-label').html(fileName);
     });
+
+    $('#defaultCheck1').on('change', function(e) {
+        $('#defaultIntro').toggleClass('d-none');
+    });
 });

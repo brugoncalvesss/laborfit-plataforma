@@ -4,10 +4,10 @@
     
     <header class="row my-3">
         <div class="col">
-            <h1 class="h3 my-0">Álbuns</h1>
+            <h1 class="h3 my-0">Categorias</h1>
         </div>
         <div class="col text-sm-right">
-            <a class="btn btn-primary btn-sm" href="/admin/categorias/nova.php">Novo</a>
+            <a class="btn btn-primary btn-sm" href="/admin/categorias/nova.php">Nova</a>
         </div>
     </header>
     

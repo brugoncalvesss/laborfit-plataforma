@@ -34,7 +34,7 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 
 	<header class="video-header bg-wave-primary text-light text-center py-3">
 		<div class="mb-3">
-			<a href="./album.php?q=<?= $video['ALBUM_VIDEO']; ?>" class="btn btn-link btn-categoria text-white rounded-pill">
+			<a href="./categoria.php?q=<?= $video['ALBUM_VIDEO']; ?>" class="btn btn-link btn-categoria text-white rounded-pill">
 				<?= $video['NOME_CATEGORIA']; ?>
 			</a>
 		</div>

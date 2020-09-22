@@ -41,16 +41,16 @@ function getBannerFrontPage()
     return $arBanners;
 }
 
-function getAlbumDestaque()
+function getVideosDestaque()
 {
     $PDO = db_connect();
 
     $sql = "SELECT * FROM
-                CATEGORIAS
+                VIDEOS
             WHERE
-                DESTAQUE_CATEGORIA = 1
+                VIDEOS.DESTAQUE_VIDEO = 1
             ORDER BY
-                ID_CATEGORIA DESC
+                VIDEOS.ID_VIDEO DESC
             LIMIT 3";
     $stmt = $PDO->prepare($sql);
 
@@ -73,8 +73,7 @@ function getAlbums()
             WHERE
                 DESTAQUE_CATEGORIA <> 1
             ORDER BY
-                ID_CATEGORIA DESC
-            LIMIT 3";
+                ID_CATEGORIA DESC";
     $stmt = $PDO->prepare($sql);
 
     try{
@@ -236,8 +235,13 @@ function getTemas()
 }
 
 function getTemaURL($idAlbum = null, $filtro = null) {
-    $url = "/album.php?q=".$idAlbum."&filtro=".$filtro;
+    $url = "/categoria.php?q=".$idAlbum."&filtro=".$filtro;
     return $url;
+}
+
+function getTagURL($key) {
+    $url = "/tag.php?q=".$key;
+    return $url; 
 }
 
 function getAlbumFiltro(int $id, string $filtro)
@@ -261,6 +265,33 @@ function getAlbumFiltro(int $id, string $filtro)
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':ID_CATEGORIA', $id, PDO::PARAM_INT);
     $stmt->bindValue(':TEMA_VIDEO', '%'.$filtro.'%');
+
+    try{
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
+    }
+
+	return $result;
+}
+
+function getVideosbyTagName($tag) {
+    if (!$tag) {
+        return false;
+    }
+
+    $PDO = db_connect();
+    $sql = "SELECT * FROM
+                VIDEOS
+            WHERE
+                VIDEOS.STATUS_VIDEO = 1
+                AND VIDEOS.TEMA_VIDEO LIKE :TEMA_VIDEO
+            ORDER BY
+                VIDEOS.ID_VIDEO DESC";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':TEMA_VIDEO', '%'.$tag.'%');
 
     try{
         $stmt->execute();

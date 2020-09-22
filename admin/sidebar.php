@@ -8,7 +8,7 @@
 			</li>
 			<li class="nav-item">
 				<a href="/admin/categorias/" class="nav-link">
-					<i class="fas fa-list mr-1"></i> Álbuns
+					<i class="fas fa-list mr-1"></i> Categorias
 				</a>
 			</li>
 			<li class="nav-item">

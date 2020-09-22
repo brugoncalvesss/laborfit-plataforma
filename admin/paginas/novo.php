@@ -37,9 +37,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Álbum do vídeo</label>
+                    <label>Categoria</label>
                     <select name="album" class="form-control">
-                        <option value="0">Sem álbum</option>
+                        <option value="0">Sem categoria</option>
                         <?php carregarSelectAlbuns(); ?>
                     </select>
                 </div>
@@ -52,6 +52,18 @@
                 <div class="form-group">
                     <label>Descrição</label>
                     <textarea name="descricao" rows="3" class="form-control"></textarea>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="1" name="DESTAQUE_VIDEO" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Vídeo destaque?
+                    </label>
+                </div>
+
+                <div id="defaultIntro" class="form-group d-none">
+                    <label>Texto de destaque</label>
+                    <input type="text" name="INTRO_VIDEO" value="<?= $video['INTRO_VIDEO']; ?>" class="form-control">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Salvar</button>

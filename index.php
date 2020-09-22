@@ -7,9 +7,9 @@ if (!$_SESSION['EMPRESA_USUARIO']) {
 }
 
 $arBanner = getBannerFrontPage();
-$arDestaques = getAlbumDestaque();
+$arDestaques = getVideosDestaque();
 $arAlbums = getAlbums();
-
+$arTags = getTemas();
 ?>
 
 <main>
@@ -59,29 +59,23 @@ $arAlbums = getAlbums();
 
 	<?php if (!empty($arDestaques)) : ?>
 	<section id="destaques" class="destaques mt-5 mb-4">
+		<div class="d-block mb-2 text-center">
+			<h4 class="h6 title-line">destaques WOW do dia</h4>
+		</div>
 		<div class="container">
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 				<?php foreach ($arDestaques as $destaque) : ?>
 				<div class="col">
 					<div class="card card-hover mb-3">
-						<?php if ($destaque['DESC_CATEGORIA']) : ?>
-						<div class="card-header bg-white text-center">
-							<h5 class="card-title text-primary mb-0">
-							<?= $destaque['DESC_CATEGORIA']; ?>
-							</h5>
-						</div>
-						<?php endif; ?>
-						<?php if ($destaque['IMG_CATEGORIA']) : ?>
 						<div class="card-cover">
-							<a href="./album.php?q=<?= $destaque['ID_CATEGORIA']; ?>" class="text-decoration-none">
-								<img src="./uploads/<?= $destaque['IMG_CATEGORIA']; ?>" class="img-cover" alt="<?= $destaque['NOME_CATEGORIA']; ?>">
+							<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
+								<img src="./uploads/<?= $destaque['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $destaque['NOME_VIDEO']; ?>">
 							</a>
 						</div>
-						<?php endif; ?>
 						<div class="card-body text-center">
 							<h5 class="card-title text-primary mb-0">
-								<a href="./album.php?q=<?= $destaque['ID_CATEGORIA']; ?>" class="text-decoration-none">
-									<?= $destaque['NOME_CATEGORIA']; ?>
+								<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
+									<?= $destaque['INTRO_VIDEO']; ?>
 								</a>
 							</h5>
 						</div>
@@ -93,17 +87,36 @@ $arAlbums = getAlbums();
 	</section>
 	<?php endif; ?>
 
-	<?php if (!empty($arAlbums)) : ?>
-	<section id="albums" class="albums py-4 bg-wave">
+	<section class="tags py-4 bg-wave">
 		<div class="container">
-
-			<div class="mb-5 text-center">
+		
+			<div class="text-center">
 				<div class="d-block mb-2">
 					<h4 class="h6 title-line">Tenha um dia WOW!</h4>
 				</div>
-				<div class="d-inline-block rounded-pill bg-primary text-light font-weight-800 px-4 py-3">
-					O que você precisa hoje? <i class="fas fa-chevron-down pl-1"></i>
+				<div class="dropdown">
+					<div class="d-inline-block rounded-pill bg-primary text-light font-weight-800 px-4 py-3" type="button" data-toggle="dropdown">
+						O que você precisa hoje? <i class="fas fa-chevron-down pl-1"></i>
+					</div>
+					<div class="dropdown-menu custom-dropdown">
+						<?php foreach ($arTags as $key => $tag) : ?>
+						<a class="dropdown-item" href="<?= getTagURL($key); ?>">
+							<?= $tag ?>
+						</a>
+						<?php endforeach; ?>
+					</div>
 				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<?php if (!empty($arAlbums)) : ?>
+	<section id="albums" class="albums py-5">
+		<div class="container">
+
+			<div class="d-block mb-2 text-center">
+				<h4 class="h6 title-line">Escolha uma categoria</h4>
 			</div>
 
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
@@ -111,7 +124,7 @@ $arAlbums = getAlbums();
 					<?php if ($album['IMG_CATEGORIA']) : ?>
 					<div class="col">
 						<div class="card mb-3 bg-dark bg-cover card-album" style="background-image:url(./uploads/<?= $album['IMG_CATEGORIA']; ?>)">
-							<a href="./album.php?q=<?= $album['ID_CATEGORIA']; ?>" class="card-body text-decoration-none">
+							<a href="./categoria.php?q=<?= $album['ID_CATEGORIA']; ?>" class="card-body text-decoration-none">
 								<h5 class="card-title text-center mb-0 text-light">
 									<?= $album['NOME_CATEGORIA']; ?>
 								</h5>
