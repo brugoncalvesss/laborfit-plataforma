@@ -70,8 +70,6 @@ function getAlbums()
 
     $sql = "SELECT * FROM
                 CATEGORIAS
-            WHERE
-                DESTAQUE_CATEGORIA <> 1
             ORDER BY
                 ID_CATEGORIA DESC";
     $stmt = $PDO->prepare($sql);

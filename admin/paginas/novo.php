@@ -11,16 +11,16 @@
     <div class="row mb-3">
         <div class="col-12 col-sm-7">
             
-            <form action="/admin/paginas/cadastrarVideo.php" enctype="multipart/form-data" method="post" autocomplete="off">
+            <form action="/admin/paginas/cadastrarVideo.php" method="post" enctype="multipart/form-data" autocomplete="off">
 
                 <div class="form-group">
                     <label>Nome do vídeo</label>
-                    <input type="text" name="nome" class="form-control" required>
+                    <input type="text" name="NOME_VIDEO" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label>Link do Vimeo</label>
-                    <input type="url" name="link" class="form-control" required>
+                    <input type="url" name="LINK_VIDEO" class="form-control" required>
                     <small id="linkHelpBlock" class="form-text text-muted">
                         Ex.: https://vimeo.com/65107797
                     </small>
@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                     <label>Categoria</label>
-                    <select name="album" class="form-control">
+                    <select name="ALBUM_VIDEO" class="form-control">
                         <option value="0">Sem categoria</option>
                         <?php carregarSelectAlbuns(); ?>
                     </select>
@@ -51,7 +51,7 @@
 
                 <div class="form-group">
                     <label>Descrição</label>
-                    <textarea name="descricao" rows="3" class="form-control"></textarea>
+                    <textarea name="DESC_VIDEO" rows="3" class="form-control"></textarea>
                 </div>
 
                 <div class="form-check mb-3">
@@ -63,7 +63,7 @@
 
                 <div id="defaultIntro" class="form-group d-none">
                     <label>Texto de destaque</label>
-                    <input type="text" name="INTRO_VIDEO" value="<?= $video['INTRO_VIDEO']; ?>" class="form-control">
+                    <input type="text" name="INTRO_VIDEO" value="" class="form-control">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Salvar</button>

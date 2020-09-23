@@ -123,7 +123,7 @@ $arTags = getTemas();
 				<?php foreach ($arAlbums as $album) : ?>
 					<?php if ($album['IMG_CATEGORIA']) : ?>
 					<div class="col">
-						<div class="card mb-3 bg-dark bg-cover card-album" style="background-image:url(./uploads/<?= $album['IMG_CATEGORIA']; ?>)">
+						<div class="card mb-3 border-0 bg-dark bg-cover card-album" style="background-image:url(./uploads/<?= $album['IMG_CATEGORIA']; ?>)">
 							<a href="./categoria.php?q=<?= $album['ID_CATEGORIA']; ?>" class="card-body text-decoration-none">
 								<h5 class="card-title text-center mb-0 text-light">
 									<?= $album['NOME_CATEGORIA']; ?>

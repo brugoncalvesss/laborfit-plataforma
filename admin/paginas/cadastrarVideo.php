@@ -3,12 +3,10 @@ require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
 
 $data = filter_input_array(INPUT_POST);
 
-if (empty($data)) {
-    die('Erro: Nenhuma informação enviada.');
-}
+$data['DESTAQUE_VIDEO'] = isset($data['DESTAQUE_VIDEO']) ? $data['DESTAQUE_VIDEO'] : 0;
 
-if ($data['link']) {
-    $data['link'] = getVimeoId($data['link']);
+if ($data['LINK_VIDEO']) {
+    $data['LINK_VIDEO'] = getVimeoId($data['LINK_VIDEO']);
 }
 
 if (!empty($_FILES['arquivo']['name'])) {
@@ -24,11 +22,11 @@ $sql = "INSERT INTO
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
-$stmt->bindParam(':NOME_VIDEO', $data['nome']);
-$stmt->bindParam(':LINK_VIDEO', $data['link']);
+$stmt->bindParam(':NOME_VIDEO', $data['NOME_VIDEO']);
+$stmt->bindParam(':LINK_VIDEO', $data['LINK_VIDEO']);
 $stmt->bindParam(':THUMB_VIDEO', $imagem);
-$stmt->bindParam(':DESC_VIDEO', $data['descricao']);
-$stmt->bindParam(':ALBUM_VIDEO', $data['album']);
+$stmt->bindParam(':DESC_VIDEO', $data['DESC_VIDEO']);
+$stmt->bindParam(':ALBUM_VIDEO', $data['ALBUM_VIDEO']);
 $stmt->bindParam(':TEMA_VIDEO', $data['TEMA_VIDEO']);
 $stmt->bindParam(':DESTAQUE_VIDEO', $data['DESTAQUE_VIDEO']);
 $stmt->bindParam(':INTRO_VIDEO', $data['INTRO_VIDEO']);
