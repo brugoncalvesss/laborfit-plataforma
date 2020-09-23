@@ -69,7 +69,7 @@ $arTags = getTemas();
 				<div class="d-block mb-2">
 					<h4 class="h6 title-line">Lista de vídeos WOW!</h4>
 				</div>
-				<div class="dropdown">
+				<div class="dropdown d-none">
 					<div class="d-inline-block rounded-pill bg-primary text-light font-weight-800 px-4 py-3" type="button" data-toggle="dropdown">
 						Faça um filtro por tema <i class="fas fa-chevron-down pl-1"></i>
 					</div>
