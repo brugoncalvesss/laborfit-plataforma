@@ -35,18 +35,8 @@ $usuario = $request->fetch(PDO::FETCH_ASSOC);
 					<input type="hidden" name="cpf" value="<?= $usuario['CPF_USUARIO'] ?>">
 
 					<div class="form-group">
-						<label class="small text-muted text-uppercase font-weight-bold mb-1">Departamento</label>
-						<input type="text" name="departamento" class="form-control">
-					</div>
-
-					<div class="form-group">
-						<label class="small text-muted text-uppercase font-weight-bold mb-1">Subdepartamento</label>
-						<input type="text" name="subdepartamento" class="form-control">
-					</div>
-
-					<div class="form-group">
-						<label class="small text-muted text-uppercase font-weight-bold mb-1">Nome completo</label>
-						<input type="text" class="form-control" name="nome" required>
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">Como gostaria de ser chamado?</label>
+						<input type="text" name="APELIDO_USUARIO" class="form-control" required>
 					</div>
 
 					<div class="form-group">
@@ -56,7 +46,12 @@ $usuario = $request->fetch(PDO::FETCH_ASSOC);
 
 					<div class="form-group">
 						<label class="small text-muted text-uppercase font-weight-bold mb-1">Sexo</label>
-						<input type="text" name="sexo" class="form-control">
+						<select name="SEXO_USUARIO" class="form-control">
+							<option value="ND">Selecione</option>
+							<option value="Feminino">Feminino</option>
+							<option value="Masculino">Masculino</option>
+							<option value="Não Definido">Não Definido</option>
+						</select>
 					</div>
 
 					<div class="form-group">

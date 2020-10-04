@@ -18,11 +18,21 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Nome</label>
+                    <input type="text" name="NOME_USUARIO" class="form-control">
+                </div>
+
+                <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Empresa</label>
                     <select name="EMPRESA_USUARIO" class="form-control">
                         <option value="0">Selecionar empresa</option>
                         <?= carregarSelectEmpresas(); ?>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Departamento</label>
+                    <input type="text" name="DEPARTAMENTO_USUARIO" class="form-control">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Salvar</button>

@@ -39,9 +39,10 @@ if (empty($id)) {
                     <input type="text" class="form-control" name="DEPARTAMENTO_USUARIO" value="<?= $usuario['DEPARTAMENTO_USUARIO'] ?>">
                 </div>
 
+
                 <div class="form-group">
-                    <label class="small text-uppercase font-weight-bold">Subdepartamento</label>
-                    <input type="text" class="form-control" name="SUBDEPARTAMENTO_USUARIO" value="<?= $usuario['SUBDEPARTAMENTO_USUARIO'] ?>">
+                    <label class="small text-uppercase font-weight-bold">Como gostaria de ser chamado?</label>
+                    <input type="text" name="APELIDO_USUARIO" class="form-control" value="<?= $usuario['APELIDO_USUARIO'] ?>">
                 </div>
 
                 <div class="form-group">
@@ -61,7 +62,12 @@ if (empty($id)) {
 
                 <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Sexo</label>
-                    <input type="text" class="form-control" name="SEXO_USUARIO" value="<?= $usuario['SEXO_USUARIO'] ?>">
+                    <select name="SEXO_USUARIO" class="form-control">
+                        <option value="<?= $usuario['SEXO_USUARIO'] ?>"><?= $usuario['SEXO_USUARIO'] ?></option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Não Definido">Não Definido</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
