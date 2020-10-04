@@ -34,6 +34,12 @@ $arTags = getTemas();
 
 	<?php if (!empty($arBanner)) : ?>
 	<div id="carouselBanners" class="carousel slide section-banner" data-ride="carousel">
+		<ol class="carousel-indicators">
+			<?php foreach ($arBanner as $key => $banner) : ?>
+			<?php $active = ($key < 1) ? 'active' : ''; ?>
+			<li data-target="#carouselExampleIndicators" data-slide-to="<?= $key ?>" class="<?= $active ?>"></li>
+			<?php endforeach; ?>
+		</ol>
 		<div class="carousel-inner">
 		<?php foreach ($arBanner as $key => $banner) : ?>
 			<?php $active = ($key < 1) ? 'active' : ''; ?>
