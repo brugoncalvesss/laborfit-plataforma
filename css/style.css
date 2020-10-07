@@ -72,6 +72,10 @@ a:hover, a:focus {
 /*
  * Backgrounds
  */
+.bg-blue {
+    background-color: #00befe!important;
+}
+
 .bg-cover {
     background: no-repeat center center/cover;
 }
@@ -104,6 +108,27 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
+.btn-alt {
+    font-weight: 800;
+    border-radius: 50rem;
+}
+
+.btn-primary.btn-alt {
+    font-size: 1rem;
+    background-color: #618ac5!important;
+    border-color: #618ac5!important;
+}
+
+@media (min-width: 768px) {
+    .btn-primary.btn-alt {
+        padding: 12px 20px;
+    }
+}
+
+.btn-primary.btn-alt .dropdown-toggle::after {
+    display: none;
+}
+
 .navbar-light .navbar-nav .active>.nav-link,
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
@@ -113,13 +138,19 @@ a:hover, a:focus {
 
 .section-banner,
 .section-banner .img-banner {
-    max-height: 560px;
+    max-height: 470px;
 }
 
 @media (min-width: 1100px) {
     .section-banner .img-banner {
-        height: 560px;
+        height: 470px;
     }
+}
+
+.section-banner .carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
 
 .img-banner {
@@ -207,4 +238,21 @@ a:hover, a:focus {
 
 .custom-dropdown {
     min-width: 270px;
+}
+
+/*
+ * Icones
+ */
+.icon.arrow-right,
+.icon.arrow-left {
+    width: 55px;
+    height: 55px;
+}
+
+.icon.arrow-right {
+    background: url('../img/arrow-right.png') center center no-repeat;
+}
+
+.icon.arrow-left {
+    background: url('../img/arrow-left.png') center center no-repeat;
 }

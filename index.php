@@ -53,33 +53,55 @@ $arTags = getTemas();
 		<?php endforeach; ?>
 		</div>
 		<a class="carousel-control-prev" href="#carouselBanners" role="button" data-slide="prev">
-			<i class="fas fa-chevron-left"></i>
+			<i class="icon arrow-left"></i>
 			<span class="sr-only">Previous</span>
 		</a>
 		<a class="carousel-control-next" href="#carouselBanners" role="button" data-slide="next">
-			<i class="fas fa-chevron-right"></i>
+			<i class="icon arrow-right"></i>
 			<span class="sr-only">Next</span>
 		</a>
 	<div>
 	<?php endif; ?>
 
+	<section class="tags py-5 bg-wave text-center">
+		<div class="container">
+
+			<div class="dropdown">
+				<button class="btn btn-primary btn-lg btn-alt" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				O que você precisa hoje para um dia WoW? <i class="fas fa-chevron-down pl-1"></i>
+				</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					<?php foreach ($arTags as $key => $tag) : ?>
+					<a class="dropdown-item" href="<?= getTagURL($key); ?>">
+						<?= $tag ?>
+					</a>
+					<?php endforeach; ?>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
 	<?php if (!empty($arDestaques)) : ?>
-	<section id="destaques" class="destaques mt-5 mb-4">
-		<div class="d-block mb-2 text-center">
-			<h4 class="h6 title-line">destaques WOW do dia</h4>
+	<section id="destaques" class="destaques my-4">
+		<div class="d-block mb-3 text-center">
+			<h4 class="h6 title-line">Destaques WOW do Dia</h4>
 		</div>
 		<div class="container">
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 				<?php foreach ($arDestaques as $destaque) : ?>
 				<div class="col">
 					<div class="card card-hover mb-3">
+						<div class="card-header bg-blue text-light text-center">
+							<h5 class="font-weight-600 mb-0"><?= $destaque['INTRO_VIDEO']; ?></h5>
+						</div>
 						<div class="card-cover">
 							<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
 								<img src="./uploads/<?= $destaque['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $destaque['NOME_VIDEO']; ?>">
 							</a>
 						</div>
 						<div class="card-body text-center">
-							<h5 class="card-title text-primary mb-0">
+							<h5 class="font-weight-600 text-primary mb-0">
 								<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
 									<?= $destaque['INTRO_VIDEO']; ?>
 								</a>
@@ -93,35 +115,11 @@ $arTags = getTemas();
 	</section>
 	<?php endif; ?>
 
-	<section class="tags py-4 bg-wave">
-		<div class="container">
-		
-			<div class="text-center">
-				<div class="d-block mb-2">
-					<h4 class="h6 title-line">Tenha um dia WOW!</h4>
-				</div>
-				<div class="dropdown">
-					<div class="d-inline-block rounded-pill bg-primary text-light font-weight-800 px-4 py-3" type="button" data-toggle="dropdown">
-						O que você precisa hoje? <i class="fas fa-chevron-down pl-1"></i>
-					</div>
-					<div class="dropdown-menu custom-dropdown">
-						<?php foreach ($arTags as $key => $tag) : ?>
-						<a class="dropdown-item" href="<?= getTagURL($key); ?>">
-							<?= $tag ?>
-						</a>
-						<?php endforeach; ?>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
-
 	<?php if (!empty($arAlbums)) : ?>
 	<section id="albums" class="albums py-5">
 		<div class="container">
 
-			<div class="d-block mb-2 text-center">
+			<div class="d-block mb-3 text-center">
 				<h4 class="h6 title-line">Escolha uma categoria</h4>
 			</div>
 
