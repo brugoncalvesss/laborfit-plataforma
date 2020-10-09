@@ -10,4 +10,26 @@ $(document).ready(function(){
     $('#defaultCheck1').on('change', function(e) {
         $('#defaultIntro').toggleClass('d-none');
     });
+
+    $("#sortable").sortable({
+        items : ".row",
+        update: function () {
+            const id = $(this).data('destaque');
+            const data = $(this).sortable('toArray', {
+                attribute: 'data-id'
+            });
+
+            $.ajax({
+                data: {
+                    data: JSON.stringify(data),
+                    id: id,
+                },
+                type: 'POST',
+                url: '/admin/destaques/order.php',
+                success: function (data) {
+                    // console.log(data);
+                }
+            });
+        }
+    });
 });

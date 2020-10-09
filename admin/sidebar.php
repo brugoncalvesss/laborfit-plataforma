@@ -12,6 +12,11 @@
 				</a>
 			</li>
 			<li class="nav-item">
+				<a href="/admin/destaques/" class="nav-link">
+					<i class="far fa-star mr-1"></i> Destaques
+				</a>
+			</li>
+			<li class="nav-item">
 				<a href="/admin/banners/" class="nav-link">
 					<i class="far fa-images mr-1"></i> Banners
 				</a>
