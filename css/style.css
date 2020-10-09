@@ -136,18 +136,17 @@ a:hover, a:focus {
     color: #618ac5!important;
 }
 
-.section-banner,
-.section-banner .img-banner {
-    max-height: 470px;
-}
+/*
+ * Banners
+ */
 
-@media (min-width: 1100px) {
-    .section-banner .img-banner {
-        height: 470px;
+@media (min-width: 992px) {
+    .carousel .carousel-inner {
+        max-height: 470px;
     }
 }
 
-.section-banner .carousel-indicators li {
+.carousel-indicators li {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -191,6 +190,16 @@ a:hover, a:focus {
     .card-destaque .cover {
         max-height: 450px;
     } 
+}
+
+.destaques .card .center-title {
+    min-height: 50px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 /*
