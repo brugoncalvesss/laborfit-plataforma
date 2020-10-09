@@ -7,7 +7,6 @@ if (!$_SESSION['EMPRESA_USUARIO']) {
 }
 
 $arBanner = getBannerFrontPage();
-$arDestaques = getVideosDestaque();
 $arAlbums = getAlbums();
 $arTags = getTemas();
 ?>
@@ -34,13 +33,13 @@ $arTags = getTemas();
 
 	<?php if (!empty($arBanner)) : ?>
 	<div id="carouselBanners" class="carousel slide section-banner" data-ride="carousel">
+		<div class="carousel-inner">
 		<ol class="carousel-indicators">
 			<?php foreach ($arBanner as $key => $banner) : ?>
 			<?php $active = ($key < 1) ? 'active' : ''; ?>
 			<li data-target="#carouselExampleIndicators" data-slide-to="<?= $key ?>" class="<?= $active ?>"></li>
 			<?php endforeach; ?>
 		</ol>
-		<div class="carousel-inner">
 		<?php foreach ($arBanner as $key => $banner) : ?>
 			<?php $active = ($key < 1) ? 'active' : ''; ?>
 			<?php if (file_exists('./uploads/'.$banner['IMG_BANNER'])) : ?>
@@ -51,7 +50,6 @@ $arTags = getTemas();
 				</div>
 			<?php endif; ?>
 		<?php endforeach; ?>
-		</div>
 		<a class="carousel-control-prev" href="#carouselBanners" role="button" data-slide="prev">
 			<i class="icon arrow-left"></i>
 			<span class="sr-only">Previous</span>
@@ -60,6 +58,7 @@ $arTags = getTemas();
 			<i class="icon arrow-right"></i>
 			<span class="sr-only">Next</span>
 		</a>
+		</div>
 	<div>
 	<?php endif; ?>
 
@@ -82,26 +81,27 @@ $arTags = getTemas();
 		</div>
 	</section>
 
-	<?php if (!empty($arDestaques)) : ?>
+	<?php $arDestaques = getVideosDestaque(); ?>
+	<?php if (!empty($arDestaques)) : ?>	
 	<section id="destaques" class="destaques my-4">
 		<div class="d-block mb-3 text-center">
 			<h4 class="h6 title-line">Destaques WOW do Dia</h4>
 		</div>
 		<div class="container">
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+			<div class="row">
 				<?php foreach ($arDestaques as $destaque) : ?>
 				<div class="col">
 					<div class="card card-hover mb-3">
-						<div class="card-header bg-blue text-light text-center">
-							<h5 class="font-weight-600 mb-0"><?= $destaque['INTRO_VIDEO']; ?></h5>
+						<div class="card-header bg-blue text-light text-center border-0">
+							<h5 class="font-weight-600 mb-0"><?= $destaque['NOME_DESTAQUE']; ?></h5>
 						</div>
 						<div class="card-cover">
 							<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
 								<img src="./uploads/<?= $destaque['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $destaque['NOME_VIDEO']; ?>">
 							</a>
 						</div>
-						<div class="card-body text-center">
-							<h5 class="font-weight-600 text-primary mb-0">
+						<div class="card-body py-3 text-center">
+							<h5 class="center-title font-weight-600 text-primary mb-0">
 								<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
 									<?= $destaque['INTRO_VIDEO']; ?>
 								</a>
@@ -116,7 +116,7 @@ $arTags = getTemas();
 	<?php endif; ?>
 
 	<?php if (!empty($arAlbums)) : ?>
-	<section id="albums" class="albums py-5">
+	<section id="albums" class="albums py-4">
 		<div class="container">
 
 			<div class="d-block mb-3 text-center">
