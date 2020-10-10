@@ -46,8 +46,8 @@ $arVideos = getVideosbyTagName($tag);
             <?php if (!empty($arVideos)) : ?>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                 <?php foreach ($arVideos as $video) : ?>
-                <div class="col">
-					<div class="card card-hover mb-3">
+                <div class="col mb-3">
+					<div class="card card-hover h-100">
 						<div class="card-cover">
 							<a href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none">
 								<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $video['NOME_VIDEO']; ?>">

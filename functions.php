@@ -363,3 +363,32 @@ function verificaSeExisteDestaque()
     }
 
 }
+
+function getVideoDestaqueCategoria(int $idCategoria)
+{
+    if (!$idCategoria) {
+        return false;
+    }
+
+    $PDO = db_connect();
+    $sql = "SELECT * FROM
+                VIDEOS
+            WHERE
+                VIDEOS.STATUS_VIDEO = 1
+                AND VIDEOS.ALBUM_VIDEO = :ALBUM_VIDEO
+            ORDER BY
+                VIDEOS.ID_VIDEO
+            DESC";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':ALBUM_VIDEO', $idCategoria, PDO::PARAM_INT);
+
+    try{
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
+    }
+
+	return $result;
+}

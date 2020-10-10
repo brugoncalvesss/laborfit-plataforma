@@ -2,21 +2,37 @@
 require('control.php');
 require('_header.php');
 
-$idAlbum = isset($_GET['q']) ? $_GET['q'] : null;
+$idCategoria = isset($_GET['q']) ? $_GET['q'] : null;
 $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : null;
 
-if (!$idAlbum) {
+if (!$idCategoria) {
 	die("Erro: Não foi informado o álbum.");
 }
 
-if ($filtro) {
-	$arVideos = getAlbumFiltro($idAlbum, $filtro);
-} else {
-	$arVideos = getAlbum($idAlbum);
+// echo date('w');
+// die("*");
+
+$arCategoriaDestaque = getVideoDestaqueCategoria($idCategoria);
+
+if ($arCategoriaDestaque) {
+	$randVideo = date('w');
+
+	if (count($arCategoriaDestaque) > 30) {
+		$randVideo = date('d');
+	}
+	
+	$categoriaDestaque = $arCategoriaDestaque[$randVideo] ?
+		$arCategoriaDestaque[$randVideo] :
+		$arCategoriaDestaque[0];
 }
 
-$categoria = getCategoria($idAlbum);
-$arTags = getTemas();
+if ($filtro) {
+	$arVideos = getAlbumFiltro($idCategoria, $filtro);
+} else {
+	$arVideos = getAlbum($idCategoria);
+}
+
+$categoria = getCategoria($idCategoria);
 ?>
 
 <main>
@@ -39,83 +55,88 @@ $arTags = getTemas();
 		</div>
 	</nav>
 
-	<?php if ($categoria) : ?>
-	<header class="video-header bg-wave-primary text-light text-center py-4">
-		<h1 class="text-light font-weight-600 mt-2">
-			<?= $categoria['NOME_CATEGORIA']; ?>
-		</h1>
-		<h2 class="h4"><?= $categoria['DESC_CATEGORIA']; ?></h2>
+	<header class="bg-wave-primary bg-header-video">
 	</header>
 
-	<section class="video-content">
+	<div class="page push-content">
+
 		<div class="container">
-			<div class="row">
-				<div class="col-12 col-md-10 offset-md-1">
-					<div class="card card-destaque border-0">
-						<div class="video-border bg-dark">
-							<img src="./uploads/<?= $categoria['IMG_CATEGORIA']; ?>" class="img-fluid cover">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<?php endif; ?>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb breadcrumb-light bg-transparent">
+					<li class="breadcrumb-item"><a href="/">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page"><?= $categoria['NOME_CATEGORIA']; ?></li>
+				</ol>
+			</nav>
 
-	<section id="videos" class="videos py-5">
-		<div class="container">
-			
-			<div class="mb-5 text-center">
-				<div class="d-block mb-2">
-					<h4 class="h6 title-line">Lista de vídeos WOW!</h4>
-				</div>
-				<div class="dropdown d-none">
-					<div class="d-inline-block rounded-pill bg-primary text-light font-weight-800 px-4 py-3" type="button" data-toggle="dropdown">
-						Faça um filtro por tema <i class="fas fa-chevron-down pl-1"></i>
-					</div>
-					<div class="dropdown-menu custom-dropdown">
-						<?php foreach ($arTags as $tag) : ?>
-						<a class="dropdown-item" href="<?= getTemaURL($idAlbum, $tag); ?>">
-							<?= $tag ?>
-						</a>
-						<?php endforeach; ?>
-					</div>
-				</div>
-			</div>
+			<section class="text-center">
+				<h1 class="text-light font-weight-600 mt-2">
+					<?= $categoria['NOME_CATEGORIA']; ?>
+				</h1>
+				<h2 class="h4 d-inline-block text-truncate" style="max-width: 100%">
+					<?= $categoria['DESC_CATEGORIA']; ?>
+				</h2>
+			</section>
 
-			<?php if (!empty($arVideos)) : ?>
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-
-				<?php foreach ($arVideos as $video) : ?>
-				<div class="col">
-					<div class="card card-video mb-3">
-						<?php if ($video['THUMB_VIDEO']) : ?>
-						<div class="card-cover">
-							<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
-								<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
-							</a>
-						</div>
-						<?php endif; ?>
-						<div class="card-body">
-							<h5 class="card-title text-center text-primary mb-0">
-								<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
-									<?= $video['NOME_VIDEO']; ?>
+			<section class="video-content">
+				<div class="row">
+					<div class="col-12 col-md-10 offset-md-1">
+						<div class="card card-destaque border-0">
+							<?php if (!empty($categoriaDestaque)) : ?>
+							<div class="video-border bg-dark">
+								<a id="ver-video" href="./video.php?v=<?= $categoriaDestaque['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $categoriaDestaque['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
+									<img src="./uploads/<?= $categoriaDestaque['THUMB_VIDEO']; ?>" class="img-fluid cover">
 								</a>
-							</h5>
+							</div>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>
-				<?php endforeach; ?>
+			</section>
 
-			</div><!-- end row -->
-			<?php else: ?>
-			<div class="alert alert-primary" role="alert">
-				Nenhum vídeo cadastrado nesse álbum.
-			</div>
-			<?php endif; ?>
+			<section id="videos" class="videos py-5">
 
+				<div class="mb-5 text-center">
+					<div class="d-block mb-2">
+						<h4 class="h6 title-line">Lista de vídeos WOW!</h4>
+					</div>
+				</div>
+
+				<?php if (!empty($arVideos)) : ?>
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+
+					<?php foreach ($arVideos as $video) : ?>
+					<div class="col mb-3">
+						<div class="card card-video h-100">
+							<?php if ($video['THUMB_VIDEO']) : ?>
+							<div class="card-cover">
+								<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
+									<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
+								</a>
+							</div>
+							<?php endif; ?>
+							<div class="card-body">
+								<h5 class="card-title text-center text-primary mb-0">
+									<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
+										<?= $video['NOME_VIDEO']; ?>
+									</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<?php endforeach; ?>
+
+				</div><!-- end row -->
+				<?php else: ?>
+				<div class="alert alert-primary" role="alert">
+					Nenhum vídeo cadastrado nessa categoria.
+				</div>
+				<?php endif; ?>
+
+			</section>
+			
 		</div>
-	</section>
+
+	</div>
 
 </main>
 

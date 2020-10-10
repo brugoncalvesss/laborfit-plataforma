@@ -65,13 +65,18 @@ a:hover, a:focus {
     color: #618ac5!important;
 }
 
+
+/*
+* Backgrounds
+*/
 .bg-primary {
     background-color: #618ac5!important;
 }
 
-/*
- * Backgrounds
- */
+.bg-transparent {
+    background: transparent!important;
+}
+
 .bg-blue {
     background-color: #00befe!important;
 }
@@ -160,13 +165,20 @@ a:hover, a:focus {
  * Page vídeo
  */
 
+.bg-header-video {
+    height: 280px;
+}
+
+.push-content {
+    margin-top: -270px;
+}
+
 .video-header {
     min-height: 300px;
 }
 
 .video-content {
     position: relative;
-    margin-top: -170px;
 }
 
 .video-content .video-border {
@@ -190,16 +202,6 @@ a:hover, a:focus {
     .card-destaque .cover {
         max-height: 450px;
     } 
-}
-
-.destaques .card .center-title {
-    min-height: 50px;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: center;
-    justify-content: center;
 }
 
 /*
@@ -264,4 +266,21 @@ a:hover, a:focus {
 
 .icon.arrow-left {
     background: url('../img/arrow-left.png') center center no-repeat;
+}
+
+/*
+ * breadcrumb
+ */
+.breadcrumb-light .breadcrumb-item,
+.breadcrumb-light a {
+    font-weight: 600;
+    color: rgba(255,255,255,.9);
+}
+
+.breadcrumb-light a {
+    color: rgba(255,255,255,1)
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: rgba(255,255,255,8);
 }

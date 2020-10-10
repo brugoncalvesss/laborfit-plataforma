@@ -90,8 +90,8 @@ $arTags = getTemas();
 		<div class="container">
 			<div class="row">
 				<?php foreach ($arDestaques as $destaque) : ?>
-				<div class="col">
-					<div class="card card-hover mb-3">
+				<div class="col mb-3">
+					<div class="card card-hover h-100">
 						<div class="card-header bg-blue text-light text-center border-0">
 							<h5 class="font-weight-600 mb-0"><?= $destaque['NOME_DESTAQUE']; ?></h5>
 						</div>
@@ -101,7 +101,7 @@ $arTags = getTemas();
 							</a>
 						</div>
 						<div class="card-body py-3 text-center">
-							<h5 class="center-title font-weight-600 text-primary mb-0">
+							<h5 class="font-weight-600 text-primary mb-0">
 								<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
 									<?= $destaque['INTRO_VIDEO']; ?>
 								</a>
