@@ -101,3 +101,43 @@ function carregarSelectEmpresas(int $idEmpresa = null)
 	}
 }
 
+function verificaCpfUsuarioExistente($cpf)
+{
+	if (!$cpf) {
+		return false;
+	}
+
+	$PDO = db_connect();
+	$sql = "SELECT COUNT(ID_USUARIO) FROM USUARIOS WHERE CPF_USUARIO = :CPF_USUARIO LIMIT 1";
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindParam(':CPF_USUARIO', $cpf);
+	$stmt->execute();
+	
+	if ($stmt->fetchColumn()) {
+		return 1;
+	}
+
+	return 0;
+}
+
+
+function verificaIdEmpresa($empresa)
+{
+	if (!$empresa) {
+		return 0;
+	}
+
+	$PDO = db_connect();
+	$sql = "SELECT ID_EMPRESA FROM EMPRESAS
+			WHERE NOME_EMPRESA LIKE :NOME_EMPRESA   
+			LIMIT 1";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':NOME_EMPRESA', '%'.$empresa.'%');
+	
+	if ($stmt->execute()) {
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
+	return 0;
+}

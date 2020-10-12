@@ -11,22 +11,18 @@
     <div class="row mb-3">
         <div class="col-12 col-sm-7">
 
-            <form action="/admin/usuarios/loteUsuario.php" method="post" autocomplete="off">
+            <form action="/admin/usuarios/putLote.php" method="post" enctype="multipart/form-data" autocomplete="off">
 
                 <div class="form-group">
-                    <label class="small text-uppercase font-weight-bold">Empresa</label>
-                    <select name="EMPRESA_USUARIO" class="form-control">
-                        <option value="0">Selecionar empresa</option>
-                        <?= carregarSelectEmpresas(); ?>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="small text-uppercase font-weight-bold">CPF</label>
-                    <textarea name="CPF_USUARIO" rows="4" class="form-control" required></textarea>
+                    <label>Arquivo</label>
+                    <div class="input-group">
+                        <div class="custom-file" lang="pt-br">
+                            <input type="file" class="custom-file-input" name="arquivo" id="inputGroupFile">
+                            <label class="custom-file-label" for="inputGroupFile"></label>
+                        </div>
+                    </div>
                     <small id="passwordHelpBlock" class="form-text text-muted">
-                        <p>Lista de CPFs separados por <code>;</code>(ponto e vírgula)</p>
-                        <p>498.957.172-02;<br>492.839.992-74;<br>216.336.663-44;<br>511.375.765-96;<br>...</p>
+                        <p><a href="#">Clique aqui</a> para baixar o arquivo <code>.csv</code></p>
                     </small>
                 </div>
 
