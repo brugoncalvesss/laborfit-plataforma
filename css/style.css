@@ -284,3 +284,10 @@ a:hover, a:focus {
 .breadcrumb-item+.breadcrumb-item::before {
     color: rgba(255,255,255,8);
 }
+
+.center-title {
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

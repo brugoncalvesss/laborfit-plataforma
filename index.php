@@ -88,10 +88,10 @@ $arTags = getTemas();
 			<h4 class="h6 title-line">Destaques WOW do Dia</h4>
 		</div>
 		<div class="container">
-			<div class="row">
+			<div class="owl-carousel">
 				<?php foreach ($arDestaques as $destaque) : ?>
-				<div class="col mb-3">
-					<div class="card card-hover h-100">
+				<div class="col-item">
+					<div class="card card-hover">
 						<div class="card-header bg-blue text-light text-center border-0">
 							<h5 class="font-weight-600 mb-0"><?= $destaque['NOME_DESTAQUE']; ?></h5>
 						</div>
@@ -100,8 +100,8 @@ $arTags = getTemas();
 								<img src="./uploads/<?= $destaque['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $destaque['NOME_VIDEO']; ?>">
 							</a>
 						</div>
-						<div class="card-body py-3 text-center">
-							<h5 class="font-weight-600 text-primary mb-0">
+						<div class="card-body text-center">
+							<h5 class="center-title font-weight-600 text-primary mb-0">
 								<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
 									<?= $destaque['INTRO_VIDEO']; ?>
 								</a>

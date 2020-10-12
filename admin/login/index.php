@@ -35,6 +35,10 @@ session_start();
 						<h2 class="h2">Log In</h2>
 					</div>
 
+					<?php if (isset($_GET['status']) && $_GET['status'] == '500') : ?>
+					<div class="alert alert-danger">Senha incorreta.</div>
+					<?php endif; ?>
+
 					<div class="form-group">
 						<label class="small text-muted font-weight-bold mb-1" for="email">
 							Email

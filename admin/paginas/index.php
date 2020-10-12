@@ -1,4 +1,8 @@
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php'); ?>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php';
+
+$search = isset($_GET['q']) ? $_GET['q'] : null;
+?>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 	
@@ -11,14 +15,11 @@
         </div>
 	</header>
     
-    <div>
+    <div class="mb-5">
 		<?php
 		$PDO = db_connect();
-		$sql = "SELECT * FROM
-                    VIDEOS
-                ORDER BY
-                    ID_VIDEO
-                DESC";
+
+		$sql = "SELECT * FROM VIDEOS ORDER BY VIDEOS.NOME_VIDEO ASC";
 		$stmt = $PDO->prepare($sql);
 
 		try{
@@ -30,22 +31,33 @@
 		?>
 
 		<?php if (count($arVideos) > 0) : ?>
-			<?php foreach ($arVideos as $video) : ?>
-			<div class="row align-items-center no-gutters border-bottom mb-2 pb-2">
-				<div class="col">
-					<?= $video['NOME_VIDEO']; ?>
-				</div>
-				<div class="col col-auto">
-					<a class="btn btn-link" href="/admin/paginas/editar.php?id=<?= $video['ID_VIDEO']; ?>">
-						<i class="far fa-edit"></i>
-					</a>
-					<a class="btn btn-link" href="/admin/paginas/deletarVideo.php?id=<?= $video['ID_VIDEO'] ?>">
-						<i class="far fa-trash-alt"></i>
-					</a>
-				</div>
-			</div>
-			<?php endforeach; ?>
+		<div class="table-responsive datatable-custom">
+			<table id="basicDatatable" class="table table-borderless card-table">
+				<thead class="thead-light">
+					<tr>
+						<th>Nome</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($arVideos as $video) : ?>
+					<tr>
+						<td><?= $video['NOME_VIDEO']; ?></td>
+						<td class="text-right">
+							<a class="btn-link mx-2" href="/admin/paginas/editar.php?id=<?= $video['ID_VIDEO']; ?>">
+								<i class="far fa-edit"></i>
+							</a>
+							<a class="btn-link mx-2" href="/admin/paginas/deletarVideo.php?id=<?= $video['ID_VIDEO'] ?>">
+								<i class="far fa-trash-alt"></i>
+							</a>
+						</td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+		   </table>
+		</div>
 		<?php endif; ?>
+
     </div>
 	
 </main>

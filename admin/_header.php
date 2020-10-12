@@ -20,6 +20,8 @@ session_start();
 		
 		<link rel="stylesheet" href="/admin/css/style.css">
 
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
 		<title>Plataforma</title>
 	</head>
 	<body>

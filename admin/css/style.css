@@ -2,6 +2,10 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
+:focus {
+    outline: none;
+}
+
 a:focus {
 	outline: none;
 }
@@ -85,4 +89,48 @@ label {
 .label-info {
     color: #377dff;
     background-color: rgba(55,125,255,.1);
+}
+
+/*
+ * Table
+ */
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #677788;
+}
+
+.table thead th {
+    font-size: .75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.table-thead-bordered thead th {
+    border-top: .0625rem solid rgba(231,234,243,.7);
+    border-bottom: .0625rem solid rgba(231,234,243,.7);
+}
+
+.table .thead-light th {
+    color: #677788;
+    background-color: #f8fafd;
+    border-color: rgba(231,234,243,.7);
+}
+
+.table-borderless tbody+tbody, .table-borderless td, .table-borderless th, .table-borderless thead th {
+    border: 0;
+}
+
+.card-table td, .card-table th {
+    padding-right: 1.3125rem;
+    padding-left: 1.3125rem;
+}
+
+.datatable-custom .sorting,
+.datatable-custom .sorting_asc,
+.datatable-custom .sorting_desc {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
 }

@@ -15,7 +15,7 @@
     <div class="card mb-3">
     <?php
         $PDO = db_connect();
-        $sql = "SELECT * FROM USUARIOS";
+        $sql = "SELECT * FROM USUARIOS ORDER BY USUARIOS.NOME_USUARIO ASC";
         $stmt = $PDO->prepare($sql);
     
         try{

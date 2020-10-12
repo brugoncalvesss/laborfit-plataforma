@@ -13,7 +13,7 @@
           </div>
 
           <?php if (isset($_GET['status']) && $_GET['status'] == '500') : ?>
-          <code>Senha incorreta.</code>
+          <div class="alert alert-danger">Senha incorreta.</div>
           <?php endif; ?>
 
           <div class="form-group">

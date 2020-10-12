@@ -17,6 +17,8 @@
 		<!-- TagInput -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
 
+		<link rel="stylesheet" href="./css/owl.carousel.min.css">
+
 		<!-- Google Tag Manager -->
 		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

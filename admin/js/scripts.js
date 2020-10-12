@@ -32,4 +32,19 @@ $(document).ready(function(){
             });
         }
     });
+
+    $('#basicDatatable').DataTable({
+        "info": false,
+        "filter": true,
+        "pageLength": 20,
+        "pagingType": "numbers",
+        "lengthChange": false,
+        "columns": [
+            null,
+            {
+                "orderable": false
+            }
+        ],
+        "language": { search: "Procurar: " }
+    });
 });
