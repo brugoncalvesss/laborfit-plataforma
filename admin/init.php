@@ -141,3 +141,27 @@ function verificaIdEmpresa($empresa)
 
 	return 0;
 }
+
+function carregarCategorias(int $idCategoria = null) {
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM
+				CATEGORIAS
+			ORDER BY
+				NOME_CATEGORIA
+			ASC";
+	$stmt = $PDO->prepare($sql);
+	$stmt->execute();
+	$albuns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	if (!empty($albuns)) {
+		foreach ($albuns as $album) {
+			$selected = false;
+			if ($idAlbum && ($album['ID_CATEGORIA'] == $idAlbum)) {
+				$selected = 'selected';
+			}
+			$option = "<option {$selected} value='{$album['ID_CATEGORIA']}'>{$album['NOME_CATEGORIA']}</option>";
+			echo $option;
+		}
+	}
+}

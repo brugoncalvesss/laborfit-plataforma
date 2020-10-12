@@ -16,6 +16,10 @@
                     <label class="small text-uppercase font-weight-bold">Nome</label>
                     <input type="text" class="form-control" name="NOME_TEMA" required>
                 </div>
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Descrição</label>
+                    <textarea name="DESCRICAO_TEMA" class="form-control" rows="2"></textarea>
+                </div>
                 <button class="btn btn-primary">Salvar</button>
             </form>
 

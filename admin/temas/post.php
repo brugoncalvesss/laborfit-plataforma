@@ -7,15 +7,15 @@ if (empty($data)) {
     die('Erro: Tema não informado.');
 }
 
-
 $sql = "INSERT INTO
-            TEMAS (NOME_TEMA)
+            TEMAS (NOME_TEMA, DESCRICAO_TEMA)
         VALUES
-            (:NOME_TEMA)";
+            (:NOME_TEMA, :DESCRICAO_TEMA)";
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_TEMA', $data['NOME_TEMA']);
+$stmt->bindParam(':DESCRICAO_TEMA', $data['DESCRICAO_TEMA']);
 
 try {
     $stmt->execute();

@@ -1,7 +1,9 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php');
+require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/init.php';
 
 $data = filter_input_array(INPUT_POST);
+print_r($data);
+die("-");
 
 $data['DESTAQUE_VIDEO'] = isset($data['DESTAQUE_VIDEO']) ? $data['DESTAQUE_VIDEO'] : 0;
 

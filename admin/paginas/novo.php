@@ -40,7 +40,7 @@
                     <label>Categoria</label>
                     <select name="ALBUM_VIDEO" class="form-control">
                         <option value="0">Sem categoria</option>
-                        <?php carregarSelectAlbuns(); ?>
+                        <?php carregarCategorias(); ?>
                     </select>
                 </div>
 
