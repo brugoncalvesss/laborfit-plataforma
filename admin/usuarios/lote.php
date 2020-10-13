@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <small id="passwordHelpBlock" class="form-text text-muted">
-                        <p><a href="#">Clique aqui</a> para baixar o arquivo <code>.csv</code></p>
+                        <p><a href="/arquivos/base.csv">Clique aqui</a> para baixar o arquivo <code>.csv</code></p>
                     </small>
                 </div>
 
