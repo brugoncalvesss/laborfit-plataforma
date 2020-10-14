@@ -10,8 +10,7 @@ $(document).ready(function(){
         items: 3,
         responsive:{
             0: {
-                items: 1.1,
-                // stagePadding: 100
+                items: 1.2,
             },
             768: {
                 items: 2,
