@@ -20,7 +20,8 @@ if (empty($id)) {
 	<div class="mb-3">
 		<?php
 		$PDO = db_connect();
-		$sql = "SELECT * FROM VIDEOS WHERE ID_VIDEO = :ID_VIDEO";
+		$sql = "SELECT * FROM VIDEOS
+				WHERE VIDEOS.ID_VIDEO = :ID_VIDEO";
 		$stmt = $PDO->prepare($sql);
 		$stmt->bindParam(':ID_VIDEO', $id, PDO::PARAM_INT);
 		
@@ -29,6 +30,24 @@ if (empty($id)) {
 			$video = $stmt->fetch(PDO::FETCH_ASSOC);
 		} catch(PDOException $e) {
 			throw new Exception("Erro ao carregar banner: " . $e->getMessage());
+		}
+
+		$arCategorias = getCategoriasByIdVideo($video['ID_VIDEO']);
+		$categorias = '';
+		if (!empty($arCategorias)) {
+			$categorias = implode(
+				', ',
+				array_unique(array_column($arCategorias, 'NOME_CATEGORIA'))
+			);
+		}
+
+		$arTemas = getTemasByIdVideo($video['ID_VIDEO']);
+		$temas = '';
+		if (!empty($arTemas)) {
+			$temas = implode(
+				', ',
+				array_unique(array_column($arTemas, 'NOME_TEMA'))
+			);
 		}
 		?>
 
@@ -65,7 +84,7 @@ if (empty($id)) {
                     </div>
 
 					<div class="form-group">
-						<label>Categoria</label>
+						<label>Categoria <code>TODO: DELETAR DEPOIS DE MIGRAR</code></label>
 						<select name="album" class="form-control">
 							<option value="0">Sem categoria</option>
 							<?php carregarSelectAlbuns($video['ALBUM_VIDEO']); ?>
@@ -73,8 +92,22 @@ if (empty($id)) {
 					</div>
 
 					<div class="form-group">
-						<label>Tema</label>
+						<label>Tema <code>TODO: DELETAR DEPOIS DE MIGRAR</code></label>
 						<input type="text" name="TEMA_VIDEO" data-role="tagsinput" id="tags" value="<?= $video['TEMA_VIDEO']; ?>" class="form-control">
+					</div>
+
+					<div class="form-group">
+						<label>Categoria</label>
+						<textarea id="tagCategoria" name='CATEGORIAS' class="form-control">
+						<?= $categorias; ?>
+						</textarea>
+					</div>
+
+					<div class="form-group">
+						<label>Temas</label>
+						<textarea id="tagTema" name='TEMAS' class="form-control">
+						<?= $temas; ?>
+						</textarea>
 					</div>
 
                     <div class="form-group">

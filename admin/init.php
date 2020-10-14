@@ -165,3 +165,120 @@ function carregarCategorias(int $idCategoria = null) {
 		}
 	}
 }
+
+function getIdPorNomeCategoria(string $categoria)
+{
+	if (!$categoria) {
+		return 0;
+	}
+
+	$PDO = db_connect();
+	$sql = "SELECT ID_CATEGORIA FROM CATEGORIAS
+			WHERE NOME_CATEGORIA LIKE :NOME_CATEGORIA   
+			LIMIT 1";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':NOME_CATEGORIA', '%'.$categoria.'%');
+	
+	if ($stmt->execute()) {
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
+	return 0;
+}
+
+
+function getIdPorNomeTema(string $tema)
+{
+	if (!$tema) {
+		return 0;
+	}
+
+	$PDO = db_connect();
+	$sql = "SELECT ID_TEMA FROM TEMAS
+			WHERE NOME_TEMA LIKE :NOME_TEMA   
+			LIMIT 1";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':NOME_TEMA', '%'.$tema.'%');
+	
+	if ($stmt->execute()) {
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
+
+	return 0;
+}
+
+function deleteCategoriaPorIdVideo(int $id)
+{
+	if (!$id)  return 0;
+	
+	$PDO = db_connect();
+	$sql = "DELETE FROM CATEGORIAS_VIDEOS WHERE ID_VIDEO = :ID_VIDEO";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':ID_VIDEO', $id);
+	
+	if ($stmt->execute()) {
+		return 1;
+	}
+
+	return 0;
+}
+
+function deleteTemaPorIdVideo(int $id)
+{
+	if (!$id)  return 0;
+	
+	$PDO = db_connect();
+	$sql = "DELETE FROM TEMAS_VIDEOS WHERE ID_VIDEO = :ID_VIDEO";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':ID_VIDEO', $id);
+	
+	if ($stmt->execute()) {
+		return 1;
+	}
+
+	return 0;
+}
+
+function getCategoriasByIdVideo(int $id)
+{
+	if (!$id)  return 0;
+
+	$PDO = db_connect();
+	$sql = "SELECT * FROM CATEGORIAS
+			INNER JOIN CATEGORIAS_VIDEOS ON
+				CATEGORIAS_VIDEOS.ID_CATEGORIA = CATEGORIAS.ID_CATEGORIA
+			WHERE
+				CATEGORIAS_VIDEOS.ID_VIDEO = :ID_VIDEO";
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindParam(':ID_VIDEO', $id, PDO::PARAM_INT);
+	
+	if ($stmt->execute()) {
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	return 0;
+}
+
+function getTemasByIdVideo(int $id)
+{
+	if (!$id)  return 0;
+
+	$PDO = db_connect();
+	$sql = "SELECT * FROM TEMAS
+			INNER JOIN TEMAS_VIDEOS ON
+				TEMAS_VIDEOS.ID_TEMA = TEMAS.ID_TEMA
+			WHERE
+				TEMAS_VIDEOS.ID_VIDEO = :ID_VIDEO";
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindParam(':ID_VIDEO', $id, PDO::PARAM_INT);
+	
+	if ($stmt->execute()) {
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	return 0;
+}

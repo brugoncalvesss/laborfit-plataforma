@@ -134,3 +134,7 @@ label {
     cursor: pointer;
     overflow: hidden;
 }
+
+.tagify.form-control {
+    height: auto;
+}

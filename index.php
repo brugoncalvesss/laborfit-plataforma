@@ -100,7 +100,7 @@ $arTags = getTemas();
 								<img src="./uploads/<?= $destaque['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $destaque['NOME_VIDEO']; ?>">
 							</a>
 						</div>
-						<div class="card-body text-center">
+						<div class="card-body text-center d-none">
 							<h5 class="center-title font-weight-600 text-primary mb-0">
 								<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
 									<?= $destaque['INTRO_VIDEO']; ?>

@@ -38,26 +38,13 @@
 
                 <div class="form-group">
                     <label>Categoria</label>
-                    <select name="ALBUM_VIDEO" class="form-control">
-                        <option value="0">Sem categoria</option>
-                        <?php carregarCategorias(); ?>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Tema</label>
-                    <input type="text" name="TEMA_VIDEO" data-role="tagsinput" id="tags" class="form-control">
-                </div>
-
-                <!-- <div class="form-group">
-                    <label>Categoria</label>
                     <textarea id="tagCategoria" name='CATEGORIAS' class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label>Temas</label>
                     <textarea id="tagTema" name='TEMAS' class="form-control"></textarea>
-                </div> -->
+                </div>
 
                 <div class="form-group">
                     <label>Descrição</label>
