@@ -35,6 +35,11 @@
                     <input type="text" name="DEPARTAMENTO_USUARIO" class="form-control">
                 </div>
 
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Cargo</label>
+                    <input type="text" name="CARGO_USUARIO" class="form-control">
+                </div>
+
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
 

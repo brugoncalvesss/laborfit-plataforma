@@ -39,9 +39,13 @@ if (empty($id)) {
                     <input type="text" class="form-control" name="DEPARTAMENTO_USUARIO" value="<?= $usuario['DEPARTAMENTO_USUARIO'] ?>">
                 </div>
 
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Cargo</label>
+                    <input type="text" name="CARGO_USUARIO" class="form-control" value="<?= $usuario['CARGO_USUARIO'] ?>">
+                </div>
 
                 <div class="form-group">
-                    <label class="small text-uppercase font-weight-bold">Como gostaria de ser chamado?</label>
+                    <label class="small text-uppercase font-weight-bold">Como gostaria de ser chamado(a)?</label>
                     <input type="text" name="APELIDO_USUARIO" class="form-control" value="<?= $usuario['APELIDO_USUARIO'] ?>">
                 </div>
 

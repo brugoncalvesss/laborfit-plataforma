@@ -224,16 +224,6 @@ function getTemas()
 	return 0;
 }
 
-function getTemaURL($idAlbum = null, $filtro = null) {
-    $url = "/categoria.php?q=".$idAlbum."&filtro=".$filtro;
-    return $url;
-}
-
-function getTagURL($key) {
-    $url = "/tag.php?q=".$key;
-    return $url; 
-}
-
 function getAlbumFiltro(int $id, string $filtro)
 {
     if (!$id || !$filtro) {

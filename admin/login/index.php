@@ -24,38 +24,42 @@ session_start();
 	</head>
 	<body>
 
-<main class="bg-light">
+<main class="bg-wow-back">
 	<div class="container">
 		<div class="row align-items-center justify-content-center no-gutters min-vh-100">
 			<div class="col-12 col-md-8 col-lg-5">
 
-				<form action="/admin/login/login.php" method="post" class="mb-4" autocomplete="off">
+				<div class="card p-4">
 
-					<div class="text-left">
-						<h2 class="h2">Log In</h2>
-					</div>
+					<form action="/admin/login/login.php" method="post" autocomplete="off">
 
-					<?php if (isset($_GET['status']) && $_GET['status'] == '500') : ?>
-					<div class="alert alert-danger">Senha incorreta.</div>
-					<?php endif; ?>
+						<div class="text-left">
+							<h2 class="h2">Log In</h2>
+						</div>
 
-					<div class="form-group">
-						<label class="small text-muted font-weight-bold mb-1" for="email">
-							Email
-						</label>
-						<input type="email" class="form-control" name="email" id="email" required>
-					</div>
+						<?php if (isset($_GET['status']) && $_GET['status'] == '500') : ?>
+						<div class="alert alert-danger">Dados incorretos</div>
+						<?php endif; ?>
 
-					<div class="form-group">
-						<label class="small text-muted font-weight-bold mb-1" for="password">
-							Senha
-						</label>
-						<input type="password" class="form-control" name="password" required>
-					</div>
+						<div class="form-group">
+							<label class="small text-muted font-weight-bold mb-1" for="email">
+								Email
+							</label>
+							<input type="email" class="form-control" name="email" id="email" required>
+						</div>
 
-					<button class="btn btn-block btn-primary" type="submit">Entrar</button>
-					
-				</form>
+						<div class="form-group">
+							<label class="small text-muted font-weight-bold mb-1" for="password">
+								Senha
+							</label>
+							<input type="password" class="form-control" name="password" required>
+						</div>
+
+						<button class="btn btn-block btn-primary" type="submit">Entrar</button>
+
+					</form>
+
+				</div>
 
 			</div><!-- end col -->
 		</div><!-- end row -->

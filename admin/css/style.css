@@ -138,3 +138,10 @@ label {
 .tagify.form-control {
     height: auto;
 }
+
+.bg-wow-back {
+    background-image: url('../img/wow-back.jpg');
+    background-repeat: repeat;
+    background-position: top center;
+    background-size: cover;
+}

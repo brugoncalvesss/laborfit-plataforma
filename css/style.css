@@ -97,6 +97,20 @@ a:hover, a:focus {
     background-position: top center;
 }
 
+.bg-wow-back {
+    background-image: url('../img/wow-back.jpg');
+    background-repeat: repeat;
+    background-position: top center;
+    background-size: cover;
+}
+
+.bg-wow-back1 {
+    background-image: url('../img/wow-back1.jpg');
+    background-repeat: repeat;
+    background-position: top center;
+    background-size: cover;
+}
+
 /*
  * Botões
  */
@@ -188,7 +202,6 @@ a:hover, a:focus {
 /*
  * Destaques
  */
-
 .destaques .card-cover .img-cover {
     height: 205px;
 }

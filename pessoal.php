@@ -35,7 +35,7 @@ $usuario = $request->fetch(PDO::FETCH_ASSOC);
 					<input type="hidden" name="cpf" value="<?= $usuario['CPF_USUARIO'] ?>">
 
 					<div class="form-group">
-						<label class="small text-muted text-uppercase font-weight-bold mb-1">Como gostaria de ser chamado?</label>
+						<label class="small text-muted text-uppercase font-weight-bold mb-1">Como gostaria de ser chamado(a)?</label>
 						<input type="text" name="APELIDO_USUARIO" class="form-control" required>
 					</div>
 

@@ -18,7 +18,6 @@ $sql = "UPDATE
             USUARIOS
         SET
             DEPARTAMENTO_USUARIO = :DEPARTAMENTO_USUARIO,
-            SUBDEPARTAMENTO_USUARIO = :SUBDEPARTAMENTO_USUARIO,
             NOME_USUARIO = :NOME_USUARIO,
             DT_NASCIMENTO_USUARIO = :DT_NASCIMENTO_USUARIO,
             SEXO_USUARIO = :SEXO_USUARIO,
@@ -30,7 +29,6 @@ $sql = "UPDATE
 
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':DEPARTAMENTO_USUARIO', $data['DEPARTAMENTO_USUARIO']);
-$stmt->bindParam(':SUBDEPARTAMENTO_USUARIO', $data['SUBDEPARTAMENTO_USUARIO']);
 $stmt->bindParam(':NOME_USUARIO', $data['NOME_USUARIO']);
 $stmt->bindParam(':DT_NASCIMENTO_USUARIO', $data['DT_NASCIMENTO_USUARIO']);
 $stmt->bindParam(':SEXO_USUARIO', $data['SEXO_USUARIO']);

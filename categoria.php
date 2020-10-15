@@ -72,9 +72,9 @@ $categoria = getCategoria($idCategoria);
 			<section class="video-content">
 				<div class="row">
 					<div class="col-12 col-md-10 offset-md-1">
-						<div class="card card-destaque border-0">
+						<div class="card border-0">
 							<?php if (!empty($categoriaDestaque)) : ?>
-							<div class="video-border bg-dark">
+							<div class="video-categoria video-border bg-dark">
 								<a id="ver-video" href="./video.php?v=<?= $categoriaDestaque['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $categoriaDestaque['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
 									<img src="./uploads/<?= $categoriaDestaque['THUMB_VIDEO']; ?>" class="img-fluid cover">
 								</a>

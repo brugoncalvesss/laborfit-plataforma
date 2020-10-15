@@ -36,6 +36,7 @@
             $newUser[$i]['CPF_USUARIO'] = $line[1];
             $newUser[$i]['EMPRESA_USUARIO'] = $line[2];
             $newUser[$i]['DEPARTAMENTO_USUARIO'] = $line[3];
+            $newUser[$i]['CARGO_USUARIO'] = $line[4];
         }
         $i++;
     }
@@ -60,14 +61,15 @@
         }
 
         $sql = "INSERT INTO
-                    USUARIOS (NOME_USUARIO, CPF_USUARIO, EMPRESA_USUARIO, DEPARTAMENTO_USUARIO, CADASTRO_USUARIO)
+                    USUARIOS (NOME_USUARIO, CPF_USUARIO, EMPRESA_USUARIO, DEPARTAMENTO_USUARIO, CARGO_USUARIO, CADASTRO_USUARIO)
                 VALUES
-                    (:NOME_USUARIO, :CPF_USUARIO, :EMPRESA_USUARIO, :DEPARTAMENTO_USUARIO, CURRENT_TIMESTAMP)";
+                    (:NOME_USUARIO, :CPF_USUARIO, :EMPRESA_USUARIO, :DEPARTAMENTO_USUARIO, CARGO_USUARIO, CURRENT_TIMESTAMP)";
         $stmt = $PDO->prepare($sql);
         $stmt->bindParam(':NOME_USUARIO', $usuario['NOME_USUARIO']);
         $stmt->bindParam(':CPF_USUARIO', $usuario['CPF_USUARIO']);
         $stmt->bindParam(':EMPRESA_USUARIO', $usuario['EMPRESA_USUARIO']);
         $stmt->bindParam(':DEPARTAMENTO_USUARIO', $usuario['DEPARTAMENTO_USUARIO']);
+        $stmt->bindParam(':CARGO_USUARIO', $usuario['CARGO_USUARIO']);
 
         if ($stmt->execute()) {
             $result[] = "Usuário com o CPF {$usuario['CPF_USUARIO']} cadastrado no sistema.";
