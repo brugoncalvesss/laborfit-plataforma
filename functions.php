@@ -207,35 +207,21 @@ function getTemas()
 {
     $PDO = db_connect();
 
-    $sql = "SELECT TEMA_VIDEO
-            FROM VIDEOS
-            WHERE VIDEOS.TEMA_VIDEO IS NOT NULL
-            ORDER BY VIDEOS.TEMA_VIDEO ASC";
+    $sql = "SELECT TEMAS.ID_TEMA, TEMAS.NOME_TEMA FROM TEMAS
+            INNER JOIN TEMAS_VIDEOS ON
+                TEMAS_VIDEOS.ID_TEMA = TEMAS.ID_TEMA
+            GROUP BY TEMAS.NOME_TEMA
+            ORDER BY TEMAS.NOME_TEMA ASC";
     $stmt = $PDO->prepare($sql);
 
     try{
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         throw new Exception("Erro ao carregar temas: " . $e->getMessage());
     }
 
-    if ($result) {
-        foreach ($result as $tema) {
-            $temas[] = explode(',', $tema['TEMA_VIDEO']);
-        }
-        
-        $tags = [];
-        foreach ($temas as $value) {
-            foreach ($value as $tag) {
-                $tags[] = $tag;
-            }
-        }
-        
-        $result = array_unique($tags);
-    }
-
-	return $result;
+	return 0;
 }
 
 function getTemaURL($idAlbum = null, $filtro = null) {
@@ -269,33 +255,6 @@ function getAlbumFiltro(int $id, string $filtro)
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':ID_CATEGORIA', $id, PDO::PARAM_INT);
     $stmt->bindValue(':TEMA_VIDEO', '%'.$filtro.'%');
-
-    try{
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch(PDOException $e) {
-        throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
-    }
-
-	return $result;
-}
-
-function getVideosbyTagName($tag) {
-    if (!$tag) {
-        return false;
-    }
-
-    $PDO = db_connect();
-    $sql = "SELECT * FROM
-                VIDEOS
-            WHERE
-                VIDEOS.STATUS_VIDEO = 1
-                AND VIDEOS.TEMA_VIDEO LIKE :TEMA_VIDEO
-            ORDER BY
-                VIDEOS.ID_VIDEO DESC";
-
-    $stmt = $PDO->prepare($sql);
-    $stmt->bindValue(':TEMA_VIDEO', '%'.$tag.'%');
 
     try{
         $stmt->execute();
@@ -371,24 +330,91 @@ function getVideoDestaqueCategoria(int $idCategoria)
     }
 
     $PDO = db_connect();
-    $sql = "SELECT * FROM
-                VIDEOS
+    $sql = "SELECT * FROM VIDEOS
+            INNER JOIN CATEGORIAS_VIDEOS ON
+                        CATEGORIAS_VIDEOS.ID_VIDEO = VIDEOS.ID_VIDEO
             WHERE
                 VIDEOS.STATUS_VIDEO = 1
-                AND VIDEOS.ALBUM_VIDEO = :ALBUM_VIDEO
+                AND CATEGORIAS_VIDEOS.ID_CATEGORIA = :ID_CATEGORIA
             ORDER BY
                 VIDEOS.ID_VIDEO
             DESC";
 
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':ALBUM_VIDEO', $idCategoria, PDO::PARAM_INT);
+    $stmt->bindParam(':ID_CATEGORIA', $idCategoria, PDO::PARAM_INT);
 
     try{
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
     }
+}
 
-	return $result;
+function getTema(int $id) {
+
+    if (!$id) {
+        return 0;
+    }
+
+    $PDO = db_connect();
+
+    $sql = "SELECT * FROM TEMAS
+            WHERE TEMAS.ID_TEMA = :ID_TEMA
+            LIMIT 1";
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindParam(':ID_TEMA', $id, PDO::PARAM_INT);
+
+    try{
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar temas: " . $e->getMessage());
+    }
+}
+
+function getVideoPorIdTema(int $id)
+{
+    if (!$id) return false;
+
+    $PDO = db_connect();
+    $sql = "SELECT * FROM VIDEOS
+            INNER JOIN TEMAS_VIDEOS ON
+                TEMAS_VIDEOS.ID_VIDEO = VIDEOS.ID_VIDEO
+            WHERE
+                TEMAS_VIDEOS.ID_TEMA = :ID_TEMA
+                AND VIDEOS.STATUS_VIDEO = 1";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':ID_TEMA', $id);
+
+    try{
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
+    }
+}
+
+function getVideoPorIdCategoria(int $id)
+{
+    if (!$id) return false;
+
+    $PDO = db_connect();
+    $sql = "SELECT * FROM VIDEOS
+            INNER JOIN CATEGORIAS_VIDEOS ON
+                CATEGORIAS_VIDEOS.ID_VIDEO = VIDEOS.ID_VIDEO
+            WHERE
+                CATEGORIAS_VIDEOS.ID_CATEGORIA = :ID_CATEGORIA
+                AND VIDEOS.STATUS_VIDEO = 1";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':ID_CATEGORIA', $id);
+
+    try{
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
+    }
 }

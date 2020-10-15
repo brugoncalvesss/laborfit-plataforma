@@ -84,19 +84,6 @@ if (empty($id)) {
                     </div>
 
 					<div class="form-group">
-						<label>Categoria <code>TODO: DELETAR DEPOIS DE MIGRAR</code></label>
-						<select name="album" class="form-control">
-							<option value="0">Sem categoria</option>
-							<?php carregarSelectAlbuns($video['ALBUM_VIDEO']); ?>
-						</select>
-					</div>
-
-					<div class="form-group">
-						<label>Tema <code>TODO: DELETAR DEPOIS DE MIGRAR</code></label>
-						<input type="text" name="TEMA_VIDEO" data-role="tagsinput" id="tags" value="<?= $video['TEMA_VIDEO']; ?>" class="form-control">
-					</div>
-
-					<div class="form-group">
 						<label>Categoria</label>
 						<textarea id="tagCategoria" name='CATEGORIAS' class="form-control">
 						<?= $categorias; ?>

@@ -3,14 +3,10 @@ require('control.php');
 require('_header.php');
 
 $idCategoria = isset($_GET['q']) ? $_GET['q'] : null;
-$filtro = isset($_GET['filtro']) ? $_GET['filtro'] : null;
 
 if (!$idCategoria) {
 	die("Erro: Não foi informado o álbum.");
 }
-
-// echo date('w');
-// die("*");
 
 $arCategoriaDestaque = getVideoDestaqueCategoria($idCategoria);
 
@@ -26,11 +22,7 @@ if ($arCategoriaDestaque) {
 		$arCategoriaDestaque[0];
 }
 
-if ($filtro) {
-	$arVideos = getAlbumFiltro($idCategoria, $filtro);
-} else {
-	$arVideos = getAlbum($idCategoria);
-}
+$arVideos = getVideoPorIdCategoria($idCategoria);
 
 $categoria = getCategoria($idCategoria);
 ?>
@@ -68,8 +60,8 @@ $categoria = getCategoria($idCategoria);
 				</ol>
 			</nav>
 
-			<section class="text-center">
-				<h1 class="text-light font-weight-600 mt-2">
+			<section class="text-center text-light">
+				<h1 class="font-weight-600 mt-2">
 					<?= $categoria['NOME_CATEGORIA']; ?>
 				</h1>
 				<h2 class="h4 d-inline-block text-truncate" style="max-width: 100%">

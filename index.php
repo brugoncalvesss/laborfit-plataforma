@@ -8,7 +8,9 @@ if (!$_SESSION['EMPRESA_USUARIO']) {
 
 $arBanner = getBannerFrontPage();
 $arAlbums = getAlbums();
-$arTags = getTemas();
+
+$arTemas = getTemas();
+
 ?>
 
 <main>
@@ -70,9 +72,9 @@ $arTags = getTemas();
 				O que você precisa hoje para um dia WoW? <i class="fas fa-chevron-down pl-1"></i>
 				</button>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-					<?php foreach ($arTags as $key => $tag) : ?>
-					<a class="dropdown-item" href="<?= getTagURL($key); ?>">
-						<?= $tag ?>
+					<?php foreach ($arTemas as $tema) : ?>
+					<a class="dropdown-item" href="/tag.php?q=<?= $tema['ID_TEMA']; ?>">
+						<?= $tema['NOME_TEMA'] ?>
 					</a>
 					<?php endforeach; ?>
 				</div>

@@ -2,16 +2,14 @@
 require('control.php');
 require('_header.php');
 
-$keyTag = isset($_GET['q']) ? $_GET['q'] : null;
+$idTema = isset($_GET['q']) ? $_GET['q'] : null;
 
-if (!$keyTag) {
-	die("Erro: Tag não encontrada.");
+if (!$idTema) {
+	die("Erro: Tema não encontrado.");
 }
 
-$arTags = getTemas();
-$tag = $arTags[$keyTag];
-
-$arVideos = getVideosbyTagName($tag);
+$tema = getTema($idTema);
+$arVideos = getVideoPorIdTema($idTema);
 ?>
 
 <main>
@@ -34,10 +32,21 @@ $arVideos = getVideosbyTagName($tag);
 		</div>
 	</nav>
 
-	<header class="tag-header bg-wave-primary text-light text-center py-4">
-		<h1 class="h2 text-light font-weight-600 mt-2">
-			<?= $tag; ?>
-		</h1>
+	<header class="tag-header bg-wave-primary text-light text-center py-3">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb breadcrumb-light bg-transparent">
+					<li class="breadcrumb-item"><a href="/">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page"><?= $tema['NOME_TEMA']; ?></li>
+				</ol>
+			</nav>
+
+			<h1 class="h2 text-light font-weight-600 mt-2">
+				<?= $tema['NOME_TEMA']; ?>
+			</h1>
+			<p><?= $tema['DESCRICAO_TEMA']; ?></p>
+		</div>
 	</header>
 
     <section class="videos py-3">
@@ -66,7 +75,7 @@ $arVideos = getVideosbyTagName($tag);
                 </div>
             <?php else : ?>
             <div class="alert alert-primary" role="alert">
-            <Nav>Não encontramos nenhum vídeo com essa tag.</Nav>
+            	Não encontramos nenhum vídeo com esse tema.
             </div>
             <?php endif; ?>
 
