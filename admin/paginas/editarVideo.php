@@ -40,13 +40,14 @@ $stmt->bindParam(':ID_VIDEO', $data['id'], PDO::PARAM_INT);
 $stmt->execute();
 
 if ($data['CATEGORIAS']) {
+    deleteCategoriaPorIdVideo($data['id']);
+    
     $categorias = implode(',', array_column(json_decode($data['CATEGORIAS']), 'value'));
     $arCategorias = explode(',', $categorias);
     
     foreach ($arCategorias as $categoria) {
         $idCategoria = getIdPorNomeCategoria($categoria)['ID_CATEGORIA'];
         if ($idCategoria) {
-            deleteCategoriaPorIdVideo($data['id']);
 
             $PDO = db_connect();
             $sql = "INSERT INTO CATEGORIAS_VIDEOS (ID_CATEGORIA, ID_VIDEO)
@@ -61,14 +62,14 @@ if ($data['CATEGORIAS']) {
 }
 
 if ($data['TEMAS']) {
+    deleteTemaPorIdVideo($data['id']);
+
     $temas = implode(',', array_column(json_decode($data['TEMAS']), 'value'));
     $arTemas = explode(',', $temas);
     
     foreach ($arTemas as $tema) {
         $idTema = getIdPorNomeTema($tema)['ID_TEMA'];
         if ($idTema) {
-            deleteTemaPorIdVideo($data['id']);
-
             $PDO = db_connect();
             $sql = "INSERT INTO TEMAS_VIDEOS (ID_TEMA, ID_VIDEO)
                     VALUES (:ID_TEMA, :ID_VIDEO)";

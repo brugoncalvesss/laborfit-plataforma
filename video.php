@@ -43,7 +43,6 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 			<ol class="breadcrumb breadcrumb-light bg-transparent mb-0">
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
 				<li class="breadcrumb-item"><a href="./categoria.php?q=<?= $video['ALBUM_VIDEO']; ?>"><?= $video['NOME_CATEGORIA']; ?></a></li>
-				<li class="breadcrumb-item active" aria-current="page"><?= $video['NOME_VIDEO']; ?></li>
 			</ol>
 			</nav>
 
