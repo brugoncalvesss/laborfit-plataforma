@@ -67,18 +67,9 @@ $arTemas = getTemas();
 	<section class="tags py-5 bg-wave text-center">
 		<div class="container">
 
-			<div class="dropdown">
-				<button class="btn btn-primary btn-lg btn-alt" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				O que você precisa hoje para um dia WoW? <i class="fas fa-chevron-down pl-1"></i>
-				</button>
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-					<?php foreach ($arTemas as $tema) : ?>
-					<a class="dropdown-item" href="/tag.php?q=<?= $tema['ID_TEMA']; ?>">
-						<?= $tema['NOME_TEMA'] ?>
-					</a>
-					<?php endforeach; ?>
-				</div>
-			</div>
+			<button class="btn btn-primary btn-lg btn-alt" type="button" data-toggle="modal" data-target="#modalTemas">
+			O que você precisa hoje para um dia WoW? <i class="fas fa-chevron-down pl-1"></i>
+			</button>
 
 		</div>
 	</section>
@@ -145,5 +136,29 @@ $arTemas = getTemas();
 	<?php endif; ?>
 
 </main>
+
+<div class="modal modal-mobile-fullscreen" id="modalTemas" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+
+				<div class="d-block">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<nav class="nav flex-column">
+				<?php foreach ($arTemas as $tema) : ?>
+					<a href="/tag.php?q=<?= $tema['ID_TEMA']; ?>" class="nav-link">
+						<?= $tema['NOME_TEMA'] ?>
+					</a>
+				<?php endforeach; ?>
+				</nav>
+
+			</div>
+		</div>
+	</div>
+</div>
 
 <?php require('_footer.php'); ?>
