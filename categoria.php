@@ -33,7 +33,10 @@ $categoria = getCategoria($idCategoria);
 			<a href="/" class="navbar-brand">
 				<img src="./img/logo.png" alt="Logo WoW Life" height="50">
 			</a>
-			<ul class="navbar-nav ml-auto">
+			<ul class="navbar-nav ml-auto align-items-center">
+                <li class="nav-item font-weight-600">
+                    <a href="/receitas.php" class="nav-link">Receitas</a>
+                </li>
 				<li class="nav-item dropdown">
 					<a class="nav-link text-decoration-none dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
 						<img src="./img/user.png" alt="Perfil">

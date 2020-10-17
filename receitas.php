@@ -1,19 +1,12 @@
 <?php
-require('control.php');
-require('_header.php');
+require_once 'control.php';
+require_once '_header.php';
 
-$idTema = isset($_GET['q']) ? $_GET['q'] : null;
-
-if (!$idTema) {
-	die("Erro: Tema não encontrado.");
-}
-
-$tema = getTema($idTema);
-$arVideos = getVideoPorIdTema($idTema);
+$arReceitas = getReceitas();
 ?>
 
 <main>
-	<nav class="navbar navbar-expand-md navbar-light bg-white">
+    <nav class="navbar navbar-expand-md navbar-light bg-white">
 		<div class="container">
 			<a href="/" class="navbar-brand">
 				<img src="./img/logo.png" alt="Logo WoW Life" height="50">
@@ -41,34 +34,33 @@ $arVideos = getVideoPorIdTema($idTema);
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb breadcrumb-light bg-transparent">
 					<li class="breadcrumb-item"><a href="/">Home</a></li>
-					<li class="breadcrumb-item active" aria-current="page"><?= $tema['NOME_TEMA']; ?></li>
+					<li class="breadcrumb-item active" aria-current="page">Receitas</li>
 				</ol>
 			</nav>
 
 			<h1 class="h2 text-light font-weight-600 mt-2">
-				<?= $tema['NOME_TEMA']; ?>
+				Receitas
 			</h1>
-			<p><?= $tema['DESCRICAO_TEMA']; ?></p>
 		</div>
 	</header>
 
     <section class="videos py-3">
         <div class="container">
 
-            <?php if (!empty($arVideos)) : ?>
+            <?php if (!empty($arReceitas)) : ?>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-                <?php foreach ($arVideos as $video) : ?>
+                <?php foreach ($arReceitas as $receita) : ?>
                 <div class="col mb-3">
 					<div class="card card-hover h-100">
 						<div class="card-cover">
-							<a href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none">
-								<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
+							<a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
+								<img src="./uploads/<?= $receita['IMG_RECEITA']; ?>" class="img-cover" alt="<?= $receita['NOME_RECEITA']; ?>">
 							</a>
 						</div>
 						<div class="card-body text-center">
 							<h5 class="card-title text-primary mb-0">
-								<a href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none">
-									<?= $video['NOME_VIDEO']; ?>
+                                <a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
+									<?= $receita['NOME_RECEITA']; ?>
 								</a>
 							</h5>
 						</div>
@@ -78,7 +70,7 @@ $arVideos = getVideoPorIdTema($idTema);
                 </div>
             <?php else : ?>
             <div class="alert alert-primary" role="alert">
-            	Não encontramos nenhum vídeo com esse tema.
+            	Nenhuma receita cadastrada.
             </div>
             <?php endif; ?>
 
@@ -87,4 +79,4 @@ $arVideos = getVideoPorIdTema($idTema);
 
 </main>
 
-<?php require('_footer.php'); ?>
+<?php require_once '_footer.php'; ?>

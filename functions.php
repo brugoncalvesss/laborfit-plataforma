@@ -408,3 +408,41 @@ function getVideoPorIdCategoria(int $id)
         throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
     }
 }
+
+function getReceitas()
+{
+    $PDO = db_connect();
+    $sql = "SELECT * FROM RECEITAS
+            ORDER BY RECEITAS.NOME_RECEITA ASC";
+
+    $stmt = $PDO->prepare($sql);
+
+    try{
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar receitas: " . $e->getMessage());
+    }
+}
+
+
+function getReceita(int $id)
+{
+
+    if (!$id) return false;
+
+    $sql = "SELECT * FROM RECEITAS
+            WHERE ID_RECEITA = :ID_RECEITA
+            LIMIT 1";
+
+    $PDO = db_connect();
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':ID_RECEITA', $id);
+
+    try{
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar receita: " . $e->getMessage());
+    }
+}
