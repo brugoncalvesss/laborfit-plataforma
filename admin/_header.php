@@ -24,6 +24,9 @@ session_start();
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.20.0/tagify.min.css">
 
+		<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+    	<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/translations/pt-br.js"></script>
+
 		<title>Plataforma</title>
 	</head>
 	<body>

@@ -11,9 +11,11 @@ $(document).ready(function(){
         responsive:{
             0: {
                 items: 1.2,
+                loop: true,
             },
             768: {
                 items: 2,
+                loop: true,
             },
             992: {
                 items: 3,

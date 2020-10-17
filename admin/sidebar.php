@@ -22,6 +22,11 @@
 				</a>
 			</li>
 			<li class="nav-item">
+				<a href="/admin/receitas/" class="nav-link">
+					<i class="fas fa-utensils mr-1"></i> Receitas
+				</a>
+			</li>
+			<li class="nav-item">
 				<a href="/admin/banners/" class="nav-link">
 					<i class="far fa-images mr-1"></i> Banners
 				</a>
