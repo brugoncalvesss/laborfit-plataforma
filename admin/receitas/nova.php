@@ -33,6 +33,18 @@
                     <textarea name="DESCRICAO_RECEITA" id="editor" class="form-control"></textarea>
                 </div>
 
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="1" name="DESTAQUE_RECEITA" id="receitaCheck1">
+                    <label class="form-check-label" for="receitaCheck1">
+                        Receita em destaque?
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <textarea id="tagCategoria" name='CATEGORIAS' class="form-control"></textarea>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Salvar</button>
 
             </form>

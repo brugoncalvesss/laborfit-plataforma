@@ -42,9 +42,6 @@ $categoria = getCategoria($idCategoria);
 			<div class="collapse navbar-collapse" id="navbarPrimary">
 
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="/receitas.php">Receitas</a>
-					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
 							<img src="./img/user.png" alt="Perfil">
@@ -120,13 +117,6 @@ $categoria = getCategoria($idCategoria);
 								</a>
 							</div>
 							<?php endif; ?>
-							<div class="card-body">
-								<h5 class="card-title text-center text-primary mb-0">
-									<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
-										<?= $video['NOME_VIDEO']; ?>
-									</a>
-								</h5>
-							</div>
 						</div>
 					</div>
 					<?php endforeach; ?>

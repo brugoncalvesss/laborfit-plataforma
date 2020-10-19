@@ -55,21 +55,18 @@
         }
         
         $usuario['EMPRESA_USUARIO'] = verificaIdEmpresa($usuario['EMPRESA_USUARIO']);
-        if (!$usuario['EMPRESA_USUARIO']) {
-            $result[] = "Não foi possível encontrar a empresa {$usuario['EMPRESA_USUARIO']} no sistema.";
-            continue;
-        }
 
         $sql = "INSERT INTO
                     USUARIOS (NOME_USUARIO, CPF_USUARIO, EMPRESA_USUARIO, DEPARTAMENTO_USUARIO, CARGO_USUARIO, CADASTRO_USUARIO)
                 VALUES
-                    (:NOME_USUARIO, :CPF_USUARIO, :EMPRESA_USUARIO, :DEPARTAMENTO_USUARIO, CARGO_USUARIO, CURRENT_TIMESTAMP)";
+                    (:NOME_USUARIO, :CPF_USUARIO, :EMPRESA_USUARIO, :DEPARTAMENTO_USUARIO, :CARGO_USUARIO, CURRENT_TIMESTAMP)";
+
         $stmt = $PDO->prepare($sql);
-        $stmt->bindParam(':NOME_USUARIO', $usuario['NOME_USUARIO']);
-        $stmt->bindParam(':CPF_USUARIO', $usuario['CPF_USUARIO']);
-        $stmt->bindParam(':EMPRESA_USUARIO', $usuario['EMPRESA_USUARIO']);
-        $stmt->bindParam(':DEPARTAMENTO_USUARIO', $usuario['DEPARTAMENTO_USUARIO']);
-        $stmt->bindParam(':CARGO_USUARIO', $usuario['CARGO_USUARIO']);
+        $stmt->bindValue(':NOME_USUARIO', $usuario['NOME_USUARIO']);
+        $stmt->bindValue(':CPF_USUARIO', $usuario['CPF_USUARIO']);
+        $stmt->bindValue(':EMPRESA_USUARIO', $usuario['EMPRESA_USUARIO']);
+        $stmt->bindValue(':DEPARTAMENTO_USUARIO', $usuario['DEPARTAMENTO_USUARIO']);
+        $stmt->bindValue(':CARGO_USUARIO', $usuario['CARGO_USUARIO']);
 
         if ($stmt->execute()) {
             $result[] = "Usuário com o CPF {$usuario['CPF_USUARIO']} cadastrado no sistema.";

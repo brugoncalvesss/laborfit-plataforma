@@ -282,3 +282,40 @@ function getTemasByIdVideo(int $id)
 
 	return 0;
 }
+
+function getCategoriasByIdReceita(int $id)
+{
+	if (!$id)  return 0;
+
+	$PDO = db_connect();
+	$sql = "SELECT * FROM CATEGORIAS
+			INNER JOIN CATEGORIAS_RECEITAS ON
+				CATEGORIAS_RECEITAS.ID_CATEGORIA = CATEGORIAS.ID_CATEGORIA
+			WHERE
+				CATEGORIAS_RECEITAS.ID_RECEITA = :ID_RECEITA";
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindParam(':ID_RECEITA', $id, PDO::PARAM_INT);
+	
+	if ($stmt->execute()) {
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	return 0;
+}
+
+function deleteCategoriaPorIdReceita(int $id)
+{
+	if (!$id)  return 0;
+	
+	$PDO = db_connect();
+	$sql = "DELETE FROM CATEGORIAS_RECEITAS WHERE ID_RECEITA = :ID_RECEITA";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':ID_RECEITA', $id);
+	
+	if ($stmt->execute()) {
+		return 1;
+	}
+
+	return 0;
+}

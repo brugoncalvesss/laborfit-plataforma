@@ -27,9 +27,6 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 			<div class="collapse navbar-collapse" id="navbarPrimary">
 
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="/receitas.php">Receitas</a>
-					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
 							<img src="./img/user.png" alt="Perfil">

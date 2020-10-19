@@ -446,3 +446,21 @@ function getReceita(int $id)
         throw new Exception("Erro ao carregar receita: " . $e->getMessage());
     }
 }
+
+function getReceitasDestaque()
+{
+    $PDO = db_connect();
+    $sql = "SELECT * FROM RECEITAS
+            WHERE RECEITAS.DESTAQUE_RECEITA = 1
+            ORDER BY RECEITAS.ID_RECEITA DESC
+            LIMIT 3";
+
+    $stmt = $PDO->prepare($sql);
+
+    try{
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar receitas: " . $e->getMessage());
+    }
+}

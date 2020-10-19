@@ -14,7 +14,7 @@ if ($_FILES["arquivo"]["name"]) {
 }
 
 $sql = "UPDATE RECEITAS
-        SET NOME_RECEITA = :NOME_RECEITA, DESCRICAO_RECEITA = :DESCRICAO_RECEITA, IMG_RECEITA = :IMG_RECEITA
+        SET NOME_RECEITA = :NOME_RECEITA, DESCRICAO_RECEITA = :DESCRICAO_RECEITA, IMG_RECEITA = :IMG_RECEITA, DESTAQUE_RECEITA = :DESTAQUE_RECEITA
         WHERE ID_RECEITA = :ID_RECEITA";
 
 $PDO = db_connect();
@@ -23,13 +23,33 @@ $stmt->bindParam(':NOME_RECEITA', $data['NOME_RECEITA']);
 $stmt->bindParam(':DESCRICAO_RECEITA', $data['DESCRICAO_RECEITA']);
 $stmt->bindParam(':ID_RECEITA', $data['ID_RECEITA']);
 $stmt->bindParam(':IMG_RECEITA', $imagem);
+$stmt->bindParam(':DESTAQUE_RECEITA', $data['DESTAQUE_RECEITA']);
+$stmt->execute();
 
-if ($stmt->execute()) {
-    header("location: /admin/receitas/?status=201");
-    exit;
-} else {
-    die("Erro ao atualizar receita.");
+if ($data['CATEGORIAS']) {
+    deleteCategoriaPorIdReceita($data['ID_RECEITA']);
+    
+    $categorias = implode(',', array_column(json_decode($data['CATEGORIAS']), 'value'));
+    $arCategorias = explode(',', $categorias);
+    
+    foreach ($arCategorias as $categoria) {
+        $idCategoria = getIdPorNomeCategoria($categoria)['ID_CATEGORIA'];
+        if ($idCategoria) {
+
+            $PDO = db_connect();
+            $sql = "INSERT INTO CATEGORIAS_RECEITAS (ID_CATEGORIA, ID_RECEITA)
+                    VALUES (:ID_CATEGORIA, :ID_RECEITA)";
+
+            $stmt = $PDO->prepare($sql);
+            $stmt->bindParam(':ID_CATEGORIA', $idCategoria);
+            $stmt->bindParam(':ID_RECEITA', $data['ID_RECEITA']);
+            $stmt->execute();
+        }
+    }
 }
+
+header("location: /admin/receitas/?status=201");
+exit;
 
 function uploadFile($file) {
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/';
