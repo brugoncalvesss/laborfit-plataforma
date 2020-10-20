@@ -79,7 +79,7 @@ $arTemas = getTemas();
 		<div class="container">
 
 			<button class="btn btn-primary btn-lg btn-alt" type="button" data-toggle="modal" data-target="#modalTemas">
-			O que você precisa para um dia WoW? <i class="fas fa-chevron-down pl-1"></i>
+			O que precisa para um dia WoW? <i class="fas fa-chevron-down pl-1"></i>
 			</button>
 
 		</div>
@@ -141,37 +141,6 @@ $arTemas = getTemas();
 					</div>
 					<?php endif; ?>
 				<?php endforeach; ?>
-			</div>
-		</div>
-	</section>
-	<?php endif; ?>
-
-	<?php $arReceitas = getReceitasDestaque(); ?>
-	<?php if (!empty($arReceitas)) : ?>	
-	<section id="destaques" class="destaques my-4">
-		<div class="d-block mb-3 text-center">
-			<h4 class="h6 title-line">Receita Fit</h4>
-		</div>
-		<div class="container">
-			<div class="owl-carousel">
-			<?php foreach ($arReceitas as $receita) : ?>
-                <div class="col mb-3">
-					<div class="card card-hover h-100">
-						<div class="card-cover">
-							<a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
-								<img src="./uploads/<?= $receita['IMG_RECEITA']; ?>" class="img-cover" alt="<?= $receita['NOME_RECEITA']; ?>">
-							</a>
-						</div>
-						<div class="card-body text-center">
-							<h5 class="card-title text-primary mb-0">
-                                <a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
-									<?= $receita['NOME_RECEITA']; ?>
-								</a>
-							</h5>
-						</div>
-					</div>
-				</div>
-			<?php endforeach; ?>
 			</div>
 		</div>
 	</section>

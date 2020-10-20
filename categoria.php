@@ -108,7 +108,7 @@ $categoria = getCategoria($idCategoria);
 				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 
 					<?php foreach ($arVideos as $video) : ?>
-					<div class="col mb-3">
+					<div class="col mb-30">
 						<div class="card card-video h-100">
 							<?php if ($video['THUMB_VIDEO']) : ?>
 							<div class="card-cover">

@@ -22,10 +22,10 @@ $stmt->bindParam(':DESTAQUE_RECEITA', $data['DESTAQUE_RECEITA']);
 $stmt->bindParam(':IMG_RECEITA', $imagem);
 
 if ($stmt->execute()) {
-    $lastIdVideo = $PDO->lastInsertId();
+    $lastId = $PDO->lastInsertId();
 }
 
-if ($data['CATEGORIAS'] && $lastIdVideo) {
+if ($data['CATEGORIAS'] && $lastId) {
     $categorias = implode(',', array_column(json_decode($data['CATEGORIAS']), 'value'));
     $arCategorias = explode(',', $categorias);
     
@@ -38,7 +38,7 @@ if ($data['CATEGORIAS'] && $lastIdVideo) {
 
             $stmt = $PDO->prepare($sql);
             $stmt->bindParam(':ID_CATEGORIA', $idCategoria);
-            $stmt->bindParam(':ID_RECEITA', $lastIdVideo);
+            $stmt->bindParam(':ID_RECEITA', $lastId);
             $stmt->execute();
         }
     }
