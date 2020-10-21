@@ -3,6 +3,9 @@ require_once 'control.php';
 require_once '_header.php';
 
 $idVideo = $_GET['v'] ?: null;
+$idTema = isset($_GET['ref']) ? $_GET['ref'] : null;
+
+$arTema = getTema($idTema);
 
 if (!$idVideo) {
 	die("Erro: Não foi possível enontrar o vídeo.");
@@ -20,24 +23,14 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 				<img src="./img/logo.png" alt="Logo WoW Life" height="50">
 			</a>
 
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPrimary" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarPrimary">
-
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-							<img src="./img/user.png" alt="Perfil">
-							<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item" href="/logout.php">Sair</a>
-						</div>
-					</li>
-				</ul>
-
+			<div class="dropdown">
+				<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+					<img src="./img/user.png" alt="Perfil">
+					<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right">
+					<a class="dropdown-item" href="/logout.php">Sair</a>
+				</div>
 			</div>
 		  
 		</div>
@@ -53,7 +46,11 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 			<nav aria-label="breadcrumb">
 			<ol class="breadcrumb breadcrumb-light bg-transparent mb-0">
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<?php if ($idTema) : ?>
+					<li class="breadcrumb-item"><a href="./tag.php?q=<?= $arTema['ID_TEMA']; ?>"><?= $arTema['NOME_TEMA']; ?></a></li>
+				<?php else : ?>
 				<li class="breadcrumb-item"><a href="./categoria.php?q=<?= $video['ALBUM_VIDEO']; ?>"><?= $video['NOME_CATEGORIA']; ?></a></li>
+				<?php endif; ?>
 			</ol>
 			</nav>
 
@@ -105,13 +102,6 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 								</a>
 							</div>
 							<?php endif; ?>
-							<div class="card-body">
-								<h5 class="card-title text-center text-primary mb-0">
-								<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
-										<?= $relacionado['NOME_VIDEO']; ?>
-									</a>
-								</h5>
-							</div>
 						</div>
 					</div>
 					<?php endforeach; ?>

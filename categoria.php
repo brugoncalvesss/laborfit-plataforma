@@ -35,24 +35,14 @@ $categoria = getCategoria($idCategoria);
 				<img src="./img/logo.png" alt="Logo WoW Life" height="50">
 			</a>
 
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPrimary" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarPrimary">
-
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-							<img src="./img/user.png" alt="Perfil">
-							<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item" href="/logout.php">Sair</a>
-						</div>
-					</li>
-				</ul>
-
+			<div class="dropdown">
+				<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+					<img src="./img/user.png" alt="Perfil">
+					<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right">
+					<a class="dropdown-item" href="/logout.php">Sair</a>
+				</div>
 			</div>
 		  
 		</div>
