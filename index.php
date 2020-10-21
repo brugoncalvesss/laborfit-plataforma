@@ -75,7 +75,10 @@ $arTemas = getTemas();
 		</div>
 	</section>
 
-	<?php $arDestaques = getVideosDestaque(); ?>
+	<?php 
+	$arDestaques = getVideosDestaque();
+	$arReceitasDestaque = getReceitaDestaque();
+	?>
 	<?php if (!empty($arDestaques)) : ?>	
 	<section id="destaques" class="destaques my-4">
 		<div class="d-block mb-3 text-center">
@@ -97,6 +100,27 @@ $arTemas = getTemas();
 						<div class="card-body text-center d-none">
 							<h5 class="center-title font-weight-600 text-primary mb-0">
 								<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
+									<?= $destaque['INTRO_VIDEO']; ?>
+								</a>
+							</h5>
+						</div>
+					</div>
+				</div>
+				<?php endforeach; ?>
+				<?php foreach ($arReceitasDestaque as $receita) : ?>
+					<div class="col-item">
+					<div class="card card-hover">
+						<div class="card-header bg-blue text-light text-center border-0">
+							<h5 class="font-weight-600 mb-0">Receita Fit</h5>
+						</div>
+						<div class="card-cover">
+							<a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
+								<img src="./uploads/<?= $receita['IMG_RECEITA']; ?>" class="img-cover" alt="<?= $receita['NOME_RECEITA']; ?>">
+							</a>
+						</div>
+						<div class="card-body text-center d-none">
+							<h5 class="center-title font-weight-600 text-primary mb-0">
+								<a href="./receita.php?q=<?= $receita['NOME_RECEITA']; ?>" class="text-decoration-none">
 									<?= $destaque['INTRO_VIDEO']; ?>
 								</a>
 							</h5>

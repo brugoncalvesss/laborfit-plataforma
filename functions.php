@@ -55,9 +55,10 @@ function getVideosDestaque()
                 VIDEOS.ID_VIDEO = DESTAQUES_VIDEOS.ID_VIDEO
             WHERE
                 DESTAQUES_VIDEOS.DATA_EXIBICAO = CURRENT_DATE()
+                AND DESTAQUES_VIDEOS.ID_DESTAQUE != 1
             ORDER BY
                 DESTAQUES.ID_DESTAQUE DESC
-            LIMIT 3";
+            LIMIT 2";
     $stmt = $PDO->prepare($sql);
 
     try{
@@ -68,6 +69,27 @@ function getVideosDestaque()
     }
 
 	return $result;
+}
+
+function getReceitaDestaque()
+{
+    verificaSeExisteReceitaDestaque();
+
+    $sql = "SELECT * FROM RECEITAS
+            WHERE
+                RECEITAS.EXIBICAO_RECEITA = CURRENT_DATE()
+                AND RECEITAS.DESTAQUE_RECEITA = 1
+            LIMIT 1";
+
+    $PDO = db_connect();
+    $stmt = $PDO->prepare($sql);
+
+    try{
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar receitas: " . $e->getMessage());
+    }
 }
 
 function getAlbums()
@@ -311,6 +333,41 @@ function verificaSeExisteDestaque()
 
     }
 
+}
+
+function verificaSeExisteReceitaDestaque()
+{
+    $PDO = db_connect();
+
+    $sql = "SELECT EXIBICAO_RECEITA
+            FROM RECEITAS
+            WHERE EXIBICAO_RECEITA >= CURDATE()";
+    $stmt = $PDO->prepare($sql);
+    $stmt->execute();
+    $arDestaques = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($arDestaques)) {
+
+        $sql = "SELECT * FROM RECEITAS
+                WHERE DESTAQUE_RECEITA = 1";
+        $stmt = $PDO->prepare($sql);
+        $stmt->execute();
+        $receitas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $date = date("Y-m-d");
+
+        foreach ($receitas as $destaque) {
+            $sql = "UPDATE RECEITAS
+                    SET EXIBICAO_RECEITA = :EXIBICAO_RECEITA
+                    WHERE ID_RECEITA = :ID_RECEITA";
+            $stmt = $PDO->prepare($sql);
+            $stmt->bindParam(':ID_RECEITA', $destaque['ID_RECEITA']);
+            $stmt->bindParam(':EXIBICAO_RECEITA', $date);
+            $stmt->execute();
+            $date = date('Y-m-d', strtotime("+1 day", strtotime($date)));
+        }
+
+    }
 }
 
 function getVideoDestaqueCategoria(int $idCategoria)

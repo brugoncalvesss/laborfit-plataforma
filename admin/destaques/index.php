@@ -29,9 +29,15 @@
                     <span><?= $destaque['NOME_DESTAQUE'] ?></span>
                 </div>
                 <div class="col col-auto">
+                    <?php if($destaque['ID_DESTAQUE'] == 1) : ?>
+                        <a class="btn btn-link" href="/admin/destaques/receitas.php?id=<?= $destaque['ID_DESTAQUE']; ?>">
+                        Organizar receitas <i class="fas fa-sort-amount-up"></i>
+                    </a>
+                    <?php else : ?>
                     <a class="btn btn-link" href="/admin/destaques/ordem.php?id=<?= $destaque['ID_DESTAQUE']; ?>">
                         Organizar vídeos <i class="fas fa-sort-amount-up"></i>
                     </a>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endforeach; ?>

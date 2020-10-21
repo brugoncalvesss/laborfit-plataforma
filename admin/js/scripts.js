@@ -33,6 +33,27 @@ $(document).ready(function(){
         }
     });
 
+    $("#sortableReceitas").sortable({
+        items : ".row",
+        update: function () {
+
+            const data = $(this).sortable('toArray', {
+                attribute: 'data-id'
+            });
+
+            $.ajax({
+                data: {
+                    data: JSON.stringify(data),
+                },
+                type: 'POST',
+                url: '/admin/destaques/ordernar-receitas.php',
+                success: function (data) {
+                    // console.log(data);
+                }
+            });
+        }
+    });
+
     $('#basicDatatable').DataTable({
         "info": false,
         "filter": true,
