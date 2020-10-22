@@ -63,13 +63,6 @@ $arVideos = getVideoPorIdTema($idTema);
 								<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
 							</a>
 						</div>
-						<div class="card-body text-center">
-							<h5 class="card-title text-primary mb-0">
-								<a href="./video.php?v=<?= $video['LINK_VIDEO']; ?>&ref=<?= $idTema; ?>" class="text-decoration-none">
-									<?= $video['NOME_VIDEO']; ?>
-								</a>
-							</h5>
-						</div>
 					</div>
 				</div>
                 <?php endforeach; ?>
