@@ -1,5 +1,6 @@
 <?php
-session_start();
-session_destroy();
+setcookie("LEMBRAR_USUARIO", false, time() - 1);
+unset($_COOKIE['USUARIO_EMPRESA']);
+unset($_COOKIE['USUARIO_NOME']);
 header("location: /admin/login/");
 exit();
