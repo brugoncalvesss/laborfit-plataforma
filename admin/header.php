@@ -8,11 +8,6 @@
 	</button>
   
 	<ul class="navbar-nav ml-auto d-none d-lg-flex">
-		<li class="nav-item">
-			<span class="nav-link">
-			<?= $_SESSION['EMAIL'] ?>
-			</span>
-		</li>
 		<li class="nav-item active">
 			<a class="nav-link" href="/admin/login/logout.php">
 				<i class="fas fa-sign-out-alt"></i> Sair

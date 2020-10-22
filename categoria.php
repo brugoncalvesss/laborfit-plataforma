@@ -25,6 +25,8 @@ if ($arCategoriaDestaque) {
 $arVideos = getVideoPorIdCategoria($idCategoria);
 
 $categoria = getCategoria($idCategoria);
+
+$arReceitas = getReceitaPorCategoria($idCategoria);
 ?>
 
 <main>
@@ -38,7 +40,6 @@ $categoria = getCategoria($idCategoria);
 			<div class="dropdown">
 				<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 					<img src="./img/user.png" alt="Perfil">
-					<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right">
 					<a class="dropdown-item" href="/logout.php">Sair</a>
@@ -76,7 +77,7 @@ $categoria = getCategoria($idCategoria);
 						<div class="card border-0">
 							<?php if (!empty($categoriaDestaque)) : ?>
 							<div class="video-categoria video-border bg-dark">
-								<a id="ver-video" href="./video.php?v=<?= $categoriaDestaque['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $categoriaDestaque['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
+								<a id="ver-video" href="./video.php?v=<?= $categoriaDestaque['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_COOKIE["USUARIO_EMPRESA"]; ?>" data-video="<?= $categoriaDestaque['NOME_VIDEO']; ?>" data-usuario="<?= $_COOKIE["USUARIO_NOME"]; ?>">
 									<img src="./uploads/<?= $categoriaDestaque['THUMB_VIDEO']; ?>" class="img-fluid cover">
 								</a>
 							</div>
@@ -102,7 +103,7 @@ $categoria = getCategoria($idCategoria);
 						<div class="card card-video h-100">
 							<?php if ($video['THUMB_VIDEO']) : ?>
 							<div class="card-cover">
-								<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
+								<a id="ver-video" href="./video.php?v=<?= $video['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_COOKIE["USUARIO_EMPRESA"]; ?>" data-video="<?= $video['NOME_VIDEO']; ?>" data-usuario="<?= $_COOKIE["USUARIO_NOME"]; ?>">
 									<img src="./uploads/<?= $video['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $video['NOME_VIDEO']; ?>">
 								</a>
 							</div>
@@ -110,6 +111,22 @@ $categoria = getCategoria($idCategoria);
 						</div>
 					</div>
 					<?php endforeach; ?>
+
+					<?php if (!empty($arReceitas)) : ?>
+					<?php foreach ($arReceitas as $receita) : ?>
+					<div class="col mb-30">
+						<div class="card card-video h-100">
+							<?php if ($receita['IMG_RECEITA']) : ?>
+							<div class="card-cover">
+								<a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
+									<img src="./uploads/<?= $receita['IMG_RECEITA']; ?>" class="img-cover" alt="<?= $receita['NOME_RECEITA']; ?>">
+								</a>
+							</div>
+							<?php endif; ?>
+						</div>
+					</div>
+					<?php endforeach; ?>
+					<?php endif; ?>
 
 				</div><!-- end row -->
 				<?php else: ?>

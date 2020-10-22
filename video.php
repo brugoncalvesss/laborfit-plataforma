@@ -5,7 +5,9 @@ require_once '_header.php';
 $idVideo = $_GET['v'] ?: null;
 $idTema = isset($_GET['ref']) ? $_GET['ref'] : null;
 
-$arTema = getTema($idTema);
+if ($idTema) {
+	$arTema = getTema($idTema);
+}
 
 if (!$idVideo) {
 	die("Erro: Não foi possível enontrar o vídeo.");
@@ -26,7 +28,6 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 			<div class="dropdown">
 				<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 					<img src="./img/user.png" alt="Perfil">
-					<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right">
 					<a class="dropdown-item" href="/logout.php">Sair</a>
@@ -97,7 +98,7 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 						<div class="card card-hover mb-3">
 							<?php if ($relacionado['THUMB_VIDEO']) : ?>
 							<div class="card-cover">
-								<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_SESSION['NOME_EMPRESA']; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $_SESSION['NOME_USUARIO']; ?>">
+								<a id="ver-video" href="./video.php?v=<?= $relacionado['LINK_VIDEO']; ?>" class="text-decoration-none" data-empresa="<?= $_COOKIE["USUARIO_EMPRESA"]; ?>" data-video="<?= $relacionado['NOME_VIDEO']; ?>" data-usuario="<?= $_COOKIE["USUARIO_NOME"]; ?>">
 									<img src="./uploads/<?= $relacionado['THUMB_VIDEO']; ?>" class="img-fluid img-cover" alt="<?= $relacionado['NOME_VIDEO']; ?>">
 								</a>
 							</div>

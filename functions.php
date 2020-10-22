@@ -504,6 +504,28 @@ function getReceita(int $id)
     }
 }
 
+function getReceitaPorCategoria(int $id)
+{
+    if (!$id) return false;
+
+    $PDO = db_connect();
+    $sql = "SELECT * FROM RECEITAS
+            INNER JOIN CATEGORIAS_RECEITAS ON
+                RECEITAS.ID_RECEITA = CATEGORIAS_RECEITAS.ID_RECEITA
+            WHERE
+                CATEGORIAS_RECEITAS.ID_CATEGORIA = :ID_CATEGORIA";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':ID_CATEGORIA', $id);
+
+    try{
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e) {
+        throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
+    }
+}
+
 function getReceitasDestaque()
 {
     $PDO = db_connect();

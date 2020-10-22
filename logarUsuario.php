@@ -23,9 +23,9 @@ if ($stmt->rowCount() > 0) {
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     session_start();
 
-    $_SESSION['EMPRESA_USUARIO'] = $usuario['EMPRESA_USUARIO'];
-    $_SESSION['NOME_EMPRESA'] = $usuario['NOME_EMPRESA'];
-    $_SESSION['NOME_USUARIO'] = $usuario['NOME_USUARIO'];
+    setcookie("LEMBRAR_USUARIO", true,  time()+86400);
+    setcookie("USUARIO_EMPRESA", $usuario['NOME_EMPRESA']);
+    setcookie("USUARIO_NOME", $usuario['NOME_USUARIO']);
 
     header('Location: /?status=200');
     exit();

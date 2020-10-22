@@ -2,10 +2,6 @@
 require('control.php');
 require('_header.php');
 
-if (!$_SESSION['EMPRESA_USUARIO']) {
-	die("Erro: Não conseguimos carregar seus dados.");
-}
-
 $arBanner = getBannerFrontPage();
 $arAlbums = getAlbums();
 
@@ -24,7 +20,6 @@ $arTemas = getTemas();
 			<div class="dropdown">
 				<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 					<img src="./img/user.png" alt="Perfil">
-					<span id="usuario" class="sr-only"><?= $_SESSION['NOME_USUARIO']; ?></span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right">
 					<a class="dropdown-item" href="/logout.php">Sair</a>

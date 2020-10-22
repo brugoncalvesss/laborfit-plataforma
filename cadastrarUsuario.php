@@ -52,12 +52,9 @@ $request->bindParam(':SENHA_USUARIO', $password);
 
 if ($request->execute()) {
 
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    
-    $_SESSION['EMPRESA_USUARIO'] = $usuario['EMPRESA_USUARIO'];
-    $_SESSION['NOME_USUARIO'] = $nome;
+    setcookie("LEMBRAR_USUARIO", true,  time()+86400);
+    setcookie("USUARIO_EMPRESA", $usuario['EMPRESA_USUARIO']);
+    setcookie("USUARIO_NOME", $nome);
 
     header('Location: /?status=200');
     exit();
