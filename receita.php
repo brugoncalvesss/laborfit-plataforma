@@ -61,8 +61,12 @@ $receita = getReceita($idReceita);
 						</div>
 					</div>
                 </div>
-                
-                <p><?= $receita['DESCRICAO_RECEITA']; ?></p>
+
+				<div class="row">
+					<div class="col-12 col-md-10 offset-md-1">
+					<p><?= $receita['DESCRICAO_RECEITA']; ?></p>
+					</div>
+				</div>
 
 			</section>
 
