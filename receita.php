@@ -62,10 +62,16 @@ $receita = getReceita($idReceita);
 					</div>
                 </div>
 
-				<div>
+				<div class="mb-5">
 					<div class="col-12 col-md-10 offset-md-1">
 					<p><?= $receita['DESCRICAO_RECEITA']; ?></p>
 					</div>
+				</div>
+
+				<div class="mb-5 text-center">
+					<a href="/receitas.php" class="btn btn-primary btn-lg btn-alt">
+					Lista de receitas
+					</a>
 				</div>
 
 			</section>
