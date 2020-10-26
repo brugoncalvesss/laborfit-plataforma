@@ -33,10 +33,7 @@ session_start();
 	
 	<?php
 	if (!isset($_COOKIE['LEMBRAR_USUARIO'])) {
-		unset($_COOKIE['LEMBRAR_USUARIO']);
-		unset($_COOKIE['USUARIO_EMPRESA']);
-		unset($_COOKIE['USUARIO_NOME']);
-		header("location: /admin/login/index.php?status=301");
+		header("location: /admin/login/logout.php");
 		exit;
 	}
 	
