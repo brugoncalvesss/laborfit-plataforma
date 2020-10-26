@@ -54,13 +54,6 @@ $arReceitas = getReceitas();
 								<img src="./uploads/<?= $receita['IMG_RECEITA']; ?>" class="img-cover" alt="<?= $receita['NOME_RECEITA']; ?>">
 							</a>
 						</div>
-						<div class="card-body text-center">
-							<h5 class="card-title text-primary mb-0">
-                                <a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
-									<?= $receita['NOME_RECEITA']; ?>
-								</a>
-							</h5>
-						</div>
 					</div>
 				</div>
                 <?php endforeach; ?>
