@@ -33,12 +33,15 @@ $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    setcookie("LEMBRAR_USUARIO", true,  time()+86400);
-    setcookie("USUARIO_EMPRESA", $usuario['NOME_EMPRESA']);
-    setcookie("USUARIO_NOME", $usuario['EMAIL_ADMIN']);
 
-    header("location: /admin/paginas/?status=200");
+    session_start([
+        'cookie_lifetime' => 86400,
+    ]);
+
+    $_SESSION['LEMBRAR_USUARIO'] = true;
+    $_SESSION['USUARIO_NOME'] = $usuario['EMAIL_ADMIN'];
+
+    header("location: /admin/paginas/index.php?status=200");
     exit();
 } else {
     header("Location: /admin/login/?status=500");

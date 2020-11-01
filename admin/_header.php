@@ -32,10 +32,10 @@ session_start();
 	<body>
 	
 	<?php
-	if (!isset($_COOKIE['LEMBRAR_USUARIO'])) {
-		header("location: /admin/login/logout.php");
+	if (!isset($_SESSION['LEMBRAR_USUARIO'])) {
+		header("location: /admin/login/logout.php?status=redirect");
 		exit;
 	}
-	
-	require($_SERVER['DOCUMENT_ROOT'] . '/admin/init.php');
+
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/init.php';
 	?>
