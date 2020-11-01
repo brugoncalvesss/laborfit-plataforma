@@ -32,7 +32,7 @@ $search = isset($_GET['q']) ? $_GET['q'] : null;
 
 		<?php if (count($arVideos) > 0) : ?>
 		<div class="table-responsive datatable-custom">
-			<table id="basicDatatable" class="table table-borderless card-table">
+			<table id="basicDatatable" class="table card-table">
 				<thead class="thead-light">
 					<tr>
 						<th>Nome</th>

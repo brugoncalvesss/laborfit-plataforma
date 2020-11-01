@@ -84,6 +84,14 @@ if (empty($id)) {
                     <input type="email" class="form-control" name="EMAIL_USUARIO" value="<?= $usuario['EMAIL_USUARIO'] ?>">
                 </div>
 
+                <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Empresa</label>
+                    <select name="EMPRESA_USUARIO" class="form-control">
+                        <option value="0">Selecionar</option>
+                        <?php getSelectEmpresas($usuario['EMPRESA_USUARIO']); ?>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
 

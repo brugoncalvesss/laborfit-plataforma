@@ -15,7 +15,10 @@
     <div class="card mb-3">
     <?php
         $PDO = db_connect();
-        $sql = "SELECT * FROM USUARIOS WHERE USUARIOS.STATUS_USUARIO != -1 ORDER BY USUARIOS.NOME_USUARIO ASC";
+        $sql = "SELECT * FROM USUARIOS
+                LEFT JOIN EMPRESAS ON
+                    EMPRESAS.ID_EMPRESA = USUARIOS.EMPRESA_USUARIO
+                WHERE USUARIOS.STATUS_USUARIO >= 0 ORDER BY USUARIOS.NOME_USUARIO ASC";
         $stmt = $PDO->prepare($sql);
     
         try{
@@ -27,22 +30,36 @@
         ?>
 
         <?php if (count($arResult) > 0) : ?>
-            <?php foreach ($arResult as $usuario) : ?>
-            <div class="row align-items-center no-gutters border-bottom pl-2">
-                <div class="col">
-                    <i class="far fa-user mr-2"></i>
-                    <span><?= $usuario['NOME_USUARIO'] ?></span>
-                </div>
-                <div class="col col-auto">
-                    <a class="btn btn-link" href="/admin/usuarios/editar.php?id=<?= $usuario['ID_USUARIO'] ?>">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <a class="btn btn-link" href="/admin/usuarios/deletarUsuario.php?id=<?= $usuario['ID_USUARIO'] ?>">
-                        <i class="far fa-trash-alt"></i>
-                    </a>
-                </div>
-            </div>
-            <?php endforeach; ?>
+        <div class="table-responsive datatable-custom">
+			<table class="table card-table">
+				<thead class="thead-light">
+					<tr>
+						<th>Nome</th>
+						<th>Empresa</th>
+                        <th></th>
+					</tr>
+				</thead>
+				<tbody>
+                    <?php foreach ($arResult as $usuario) : ?>
+                    <tr>
+                        <td>
+                            <i class="far fa-user mr-2"></i>
+                            <span><?= $usuario['NOME_USUARIO'] ?></span>
+                        </td>
+                        <td><?= $usuario['NOME_EMPRESA'] ?></td>
+                        <td class="text-right">
+                            <a class="btn-link mx-1" href="/admin/usuarios/editar.php?id=<?= $usuario['ID_USUARIO'] ?>">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a class="btn-link mx-1" href="/admin/usuarios/deletarUsuario.php?id=<?= $usuario['ID_USUARIO'] ?>">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
         <?php endif; ?>
 
     </div>
