@@ -10,7 +10,7 @@ if (empty($cpf)) {
 
 $PDO = db_connect();
 
-$sql = "SELECT CPF_USUARIO FROM USUARIOS WHERE CPF_USUARIO = :CPF_USUARIO";
+$sql = "SELECT CPF_USUARIO, EMAIL_USUARIO FROM USUARIOS WHERE CPF_USUARIO = :CPF_USUARIO";
 
 $request = $PDO->prepare($sql);
 $request->bindParam(':CPF_USUARIO', $cpf);
@@ -56,7 +56,7 @@ $usuario = $request->fetch(PDO::FETCH_ASSOC);
 
 					<div class="form-group">
 						<label class="small text-muted text-uppercase font-weight-bold mb-1">E-mail</label>
-						<input type="email" class="form-control" name="email" required>
+						<input type="email" class="form-control" name="email" value="<?= $usuario['EMAIL_USUARIO'] ?>" required>
 					</div>
 
 					<div class="form-group">
