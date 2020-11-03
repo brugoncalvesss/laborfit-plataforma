@@ -34,9 +34,10 @@
         if ($i) {
             $newUser[$i]['NOME_USUARIO'] = $line[0];
             $newUser[$i]['CPF_USUARIO'] = $line[1];
-            $newUser[$i]['EMPRESA_USUARIO'] = $line[2];
-            $newUser[$i]['DEPARTAMENTO_USUARIO'] = $line[3];
-            $newUser[$i]['CARGO_USUARIO'] = $line[4];
+            $newUser[$i]['EMAIL_USUARIO'] = $line[2];
+            $newUser[$i]['EMPRESA_USUARIO'] = $line[3];
+            $newUser[$i]['DEPARTAMENTO_USUARIO'] = $line[4];
+            $newUser[$i]['CARGO_USUARIO'] = $line[5];
         }
         $i++;
     }
@@ -57,14 +58,15 @@
         $usuario['EMPRESA_USUARIO'] = verificaIdEmpresa($usuario['EMPRESA_USUARIO']);
 
         $sql = "INSERT INTO
-                    USUARIOS (NOME_USUARIO, CPF_USUARIO, EMPRESA_USUARIO, DEPARTAMENTO_USUARIO, CARGO_USUARIO, CADASTRO_USUARIO)
+                    USUARIOS (NOME_USUARIO, CPF_USUARIO, EMAIL_USUARIO, EMPRESA_USUARIO, DEPARTAMENTO_USUARIO, CARGO_USUARIO, CADASTRO_USUARIO)
                 VALUES
-                    (:NOME_USUARIO, :CPF_USUARIO, :EMPRESA_USUARIO, :DEPARTAMENTO_USUARIO, :CARGO_USUARIO, CURRENT_TIMESTAMP)";
+                    (:NOME_USUARIO, :CPF_USUARIO, :EMAIL_USUARIO, :EMPRESA_USUARIO, :DEPARTAMENTO_USUARIO, :CARGO_USUARIO, CURRENT_TIMESTAMP)";
 
         $stmt = $PDO->prepare($sql);
         $stmt->bindValue(':NOME_USUARIO', $usuario['NOME_USUARIO']);
         $stmt->bindValue(':CPF_USUARIO', $usuario['CPF_USUARIO']);
-        $stmt->bindValue(':EMPRESA_USUARIO', $usuario['EMPRESA_USUARIO']);
+        $stmt->bindValue(':EMAIL_USUARIO', $usuario['EMAIL_USUARIO']);
+        $stmt->bindValue(':EMPRESA_USUARIO', $usuario['EMPRESA_USUARIO']['ID_EMPRESA']);
         $stmt->bindValue(':DEPARTAMENTO_USUARIO', $usuario['DEPARTAMENTO_USUARIO']);
         $stmt->bindValue(':CARGO_USUARIO', $usuario['CARGO_USUARIO']);
 
