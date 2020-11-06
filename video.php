@@ -14,7 +14,8 @@ if (!$idVideo) {
 }
 
 $video = getVideo($idVideo);
-$videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
+$videosRelacionados = getVideosRelacionados($video['ID_VIDEO']);
+$categoria = getCategoriaDoVideo($video['ID_VIDEO']);
 ?>
 
 <main>
@@ -49,17 +50,19 @@ $videosRelacionados = getVideosRelacionados($idVideo, $video['ALBUM_VIDEO']);
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
 				<?php if ($idTema) : ?>
 					<li class="breadcrumb-item"><a href="./tag.php?q=<?= $arTema['ID_TEMA']; ?>"><?= $arTema['NOME_TEMA']; ?></a></li>
-				<?php else : ?>
-				<li class="breadcrumb-item"><a href="./categoria.php?q=<?= $video['ALBUM_VIDEO']; ?>"><?= $video['NOME_CATEGORIA']; ?></a></li>
+				<?php elseif($categoria[0]['ID_CATEGORIA']) : ?>
+				<li class="breadcrumb-item"><a href="./categoria.php?q=<?= $categoria[0]['ID_CATEGORIA']; ?>"><?= $categoria[0]['NOME_CATEGORIA']; ?></a></li>
 				<?php endif; ?>
 			</ol>
 			</nav>
 
 			<section class="text-center text-light mb-3">
 				<div class="mb-3">
-					<a href="./categoria.php?q=<?= $video['ALBUM_VIDEO']; ?>" class="btn btn-link btn-categoria text-white rounded-pill">
-						<?= $video['NOME_CATEGORIA']; ?>
+					<?php if ($categoria[0]['ID_CATEGORIA']) : ?>
+					<a href="./categoria.php?q=<?= $categoria[0]['ID_CATEGORIA']; ?>" class="btn btn-link btn-categoria text-white rounded-pill">
+						<?= $categoria[0]['NOME_CATEGORIA']; ?>
 					</a>
+					<?php endif; ?>
 				</div>
 				<h2 class="h4 font-weight-600"><?= $video['NOME_VIDEO']; ?></h2>
 			</section>

@@ -177,8 +177,6 @@ function getVideo(int $id) {
     $PDO = db_connect();
     $sql = "SELECT * FROM
                 VIDEOS
-            INNER JOIN CATEGORIAS ON
-                VIDEOS.ALBUM_VIDEO = CATEGORIAS.ID_CATEGORIA
             WHERE
                 VIDEOS.STATUS_VIDEO = 1
                 AND VIDEOS.LINK_VIDEO = :LINK_VIDEO
@@ -188,41 +186,49 @@ function getVideo(int $id) {
 
     try{
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         throw new Exception("Erro ao carregar vídeo: " . $e->getMessage());
     }
-
-	return $result;
 }
 
-function getVideosRelacionados(int $idVideo, int $idCategoria) {
+function getVideosRelacionados(int $idVideo) {
 
-    if (!$idVideo || !$idCategoria) {
+    if (!$idVideo) {
         return false;
     }
 
     $PDO = db_connect();
+
+    $sql = "SELECT ID_CATEGORIA FROM CATEGORIAS_VIDEOS WHERE ID_VIDEO = :ID_VIDEO LIMIT 1";
+    $stmt =$PDO->prepare($sql);
+    $stmt->bindParam(':ID_VIDEO', $idVideo, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($result[0]['ID_CATEGORIA'])) {
+        return false;
+    }
+
     $sql = "SELECT * FROM
-                VIDEOS
+                CATEGORIAS_VIDEOS
+            INNER JOIN VIDEOS ON
+                VIDEOS.ID_VIDEO = CATEGORIAS_VIDEOS.ID_VIDEO
             WHERE
-                VIDEOS.STATUS_VIDEO = 1
-                AND VIDEOS.LINK_VIDEO <> :LINK_VIDEO
-                AND VIDEOS.ALBUM_VIDEO = :ALBUM_VIDEO
+                CATEGORIAS_VIDEOS.ID_CATEGORIA = :ID_CATEGORIA
+                AND CATEGORIAS_VIDEOS.ID_VIDEO <> :ID_VIDEO
             ORDER BY RAND() LIMIT 3";
 
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':LINK_VIDEO', $idVideo, PDO::PARAM_INT);
-    $stmt->bindParam(':ALBUM_VIDEO', $idCategoria, PDO::PARAM_INT);
+    $stmt->bindParam(':ID_CATEGORIA', $result[0]['ID_CATEGORIA'], PDO::PARAM_INT);
+    $stmt->bindParam(':ID_VIDEO', $idVideo, PDO::PARAM_INT);
 
     try{
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         throw new Exception("Erro ao carregar vídeos: " . $e->getMessage());
     }
-
-	return $result;
 }
 
 function getTemas()
@@ -379,7 +385,7 @@ function getVideoDestaqueCategoria(int $idCategoria)
     $PDO = db_connect();
     $sql = "SELECT * FROM VIDEOS
             INNER JOIN CATEGORIAS_VIDEOS ON
-                        CATEGORIAS_VIDEOS.ID_VIDEO = VIDEOS.ID_VIDEO
+                CATEGORIAS_VIDEOS.ID_VIDEO = VIDEOS.ID_VIDEO
             WHERE
                 VIDEOS.STATUS_VIDEO = 1
                 AND CATEGORIAS_VIDEOS.ID_CATEGORIA = :ID_CATEGORIA
@@ -542,4 +548,24 @@ function getReceitasDestaque()
     } catch(PDOException $e) {
         throw new Exception("Erro ao carregar receitas: " . $e->getMessage());
     }
+}
+
+function getCategoriaDoVideo($idVideo = null) {
+
+    if (!$idVideo) {
+        return false;
+    }
+    
+    $PDO = db_connect();
+
+    $sql = "SELECT * FROM CATEGORIAS_VIDEOS
+            INNER JOIN CATEGORIAS ON
+                CATEGORIAS.ID_CATEGORIA = CATEGORIAS_VIDEOS.ID_CATEGORIA
+            WHERE 
+                CATEGORIAS_VIDEOS.ID_VIDEO = :ID_VIDEO LIMIT 1";
+    $stmt =$PDO->prepare($sql);
+    $stmt->bindParam(':ID_VIDEO', $idVideo, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
