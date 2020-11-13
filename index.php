@@ -92,13 +92,6 @@ $arTemas = getTemas();
 								<img src="./uploads/<?= $destaque['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $destaque['NOME_VIDEO']; ?>">
 							</a>
 						</div>
-						<div class="card-body text-center d-none">
-							<h5 class="center-title font-weight-600 text-primary mb-0">
-								<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
-									<?= $destaque['INTRO_VIDEO']; ?>
-								</a>
-							</h5>
-						</div>
 					</div>
 				</div>
 				<?php endforeach; ?>
@@ -109,16 +102,15 @@ $arTemas = getTemas();
 							<h5 class="font-weight-600 mb-0">Receita Fit</h5>
 						</div>
 						<div class="card-cover">
-							<a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
+							<a
+								href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>"
+								class="text-decoration-none"
+								id="ver-receita"
+								data-empresa="<?= $_COOKIE["USUARIO_EMPRESA"]; ?>"
+								data-usuario="<?= $_COOKIE["USUARIO_NOME"]; ?>"
+								data-receita="<?= $receita['NOME_RECEITA']; ?>">
 								<img src="./uploads/<?= $receita['IMG_RECEITA']; ?>" class="img-cover" alt="<?= $receita['NOME_RECEITA']; ?>">
 							</a>
-						</div>
-						<div class="card-body text-center d-none">
-							<h5 class="center-title font-weight-600 text-primary mb-0">
-								<a href="./receita.php?q=<?= $receita['NOME_RECEITA']; ?>" class="text-decoration-none">
-									<?= $destaque['INTRO_VIDEO']; ?>
-								</a>
-							</h5>
 						</div>
 					</div>
 				</div>

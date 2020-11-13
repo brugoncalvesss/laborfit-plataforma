@@ -50,7 +50,13 @@ $arReceitas = getReceitas();
                 <div class="col mb-3">
 					<div class="card card-hover h-100">
 						<div class="card-cover">
-							<a href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>" class="text-decoration-none">
+							<a
+								href="./receita.php?q=<?= $receita['ID_RECEITA']; ?>"
+								class="text-decoration-none"
+								id="ver-receita"
+								data-empresa="<?= $_COOKIE["USUARIO_EMPRESA"]; ?>"
+								data-usuario="<?= $_COOKIE["USUARIO_NOME"]; ?>"
+								data-receita="<?= $receita['NOME_RECEITA']; ?>">
 								<img src="./uploads/<?= $receita['IMG_RECEITA']; ?>" class="img-cover" alt="<?= $receita['NOME_RECEITA']; ?>">
 							</a>
 						</div>
