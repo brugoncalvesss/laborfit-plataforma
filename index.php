@@ -64,7 +64,7 @@ $arTemas = getTemas();
 		<div class="container">
 
 			<button class="btn btn-primary btn-lg btn-alt" type="button" data-toggle="modal" data-target="#modalTemas">
-			O que precisa para um dia WoW? <i class="fas fa-chevron-down pl-1"></i>
+			O que você precisa hoje <div class="mobile-quebra"></div>para um dia Wow? <i class="fas fa-chevron-down pl-1"></i>
 			</button>
 
 		</div>

@@ -328,3 +328,17 @@ a:hover, a:focus {
 .mb-30 {
     margin-bottom: 30px;
 }
+
+/*
+ * Mobile
+ */
+
+.mobile-quebra {
+    display: block;
+}
+
+@media (min-width: 480px) {
+    .mobile-quebra {
+        display: inline;
+    }
+}
