@@ -59,7 +59,7 @@
                     </select>
                 </div>
 
-                <div id="defaultIntro" class="form-group d-none">
+                <div class="form-group">
                     <label>Texto de destaque</label>
                     <input type="text" name="INTRO_VIDEO" value="" class="form-control">
                 </div>

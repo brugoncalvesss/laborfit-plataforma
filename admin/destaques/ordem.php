@@ -6,9 +6,6 @@
         <div class="col">
             <h1 class="h3 my-0">Vídeos em destaque</h1>
         </div>
-        <div class="col text-sm-right">
-            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalVideos">Adicionar vídeos</button>
-        </div>
     </header>
     
     <div class="card mb-3">
