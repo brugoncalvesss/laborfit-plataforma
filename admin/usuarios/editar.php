@@ -35,6 +35,22 @@ if (empty($id)) {
                 <input type="hidden" class="form-control" name="ID_USUARIO" value="<?= $usuario['ID_USUARIO'] ?>">
 
                 <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">Status do usuário</label>
+                    <?php if ($usuario['STATUS_USUARIO']) : ?>
+                        <span class="badge badge-success">Ativo</span>
+                    <?php else : ?>
+                        <span class="badge badge-secondary">Inativo</span>
+                    <?php endif; ?>
+
+                    <?php $ativar = ($usuario['STATUS_USUARIO']) ? 'Desativar usuário' : 'Ativar usuário'; ?>
+                    <div class="float-right">
+                        <a href="/admin/usuarios/status.php?id=<?= $usuario['ID_USUARIO'] ?>" class="btn btn-primary btn-sm">
+                            <?= $ativar; ?>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Departamento</label>
                     <input type="text" class="form-control" name="DEPARTAMENTO_USUARIO" value="<?= $usuario['DEPARTAMENTO_USUARIO'] ?>">
                 </div>

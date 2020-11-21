@@ -21,14 +21,20 @@ $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-    session_start();
 
-    setcookie("LEMBRAR_USUARIO", true,  time()+86400);
-    setcookie("USUARIO_EMPRESA", $usuario['NOME_EMPRESA']);
-    setcookie("USUARIO_NOME", $usuario['NOME_USUARIO']);
+    if (intval($usuario['STATUS_USUARIO'])) {
+        session_start();
 
-    header('Location: /?status=200');
-    exit();
+        setcookie("LEMBRAR_USUARIO", true,  time()+86400);
+        setcookie("USUARIO_EMPRESA", $usuario['NOME_EMPRESA']);
+        setcookie("USUARIO_NOME", $usuario['NOME_USUARIO']);
+    
+        header('Location: /?status=200');
+        exit();
+    } else {
+        header('Location: /desativado.php?status=200');
+        exit();
+    }
 } else {
     header("Location: /login.php?status=500");
     exit();

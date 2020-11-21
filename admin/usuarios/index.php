@@ -37,6 +37,7 @@
 						<th>Nome</th>
 						<th>Empresa</th>
                         <th></th>
+                        <th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -47,6 +48,13 @@
                             <span><?= $usuario['NOME_USUARIO'] ?></span>
                         </td>
                         <td><?= $usuario['NOME_EMPRESA'] ?></td>
+                        <td>
+                            <?php if ($usuario['STATUS_USUARIO']) : ?>
+                                <span class="badge badge-success">Ativo</span>
+                            <?php else : ?>
+                                <span class="badge badge-secondary">Inativo</span>
+                            <?php endif; ?>
+                        </td>
                         <td class="text-right">
                             <a class="btn-link mx-1" href="/admin/usuarios/editar.php?id=<?= $usuario['ID_USUARIO'] ?>">
                                 <i class="far fa-edit"></i>

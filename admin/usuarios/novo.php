@@ -23,6 +23,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="small text-uppercase font-weight-bold">E-mail</label>
+                    <input type="email" name="EMAIL_USUARIO" class="form-control">
+                </div>
+
+                <div class="form-group">
                     <label class="small text-uppercase font-weight-bold">Empresa</label>
                     <select name="EMPRESA_USUARIO" class="form-control">
                         <option value="0">Selecionar empresa</option>
