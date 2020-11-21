@@ -7,10 +7,6 @@ $(document).ready(function(){
         $(this).next('.custom-file-label').html(fileName);
     });
 
-    $('#defaultCheck1').on('change', function(e) {
-        $('#defaultIntro').toggleClass('d-none');
-    });
-
     $("#sortable").sortable({
         items : ".row",
         update: function () {

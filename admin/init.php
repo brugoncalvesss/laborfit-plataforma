@@ -319,3 +319,58 @@ function deleteCategoriaPorIdReceita(int $id)
 
 	return 0;
 }
+
+function getOptionsDestaqueVideo($id = null)
+{
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM DESTAQUES WHERE ID_DESTAQUE != 1 ORDER BY NOME_DESTAQUE ASC";
+	$stmt = $PDO->prepare($sql);
+	$stmt->execute();
+	$arDestaques = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	if (!empty($arDestaques)) {
+		foreach ($arDestaques as $destaque) {
+			$selected = false;
+			if ($id && ($destaque['ID_DESTAQUE'] == $id)) {
+				$selected = 'selected';
+			}
+			$option = "<option {$selected} value='{$destaque['ID_DESTAQUE']}'>{$destaque['NOME_DESTAQUE']}</option>";
+			echo $option;
+		}
+	}
+}
+
+function getOptionsDestaqueReceita($id = null)
+{
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM DESTAQUES WHERE ID_DESTAQUE == 1 ORDER BY NOME_DESTAQUE ASC";
+	$stmt = $PDO->prepare($sql);
+	$stmt->execute();
+	$arDestaques = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	if (!empty($arDestaques)) {
+		foreach ($arDestaques as $destaque) {
+			$selected = false;
+			if ($id && ($destaque['ID_DESTAQUE'] == $id)) {
+				$selected = 'selected';
+			}
+			$option = "<option {$selected} value='{$destaque['ID_DESTAQUE']}'>{$destaque['NOME_DESTAQUE']}</option>";
+			echo $option;
+		}
+	}
+}
+
+function getIdDestaqueVideo($id)
+{
+	if (!$id) return 0;
+	
+	$PDO = db_connect();
+	$sql = "SELECT ID_DESTAQUE FROM DESTAQUES_VIDEOS WHERE ID_VIDEO = :ID_VIDEO";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':ID_VIDEO', $id);
+	$stmt->execute();
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

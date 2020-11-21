@@ -49,6 +49,8 @@ if (empty($id)) {
 				array_unique(array_column($arTemas, 'NOME_TEMA'))
 			);
 		}
+
+		$destaque = getIdDestaqueVideo($id);
 		?>
 
 		<?php if (!empty($video)) : ?>
@@ -102,26 +104,15 @@ if (empty($id)) {
                         <textarea name="descricao" rows="3" class="form-control"><?= $video['DESC_VIDEO']; ?></textarea>
                     </div>
 
-					<div class="form-check mb-3">
-						<?php
-						$checked = '';
-						if ($video['DESTAQUE_VIDEO']) {
-							$checked = 'checked';
-						}
-						?>
-						<input class="form-check-input" type="checkbox" value="1" name="DESTAQUE_VIDEO" id="defaultCheck1" <?= $checked; ?>>
-						<label class="form-check-label" for="defaultCheck1">
-							Vídeo destaque?
-						</label>
+					<div class="form-group">
+						<label>Destaque</label>
+						<select name="DESTAQUE_VIDEO" class="form-control">
+							<option value="0">Sem destaque</option>
+							<?= getOptionsDestaqueVideo($destaque[0]['ID_DESTAQUE']); ?>
+						</select>
 					</div>
 
-					<?php
-					$intro = 'd-none';
-					if ($video['DESTAQUE_VIDEO']) {
-						$intro = '';
-					}
-					?>
-					<div id="defaultIntro" class="form-group <?= $intro; ?>">
+					<div class="form-group">
 						<label>Texto de destaque</label>
 						<input type="text" name="INTRO_VIDEO" value="<?= $video['INTRO_VIDEO']; ?>" class="form-control">
 					</div>

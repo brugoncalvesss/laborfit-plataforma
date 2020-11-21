@@ -21,6 +21,8 @@ if ($_FILES["arquivo"]["name"]) {
     $imagem = $data['imagem'];
 }
 
+$destaque = intval($data['DESTAQUE_VIDEO']);
+
 $PDO = db_connect();
 $sql = "UPDATE
             VIDEOS
@@ -34,7 +36,7 @@ $stmt->bindParam(':NOME_VIDEO', $data['nome']);
 $stmt->bindParam(':LINK_VIDEO', $data['link']);
 $stmt->bindParam(':THUMB_VIDEO', $imagem);
 $stmt->bindParam(':DESC_VIDEO', $data['descricao']);
-$stmt->bindParam(':DESTAQUE_VIDEO', $data['DESTAQUE_VIDEO']);
+$stmt->bindParam(':DESTAQUE_VIDEO', $destaque);
 $stmt->bindParam(':INTRO_VIDEO', $data['INTRO_VIDEO']);
 $stmt->bindParam(':ID_VIDEO', $data['id'], PDO::PARAM_INT);
 $stmt->execute();
@@ -80,6 +82,25 @@ if ($data['TEMAS']) {
             $stmt->execute();
         }
     }
+}
+
+$PDO = db_connect();
+$sql = "DELETE FROM DESTAQUES_VIDEOS WHERE ID_VIDEO = :ID_VIDEO LIMIT 1";
+$stmt = $PDO->prepare($sql);
+$stmt->bindParam(':ID_VIDEO', $data['id'], PDO::PARAM_INT);
+$stmt->execute();
+
+if ($destaque) {
+    $PDO = db_connect();
+    $sql = "INSERT INTO DESTAQUES_VIDEOS (ID_DESTAQUE, ID_VIDEO, DATA_EXIBICAO)
+            VALUES (:ID_DESTAQUE, :ID_VIDEO, :DATA_EXIBICAO)";
+    $stmt = $PDO->prepare($sql);
+
+    $date = date("Y-m-d");
+    $stmt->bindParam(':ID_DESTAQUE', $data['DESTAQUE_VIDEO'], PDO::PARAM_INT);
+    $stmt->bindParam(':ID_VIDEO', $data['id'], PDO::PARAM_INT);
+    $stmt->bindParam(':DATA_EXIBICAO', $date);
+    $stmt->execute();
 }
 
 header("Location: /admin/paginas/?status=201");

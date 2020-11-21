@@ -51,8 +51,16 @@
                     <textarea name="DESC_VIDEO" rows="3" class="form-control"></textarea>
                 </div>
 
+                <div class="form-group">
+                    <label>Destaque</label>
+                    <select name="DESTAQUE_VIDEO" class="form-control">
+                        <option value="0">Sem destaque</option>
+                        <?= getOptionsDestaqueVideo(); ?>
+                    </select>
+                </div>
+
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="1" name="DESTAQUE_VIDEO" id="defaultCheck1">
+                    <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
                     <label class="form-check-label" for="defaultCheck1">
                         Vídeo destaque?
                     </label>

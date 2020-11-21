@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/init.php';
 
 $data = filter_input_array(INPUT_POST);
 
-$data['DESTAQUE_VIDEO'] = isset($data['DESTAQUE_VIDEO']) ? $data['DESTAQUE_VIDEO'] : 0;
+$destaque = intval($data['DESTAQUE_VIDEO']);
 
 if ($data['LINK_VIDEO']) {
     $data['LINK_VIDEO'] = getVimeoId($data['LINK_VIDEO']);
@@ -26,7 +26,7 @@ $stmt->bindParam(':NOME_VIDEO', $data['NOME_VIDEO']);
 $stmt->bindParam(':LINK_VIDEO', $data['LINK_VIDEO']);
 $stmt->bindParam(':THUMB_VIDEO', $imagem);
 $stmt->bindParam(':DESC_VIDEO', $data['DESC_VIDEO']);
-$stmt->bindParam(':DESTAQUE_VIDEO', $data['DESTAQUE_VIDEO']);
+$stmt->bindParam(':DESTAQUE_VIDEO', $destaque);
 $stmt->bindParam(':INTRO_VIDEO', $data['INTRO_VIDEO']);
 
 if ($stmt->execute()) {
@@ -69,6 +69,21 @@ if ($data['TEMAS'] && $lastIdVideo) {
             $stmt->execute();
         }
     }
+}
+
+if ($data['DESTAQUE_VIDEO'] && $lastIdVideo) {
+    $sql = "INSERT INTO
+                DESTAQUES_VIDEOS (ID_DESTAQUE, ID_VIDEO, DATA_EXIBICAO)
+            VALUES
+                (:ID_DESTAQUE, :ID_VIDEO, :DATA_EXIBICAO)";
+    $PDO = db_connect();
+    $stmt = $PDO->prepare($sql);
+
+    $date = date("Y-m-d");
+    $stmt->bindParam(':ID_DESTAQUE', $data['DESTAQUE_VIDEO'], PDO::PARAM_INT);
+    $stmt->bindParam(':ID_VIDEO', $lastIdVideo, PDO::PARAM_INT);
+    $stmt->bindParam(':DATA_EXIBICAO', $date);
+    $stmt->execute();
 }
 
 header("location: /admin/paginas/?status=201");
