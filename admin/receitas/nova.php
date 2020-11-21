@@ -33,11 +33,12 @@
                     <textarea name="DESCRICAO_RECEITA" id="editor" class="form-control"></textarea>
                 </div>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="1" name="DESTAQUE_RECEITA" id="receitaCheck1">
-                    <label class="form-check-label" for="receitaCheck1">
-                        Receita em destaque?
-                    </label>
+                <div class="form-group">
+                    <label>Destaque</label>
+                    <select name="DESTAQUE_RECEITA" class="form-control">
+                        <option value="0">Sem destaque</option>
+                        <?= getOptionsDestaqueReceita(); ?>
+                    </select>
                 </div>
 
                 <div class="form-group">

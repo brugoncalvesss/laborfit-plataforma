@@ -7,6 +7,8 @@ if (empty($data)) {
     die('Erro: Nenhuma informação enviada.');
 }
 
+$destaque = intval($data['DESTAQUE_RECEITA']);
+
 if ($_FILES["arquivo"]["name"]) {
     $imagem = uploadFile($_FILES);
 }
@@ -18,7 +20,7 @@ $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_RECEITA', $data['NOME_RECEITA']);
 $stmt->bindParam(':DESCRICAO_RECEITA', $data['DESCRICAO_RECEITA']);
-$stmt->bindParam(':DESTAQUE_RECEITA', $data['DESTAQUE_RECEITA']);
+$stmt->bindParam(':DESTAQUE_RECEITA', $destaque);
 $stmt->bindParam(':IMG_RECEITA', $imagem);
 
 if ($stmt->execute()) {
@@ -42,6 +44,21 @@ if ($data['CATEGORIAS'] && $lastId) {
             $stmt->execute();
         }
     }
+}
+
+if ($data['DESTAQUE_RECEITA'] && $lastId) {
+    $sql = "INSERT INTO
+                DESTAQUES_VIDEOS (ID_DESTAQUE, ID_VIDEO, DATA_EXIBICAO)
+            VALUES
+                (:ID_DESTAQUE, :ID_VIDEO, :DATA_EXIBICAO)";
+    $PDO = db_connect();
+    $stmt = $PDO->prepare($sql);
+
+    $date = date("Y-m-d");
+    $stmt->bindParam(':ID_DESTAQUE', $data['DESTAQUE_RECEITA'], PDO::PARAM_INT);
+    $stmt->bindParam(':ID_VIDEO', $lastId, PDO::PARAM_INT);
+    $stmt->bindParam(':DATA_EXIBICAO', $date);
+    $stmt->execute();
 }
 
 header("location: /admin/receitas/?status=201");

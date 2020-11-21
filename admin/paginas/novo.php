@@ -59,13 +59,6 @@
                     </select>
                 </div>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Vídeo destaque?
-                    </label>
-                </div>
-
                 <div id="defaultIntro" class="form-group d-none">
                     <label>Texto de destaque</label>
                     <input type="text" name="INTRO_VIDEO" value="" class="form-control">

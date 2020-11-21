@@ -7,6 +7,8 @@ if (empty($data)) {
     die('Erro: Nenhuma informação enviada.');
 }
 
+$destaque = intval($data['DESTAQUE_RECEITA']);
+
 if ($_FILES["arquivo"]["name"]) {
     $imagem = uploadFile($_FILES);
 } else {
@@ -23,7 +25,7 @@ $stmt->bindParam(':NOME_RECEITA', $data['NOME_RECEITA']);
 $stmt->bindParam(':DESCRICAO_RECEITA', $data['DESCRICAO_RECEITA']);
 $stmt->bindParam(':ID_RECEITA', $data['ID_RECEITA']);
 $stmt->bindParam(':IMG_RECEITA', $imagem);
-$stmt->bindParam(':DESTAQUE_RECEITA', $data['DESTAQUE_RECEITA']);
+$stmt->bindParam(':DESTAQUE_RECEITA', $destaque);
 $stmt->execute();
 
 if ($data['CATEGORIAS']) {
@@ -46,6 +48,25 @@ if ($data['CATEGORIAS']) {
             $stmt->execute();
         }
     }
+}
+
+$PDO = db_connect();
+$sql = "DELETE FROM DESTAQUES_VIDEOS WHERE ID_VIDEO = :ID_VIDEO LIMIT 1";
+$stmt = $PDO->prepare($sql);
+$stmt->bindParam(':ID_VIDEO', $data['ID_RECEITA'], PDO::PARAM_INT);
+$stmt->execute();
+
+if ($destaque) {
+    $PDO = db_connect();
+    $sql = "INSERT INTO DESTAQUES_VIDEOS (ID_DESTAQUE, ID_VIDEO, DATA_EXIBICAO)
+            VALUES (:ID_DESTAQUE, :ID_VIDEO, :DATA_EXIBICAO)";
+    $stmt = $PDO->prepare($sql);
+
+    $date = date("Y-m-d");
+    $stmt->bindParam(':ID_DESTAQUE', $data['DESTAQUE_RECEITA'], PDO::PARAM_INT);
+    $stmt->bindParam(':ID_VIDEO', $data['ID_RECEITA'], PDO::PARAM_INT);
+    $stmt->bindParam(':DATA_EXIBICAO', $date);
+    $stmt->execute();
 }
 
 header("location: /admin/receitas/?status=201");

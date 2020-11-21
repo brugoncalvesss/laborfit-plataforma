@@ -345,7 +345,7 @@ function getOptionsDestaqueReceita($id = null)
 {
 	$PDO = db_connect();
 
-	$sql = "SELECT * FROM DESTAQUES WHERE ID_DESTAQUE == 1 ORDER BY NOME_DESTAQUE ASC";
+	$sql = "SELECT * FROM DESTAQUES WHERE ID_DESTAQUE = 1 ORDER BY NOME_DESTAQUE ASC";
 	$stmt = $PDO->prepare($sql);
 	$stmt->execute();
 	$arDestaques = $stmt->fetchAll(PDO::FETCH_ASSOC);

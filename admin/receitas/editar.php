@@ -28,6 +28,8 @@ if (!empty($arCategorias)) {
         array_unique(array_column($arCategorias, 'NOME_CATEGORIA'))
     );
 }
+
+$destaque = getIdDestaqueVideo($idReceita);
 ?>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
@@ -69,18 +71,13 @@ if (!empty($arCategorias)) {
                     <textarea name="DESCRICAO_RECEITA" id="editor" class="form-control"><?= $descricao; ?></textarea>
                 </div>
 
-                <div class="form-check mb-3">
-						<?php
-						$checked = '';
-						if ($arReceitas['DESTAQUE_RECEITA']) {
-							$checked = 'checked';
-						}
-						?>
-						<input class="form-check-input" type="checkbox" value="1" name="DESTAQUE_RECEITA" id="receitaCheck1" <?= $checked; ?>>
-						<label class="form-check-label" for="receitaCheck1">
-							Receita em destaque?
-						</label>
-					</div>
+                <div class="form-group">
+                    <label>Destaque</label>
+                    <select name="DESTAQUE_RECEITA" class="form-control">
+                        <option value="0">Sem destaque</option>
+                        <?= getOptionsDestaqueReceita($destaque[0]['ID_DESTAQUE']); ?>
+                    </select>
+                </div>
 
                 <div class="form-group">
                     <label>Categoria</label>
