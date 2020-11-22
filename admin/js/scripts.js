@@ -53,7 +53,7 @@ $(document).ready(function(){
     $('#basicDatatable').DataTable({
         "info": false,
         "filter": true,
-        "pageLength": 20,
+        "pageLength": 16,
         "pagingType": "numbers",
         "lengthChange": false,
         "columns": [
@@ -65,6 +65,27 @@ $(document).ready(function(){
         "language": { search: "Procurar: " }
     });
 
+    let tbUsers = $('#usersDatatable').DataTable({
+        "info": false,
+        "filter": true,
+        "pageLength": 16,
+        "pagingType": "numbers",
+        "lengthChange": false,
+        "columns": [
+            null,
+            null,
+            {"orderable": false},
+            {"orderable": false}
+        ],
+        "language": { search: "Procurar: " }
+    });
+
+    tbUsers.on('draw', function () {
+        let rows = tbUsers.rows( {search:'applied'} ).count();
+        if (rows) {
+            $('#usersFiltered').html(`Resultados: ${rows}`);
+        }
+    });
     
     const listaCategorias = $.ajax({
         method: 'POST',

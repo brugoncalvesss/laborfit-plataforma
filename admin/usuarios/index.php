@@ -1,4 +1,4 @@
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php'); ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_header.php'; ?>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     
@@ -12,7 +12,7 @@
         </div>
     </header>
     
-    <div class="card mb-3">
+    <div class="mb-3">
     <?php
         $PDO = db_connect();
         $sql = "SELECT * FROM USUARIOS
@@ -31,7 +31,7 @@
 
         <?php if (count($arResult) > 0) : ?>
         <div class="table-responsive datatable-custom">
-			<table class="table card-table">
+			<table id="usersDatatable" class="table card-table">
 				<thead class="thead-light">
 					<tr>
 						<th>Nome</th>
@@ -70,7 +70,9 @@
         </div>
         <?php endif; ?>
 
+        <div id="usersFiltered"></div>
+
     </div>
 </main>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_footer.php'); ?>
+<?php require_once  $_SERVER['DOCUMENT_ROOT'] . '/admin/layout/_footer.php'; ?>
