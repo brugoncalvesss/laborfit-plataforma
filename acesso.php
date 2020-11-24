@@ -30,6 +30,11 @@ include($_header);
           <p class="text-center">
             Já tem cadastro? <a href="/login.php">entrar</a>.
           </p>
+
+          <p class="text-center">
+					Problemas para acessar? <a href="mailto:contato@wowlife.com.br?subject=Problemas ao acessar">clique aqui</a>.
+					</p>
+          
         </div>
 
       </div><!-- end col -->
