@@ -54,12 +54,11 @@ $usuario = $request->fetch(PDO::FETCH_ASSOC);
 						</select>
 					</div>
 
-					<?php if (!$usuario['EMAIL_USUARIO']) : ?>
-					<div class="form-group">
+					<?php $visibilidade = ($usuario['EMAIL_USUARIO']) ? 'd-none' : 'd-block'; ?>
+					<div class="form-group <?= $visibilidade; ?>">
 						<label class="small text-muted text-uppercase font-weight-bold mb-1">E-mail</label>
 						<input type="email" class="form-control" name="email" value="<?= $usuario['EMAIL_USUARIO'] ?>" required>
 					</div>
-					<?php endif; ?>
 
 					<div class="form-group">
 						<label class="small text-muted text-uppercase font-weight-bold mb-1">Senha</label>
