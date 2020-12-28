@@ -1,1 +1,1 @@
-# WoWLife
+# WoW Life
