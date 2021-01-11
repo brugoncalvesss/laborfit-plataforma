@@ -186,7 +186,7 @@ if (empty($arrPrograma)) {
                     $dashAula = getDadosAula($value['ID_AULA'], $value['FL_RECEITA_AULA']);
                     $url = "/programa.php?etapa=".$value['FK_ETAPA']."&aula=".$dashAula['ID_AULA'];
                     ?>
-                    <a class="d-block" href="<?= $url ?>">
+                    <a class="d-block mb-3" href="<?= $url ?>">
                         <?php if ($dashAula['FL_RECEITA_AULA']) : ?>
                             <?php if ($dashAula['IMG_RECEITA']) : ?>
                             <img src="./uploads/<?= $dashAula['IMG_RECEITA']; ?>" alt="<?= $dashAula['NOME_RECEITA'] ?>" class="img-fluid">
