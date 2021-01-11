@@ -27,6 +27,11 @@
 				</a>
 			</li>
 			<li class="nav-item">
+				<a href="/admin/programas/" class="nav-link">
+					<i class="far fa-folder mr-1"></i> Programas
+				</a>
+			</li>
+			<li class="nav-item">
 				<a href="/admin/banners/" class="nav-link">
 					<i class="far fa-images mr-1"></i> Banners
 				</a>

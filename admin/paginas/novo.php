@@ -64,6 +64,33 @@
                     <input type="text" name="INTRO_VIDEO" value="" class="form-control">
                 </div>
 
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Adicionar ao programa?
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Programa</label>
+                            <select name="ID_PROGRAMA" class="form-control">
+                                <option value="0">Selecionar</option>
+                                
+                                <?php $arrProgramas = getPrograma(); ?>
+                                <?php if (!empty($arrProgramas)) : ?>
+                                    <?php foreach ($arrProgramas as $programa) : ?>
+                                    <option value="<?= $programa['ID_PROGRAMA'] ?>"><?= $programa['NOME_PROGRAMA'] ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Etapa</label>
+                            <input type="number" name="ID_ETAPA" class="form-control" placeholder="Dia de exibição do vídeo">
+                        </div>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Salvar</button>
                 
             </form>

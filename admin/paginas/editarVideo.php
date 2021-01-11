@@ -103,6 +103,45 @@ if ($destaque) {
     $stmt->execute();
 }
 
+if ($data['ID_PROGRAMA']) {
+    $arrAula = getAulaDoPrograma($data['id']);
+    $data['ID_ETAPA'] = $data['ID_ETAPA'] ?: 0;
+}
+
+if (!empty($arrAula)) {
+    $sql = "UPDATE AULAS
+            SET FK_ETAPA = :FK_ETAPA, FK_PROGRAMA = :FK_PROGRAMA
+            WHERE REF_AULA = :REF_AULA";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':REF_AULA', $data['id']);
+    $stmt->bindValue(':FK_ETAPA', $data['ID_ETAPA']);
+    $stmt->bindValue(':FK_PROGRAMA', $data['ID_PROGRAMA']);
+    $stmt->execute();
+}
+
+if ($data['ID_PROGRAMA'] && empty($arrAula)) {
+    $sql = "INSERT INTO AULAS
+            (REF_AULA, FK_ETAPA, FK_PROGRAMA)
+            VALUES
+            (:REF_AULA, :FK_ETAPA, :FK_PROGRAMA)";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':REF_AULA', $data['id']);
+    $stmt->bindValue(':FK_ETAPA', $data['ID_ETAPA']);
+    $stmt->bindValue(':FK_PROGRAMA', $data['ID_PROGRAMA']);
+    $stmt->execute();
+}
+
+if (empty($data['ID_PROGRAMA'])) {
+    $sql = "DELETE FROM AULAS
+            WHERE REF_AULA = :REF_AULA AND FL_RECEITA_AULA = 0 LIMIT 1";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':REF_AULA', $data['id']);
+    $stmt->execute();
+}
+
 header("Location: /admin/paginas/?status=201");
 exit();
 

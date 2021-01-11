@@ -51,6 +51,7 @@ if (empty($id)) {
 		}
 
 		$destaque = getIdDestaqueVideo($id);
+		$arrAula = getAulaDoPrograma($id);
 		?>
 
 		<?php if (!empty($video)) : ?>
@@ -115,6 +116,34 @@ if (empty($id)) {
 					<div class="form-group">
 						<label>Texto de destaque</label>
 						<input type="text" name="INTRO_VIDEO" value="<?= $video['INTRO_VIDEO']; ?>" class="form-control">
+					</div>
+
+					<div class="card mb-3">
+						<div class="card-header">
+							Adicionar ao programa?
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label>Programa</label>
+								<select name="ID_PROGRAMA" class="form-control">
+									<option value="0">Selecionar</option>
+									
+									<?php $arrProgramas = getPrograma(); ?>
+									<?php if (!empty($arrProgramas)) : ?>
+										<?php foreach ($arrProgramas as $programa) : ?>
+										<?php $selected = ($arrAula['FK_PROGRAMA'] == $programa['ID_PROGRAMA']) ? 'selected' : ''; ?>
+										<option value="<?= $programa['ID_PROGRAMA'] ?>" <?= $selected ?>><?= $programa['NOME_PROGRAMA'] ?></option>
+										<?php endforeach; ?>
+									<?php endif; ?>
+
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label>Etapa</label>
+								<input type="number" name="ID_ETAPA" class="form-control" value="<?= $arrAula['FK_ETAPA'] ?>" placeholder="Dia de exibição do vídeo">
+							</div>
+						</div>
 					</div>
 
 					<button class="btn btn-primary">Salvar</button>

@@ -569,3 +569,186 @@ function getCategoriaDoVideo($idVideo = null) {
     
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getPrograma($id)
+{
+	if (empty($id)) {
+		return [];
+	}
+
+	$PDO = db_connect();
+	$sql = "SELECT * FROM PROGRAMAS
+			INNER JOIN ETAPAS ON ETAPAS.FK_PROGRAMA = PROGRAMAS.ID_PROGRAMA
+			WHERE PROGRAMAS.ID_PROGRAMA = :ID_PROGRAMA
+			ORDER BY ETAPAS.ID_ETAPA ASC";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':ID_PROGRAMA', $id);
+	$stmt->execute();
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getAulasDoPrograma($id)
+{
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM AULAS
+			WHERE AULAS.FK_PROGRAMA = :FK_PROGRAMA
+			ORDER BY AULAS.ID_AULA";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':FK_PROGRAMA', $id);
+	$stmt->execute();
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function agruparPorAula($aulas)
+{
+    $newArray = [];
+
+    foreach ($aulas as $aula) {
+        $newArray[$aula['FK_ETAPA']][] = $aula;
+    }
+
+    return $newArray;
+}
+
+function getDadosAula($id, $flReceita = 0)
+{
+    $PDO = db_connect();
+
+    if ($flReceita) {
+        $sql = "SELECT * FROM AULAS
+                INNER JOIN RECEITAS
+                ON AULAS.REF_AULA = RECEITAS.ID_RECEITA
+                WHERE AULAS.FL_RECEITA_AULA = 1 AND  AULAS.ID_AULA = :ID_AULA
+                LIMIT 1";
+    } else {
+        $sql = "SELECT * FROM AULAS
+                INNER JOIN VIDEOS
+                ON AULAS.REF_AULA = VIDEOS.ID_VIDEO
+                WHERE AULAS.FL_RECEITA_AULA = 0 AND AULAS.ID_AULA = :ID_AULA
+                LIMIT 1";
+    }
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':ID_AULA', $id);
+	$stmt->execute();
+	return current($stmt->fetchAll(PDO::FETCH_ASSOC));
+}
+
+function getAulaById($id = null)
+{
+    if (empty($id)) {
+		return [];
+	}
+
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM AULAS
+			WHERE AULAS.ID_AULA = :ID_AULA
+			LIMIT 1";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':ID_AULA', $id);
+	$stmt->execute();
+    $result = current($stmt->fetchAll(PDO::FETCH_ASSOC));
+
+    if (!empty($result)) {
+        if ($result['FL_RECEITA_AULA']) {
+            $sql = "SELECT * FROM AULAS
+                    INNER JOIN RECEITAS
+                    ON AULAS.REF_AULA = RECEITAS.ID_RECEITA
+                    WHERE AULAS.FL_RECEITA_AULA = 1 AND  AULAS.ID_AULA = :ID_AULA
+                    LIMIT 1";
+        } else {
+            $sql = "SELECT * FROM AULAS
+                    INNER JOIN VIDEOS
+                    ON AULAS.REF_AULA = VIDEOS.ID_VIDEO
+                    WHERE AULAS.FL_RECEITA_AULA = 0 AND AULAS.ID_AULA = :ID_AULA
+                    LIMIT 1";
+        }
+        
+        $stmt = $PDO->prepare($sql);
+        $stmt->bindValue(':ID_AULA', $id);
+        $stmt->execute();
+        return current($stmt->fetchAll(PDO::FETCH_ASSOC));
+    }
+}
+
+function getDadosProximaAula($arrAulas, $id)
+{
+    $next = [];
+    $last = array_key_last($arrAulas);
+
+    foreach ($arrAulas as $key => $aula) {
+        $proximaAula = $key + 1;
+        if ($key == $last) {
+            $next = [
+                'FL_CONCLUIR' => 1,
+                'ID_AULA' => null
+            ];
+
+            return $next;
+        }
+
+        if ($aula['ID_AULA'] == $id) {
+            $next = [
+                'FL_CONCLUIR' => 0,
+                'ID_AULA' => $arrAulas[$proximaAula]['ID_AULA']
+            ];
+
+            return $next;
+        }
+    }
+}
+
+function getAulaAtualDoUsuario($idUsuario, $idPrograma = null)
+{
+    if (empty($idUsuario)) {
+        return false;
+    }
+
+	if (empty($idPrograma)) {
+		return [
+            'AULA_ATUAL' => 1,
+            'ETAPA' => 1
+        ];
+	}
+
+	$PDO = db_connect();
+	$sql = "SELECT * FROM PROGRESSO_USUARIO
+			WHERE PROGRESSO_USUARIO.FK_USUARIO = :FK_USUARIO AND PROGRESSO_USUARIO.FK_PROGRAMA = :FK_PROGRAMA
+			ORDER BY PROGRESSO_USUARIO.ID_PROGRESSO ASC";
+	
+	$stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_USUARIO', $idUsuario);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+	$stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (empty($result)) {
+		return [
+            'AULA_ATUAL' => 1,
+            'ETAPA' => 1
+        ];
+    }
+}
+
+function setProgressoAulaUsuario($idUsuario, $idPrograma, $etapa = null, $aula = null)
+{
+	$PDO = db_connect();
+	$sql = "SELECT * FROM PROGRESSO_USUARIO
+			WHERE PROGRESSO_USUARIO.FK_USUARIO = :FK_USUARIO AND PROGRESSO_USUARIO.FK_PROGRAMA = :FK_PROGRAMA
+			ORDER BY PROGRESSO_USUARIO.ID_PROGRESSO ASC";
+	
+	$stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_USUARIO', $idUsuario);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+	$stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($result)) {
+        // INSERIR
+    }
+}

@@ -374,3 +374,77 @@ function getIdDestaqueVideo($id)
 	$stmt->execute();
 	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getEtapasDoPrograma($id = null)
+{
+	if (empty($id)) {
+		return [];
+	}
+
+	$PDO = db_connect();
+	$sql = "SELECT * FROM ETAPAS WHERE FK_PROGRAMA = :FK_PROGRAMA";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':FK_PROGRAMA', $id);
+	$stmt->execute();
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getPrograma($id = null)
+{
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM PROGRAMAS ORDER BY PROGRAMAS.NOME_PROGRAMA";
+	
+	if ($id) {
+		$sql = "SELECT * FROM
+				PROGRAMAS
+				WHERE PROGRAMAS.ID_PROGRAMA = :ID_PROGRAMA
+				ORDER BY PROGRAMAS.NOME_PROGRAMA";
+	}
+	
+	$stmt = $PDO->prepare($sql);
+
+	if ($id) {
+		$stmt->bindValue(':ID_PROGRAMA', $id);
+	}
+
+	$stmt->execute();
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getAulaDoPrograma($id = null)
+{
+	if (empty($id)) {
+		return [];
+	}
+
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM AULAS
+			WHERE AULAS.REF_AULA = :REF_AULA AND AULAS.FL_RECEITA_AULA = 0
+			ORDER BY AULAS.ID_AULA";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':REF_AULA', $id);
+	$stmt->execute();
+	return current($stmt->fetchAll(PDO::FETCH_ASSOC));
+}
+
+function getReceitaDoPrograma($id = null)
+{
+	if (empty($id)) {
+		return [];
+	}
+
+	$PDO = db_connect();
+
+	$sql = "SELECT * FROM AULAS
+			WHERE AULAS.REF_AULA = :REF_AULA AND AULAS.FL_RECEITA_AULA = 1
+			ORDER BY AULAS.ID_AULA";
+	
+	$stmt = $PDO->prepare($sql);
+	$stmt->bindValue(':REF_AULA', $id);
+	$stmt->execute();
+	return current($stmt->fetchAll(PDO::FETCH_ASSOC));
+}

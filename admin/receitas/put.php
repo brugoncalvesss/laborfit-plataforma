@@ -61,6 +61,23 @@ if ($data['DESTAQUE_RECEITA'] && $lastId) {
     $stmt->execute();
 }
 
+if ($data['ID_PROGRAMA'] && $lastId) {
+
+    $data['ID_ETAPA'] = $data['ID_ETAPA'] ?: 0;
+
+    $sql = "INSERT INTO AULAS
+            (REF_AULA, FK_ETAPA, FK_PROGRAMA, FL_RECEITA_AULA)
+            VALUES
+            (:REF_AULA, :FK_ETAPA, :FK_PROGRAMA, :FL_RECEITA_AULA)";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':REF_AULA', $lastId);
+    $stmt->bindValue(':FK_ETAPA', $data['ID_ETAPA']);
+    $stmt->bindValue(':FK_PROGRAMA', $data['ID_PROGRAMA']);
+    $stmt->bindValue(':FL_RECEITA_AULA', 1);
+    $stmt->execute();
+}
+
 header("location: /admin/receitas/?status=201");
 exit;
 

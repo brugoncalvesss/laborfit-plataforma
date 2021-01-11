@@ -30,6 +30,7 @@ if (!empty($arCategorias)) {
 }
 
 $destaque = getIdDestaqueVideo($idReceita);
+$arrAula = getReceitaDoPrograma($idReceita);
 ?>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
@@ -82,6 +83,33 @@ $destaque = getIdDestaqueVideo($idReceita);
                 <div class="form-group">
                     <label>Categoria</label>
                     <textarea id="tagCategoria" name='CATEGORIAS' class="form-control"><?= $categorias; ?></textarea>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Adicionar ao programa?
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Programa</label>
+                            <select name="ID_PROGRAMA" class="form-control">
+                                <option value="0">Selecionar</option>
+                                
+                                <?php $arrProgramas = getPrograma(); ?>
+                                <?php if (!empty($arrProgramas)) : ?>
+                                    <?php foreach ($arrProgramas as $programa) : ?>
+                                    <?php $selected = ($arrAula['FK_PROGRAMA'] == $programa['ID_PROGRAMA']) ? 'selected' : ''; ?>
+                                    <option value="<?= $programa['ID_PROGRAMA'] ?>" <?= $selected ?>><?= $programa['NOME_PROGRAMA'] ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Etapa</label>
+                            <input type="number" name="ID_ETAPA" class="form-control" value="<?= $arrAula['FK_ETAPA'] ?>" placeholder="Dia de exibição do vídeo">
+                        </div>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Salvar</button>

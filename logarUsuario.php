@@ -25,6 +25,8 @@ if ($stmt->rowCount() > 0) {
     if (intval($usuario['STATUS_USUARIO'])) {
         session_start();
 
+        $_SESSION['USUARIO_ID'] = $usuario['ID_USUARIO'];
+
         setcookie("LEMBRAR_USUARIO", true,  time()+86400);
         setcookie("USUARIO_EMPRESA", $usuario['NOME_EMPRESA']);
         setcookie("USUARIO_NOME", $usuario['NOME_USUARIO']);

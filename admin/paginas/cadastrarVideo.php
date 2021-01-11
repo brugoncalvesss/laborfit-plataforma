@@ -86,6 +86,22 @@ if ($data['DESTAQUE_VIDEO'] && $lastIdVideo) {
     $stmt->execute();
 }
 
+if ($data['ID_PROGRAMA'] && $lastIdVideo) {
+
+    $data['ID_ETAPA'] = $data['ID_ETAPA'] ?: 0;
+
+    $sql = "INSERT INTO AULAS
+                (REF_AULA, FK_ETAPA, FK_PROGRAMA)
+            VALUES
+                (:REF_AULA, :FK_ETAPA, :FK_PROGRAMA)";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':REF_AULA', $lastIdVideo);
+    $stmt->bindValue(':FK_ETAPA', $data['ID_ETAPA']);
+    $stmt->bindValue(':FK_PROGRAMA', $data['ID_PROGRAMA']);
+    $stmt->execute();
+}
+
 header("location: /admin/paginas/?status=201");
 exit();
 

@@ -342,3 +342,25 @@ a:hover, a:focus {
         display: inline;
     }
 }
+
+/*
+ * List
+ */
+.list-group-reset {
+    border: 0;
+}
+
+.list-group-reset .list-group-item {
+    border: 0;
+    background: transparent;
+}
+
+/*
+ * Container
+ */
+
+@media (min-width: 992px) {
+    .max-container {
+        max-width: 1200px;
+    }
+}
