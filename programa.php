@@ -23,22 +23,19 @@ require_once '_header.php';
 </nav>
 
 <?php
-$idPrograma = 1;
+$idPrograma = $_GET['programa'] ?: 1;
 
 if (empty($_SESSION['USUARIO_ID'])) {
     echo "Aconteceu algum erro, <a href='/logout.php'>Clique aqui</a> para entrar novamente.";
     die();
 }
 
-setProgressoAulaUsuario($_SESSION['USUARIO_ID'], $idPrograma, $_GET['etapa'], $_GET['aula']);
-
 $arrProgresso = getAulaAtualDoUsuario($_SESSION['USUARIO_ID'], $idPrograma);
 $aulaAtual = $arrProgresso['AULA_ATUAL'];
-$currentStep = $aulaAtual;
-$refStep = $_GET['etapa'] ?: $arrProgresso['ETAPA'];
+$currentStep = $arrProgresso['ETAPA'];
 
-if ($refStep && $aulaAtual >= $refStep) {
-    $currentStep = $refStep;
+if ($_GET['etapa'] <= $arrProgresso['ETAPA']) {
+    $currentStep = $_GET['etapa'] ?: $arrProgresso['ETAPA'];
 }
 
 $arrPrograma = getPrograma($idPrograma);
@@ -72,15 +69,18 @@ if (empty($arrPrograma)) {
 
                         <?php
                         $showAula = ($currentStep == $step) ? true : false;
-                        $disabledAula = ($aulaAtual < $step) ? 'disabled' : '';
+                        $disabledAula = ($arrProgresso['ETAPA'] < $step) ? 'disabled' : '';
                         ?>
 
                         <li class="nav-item d-flex justify-content-between align-items-center">
                             <a href="<?= $_SERVER["PHP_SELF"] ?>?etapa=<?= $step ?>" class="nav-link <?= $disabledAula ?>">
                                 <?= $etapa['NOME_ETAPA'] ?>
+                                <?php if ($arrProgresso['FL_CONCLUIDO'] && ($arrProgresso['ETAPA'] > $step)) : ?>
+                                <i class="fas fa-check-circle text-success"></i>
+                                <?php endif; ?>
                             </a>
                             <?php if ($etapa['FL_PREMIO_ETAPA']) : ?>
-                                <span><i class="fas fa-medal text-warning"></i></span>
+                                <!-- <span><i class="fas fa-medal text-warning"></i></span> -->
                             <?php endif; ?>
                         </li>
   
@@ -167,9 +167,8 @@ if (empty($arrPrograma)) {
                 <?php if (!empty($arrProximaAula)) : ?>
                 <div>
                     <?php if ($arrProximaAula['FL_CONCLUIR']) : ?>
-                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalConcluirAula">
-                        Concluir
-                        </button>
+                        <?php $urlProximaAula = "/concluir-etapa.php?programa=".$idPrograma."&etapa=".$_GET['etapa']; ?>
+                        <a href="<?= $urlProximaAula ?>" class="btn btn-dark">Concluir</a>
                     <?php else : ?>
                         <?php $urlProximaAula = "/programa.php?etapa=".$_GET['etapa']."&aula=".$arrProximaAula['ID_AULA']; ?>
                         <a href="<?= $urlProximaAula ?>" class="btn btn-dark">Próxima</a>
@@ -211,7 +210,8 @@ if (empty($arrPrograma)) {
 </div><!-- end container -->
 
 <!-- Modal -->
-<div class="modal fade" id="modalConcluirAula" tabindex="-1" aria-labelledby="modalConcluirAula" aria-hidden="true">
+<?php $showModal = $_GET['show'] ? 'data-show="true"' : ''; ?>
+<div class="modal fade" id="modalConcluirAula" tabindex="-1" <?= $dataShow; ?> aria-labelledby="modalConcluirAula" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header border-bottom-0">
@@ -228,3 +228,9 @@ if (empty($arrPrograma)) {
 </div>
 
 <?php require_once '_footer.php'; ?>
+
+<script>
+$(document).ready(function () {
+    $('[data-show]').modal('show');
+});
+</script>

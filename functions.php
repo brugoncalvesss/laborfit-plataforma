@@ -712,7 +712,8 @@ function getAulaAtualDoUsuario($idUsuario, $idPrograma = null)
 	if (empty($idPrograma)) {
 		return [
             'AULA_ATUAL' => 1,
-            'ETAPA' => 1
+            'ETAPA' => 1,
+            'FL_CONCLUIDO' => 0
         ];
 	}
 
@@ -725,30 +726,27 @@ function getAulaAtualDoUsuario($idUsuario, $idPrograma = null)
     $stmt->bindValue(':FK_USUARIO', $idUsuario);
     $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
 	$stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $result = current($stmt->fetchAll(PDO::FETCH_ASSOC));
     
     if (empty($result)) {
 		return [
             'AULA_ATUAL' => 1,
-            'ETAPA' => 1
+            'ETAPA' => 1,
+            'FL_CONCLUIDO' => 0
         ];
     }
-}
 
-function setProgressoAulaUsuario($idUsuario, $idPrograma, $etapa = null, $aula = null)
-{
-	$PDO = db_connect();
-	$sql = "SELECT * FROM PROGRESSO_USUARIO
-			WHERE PROGRESSO_USUARIO.FK_USUARIO = :FK_USUARIO AND PROGRESSO_USUARIO.FK_PROGRAMA = :FK_PROGRAMA
-			ORDER BY PROGRESSO_USUARIO.ID_PROGRESSO ASC";
-	
-	$stmt = $PDO->prepare($sql);
-    $stmt->bindValue(':FK_USUARIO', $idUsuario);
-    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
-	$stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $phpdate = strtotime($result['DT_CONCLUSAO']);
+    $dtEtapa = date('Y-m-d', $phpdate);
+    $dtAtual = date('Y-m-d');
 
-    if (empty($result)) {
-        // INSERIR
+    if (strtotime($dtAtual) > strtotime($dtEtapa)) {
+        $result['FK_ETAPA'] = $result['FK_ETAPA'] + 1;
     }
+
+    return [
+        'AULA_ATUAL' => 1,
+        'ETAPA' => $result['FK_ETAPA'],
+        'FL_CONCLUIDO' => 1
+    ];
 }
