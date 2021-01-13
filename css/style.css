@@ -65,6 +65,13 @@ a:hover, a:focus {
     color: #618ac5!important;
 }
 
+.text-disabled {
+    color: #8f979e!important;
+}
+
+.text-white {
+    color: #FFF!important;
+}
 
 /*
 * Backgrounds

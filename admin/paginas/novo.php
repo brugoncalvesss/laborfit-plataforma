@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Etapa</label>
+                            <label>Dia</label>
                             <input type="number" name="ID_ETAPA" class="form-control" placeholder="Dia de exibição do vídeo">
                         </div>
                     </div>

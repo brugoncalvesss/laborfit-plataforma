@@ -49,17 +49,25 @@ if (empty($arrPrograma)) {
 
 ?>
 
-<div class="bg-light w-100 py-4 text-center">
-    <span class="font-weight-bold text-muted">
+<div class="bg-wave-primary w-100 py-5 text-center">
+    <h2 class="text-white font-weight-bold text-muted">
         <?= $arrPrograma[0]['NOME_PROGRAMA'] ?>
-    </span>
+    </h2>
 </div>
 
 <div class="container-fluid">
     <div class="row">
 
+        <div class="container">
+            <div class="mt-3 text-right d-md-none">
+                <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#sidebarMenu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-sticky pt-3">
+            <div class="position-sticky pt-3 mb-5">
 
                 <?php if (!empty($arrPrograma)) : ?>
                 <ul class="nav flex-column">
@@ -69,14 +77,16 @@ if (empty($arrPrograma)) {
 
                         <?php
                         $showAula = ($currentStep == $step) ? true : false;
-                        $disabledAula = ($arrProgresso['ETAPA'] < $step) ? 'disabled' : '';
+                        $disabledAula = ($arrProgresso['ETAPA'] < $step) ? 'disabled text-dark' : 'text-disabled';
                         ?>
 
                         <li class="nav-item d-flex justify-content-between align-items-center">
-                            <a href="<?= $_SERVER["PHP_SELF"] ?>?etapa=<?= $step ?>" class="nav-link <?= $disabledAula ?>">
+                            <a href="<?= $_SERVER["PHP_SELF"] ?>?etapa=<?= $step ?>" class="nav-link py-1 font-weight-bold <?= $disabledAula ?>">
                                 <?= $etapa['NOME_ETAPA'] ?>
-                                <?php if ($arrProgresso['FL_CONCLUIDO'] && ($arrProgresso['ETAPA'] > $step)) : ?>
-                                <i class="fas fa-check-circle text-success"></i>
+                                <?php $textTaskConcluida = ''; ?>
+                                <?php if ($arrProgresso['FL_CONCLUIDO'] && ($arrProgresso['ETAPA'] >= $step)) : ?>
+                                    <?php $textTaskConcluida = 'text-muted'; ?>
+                                    <i class="fas fa-check-circle text-disabled"></i>
                                 <?php endif; ?>
                             </a>
                             <?php if ($etapa['FL_PREMIO_ETAPA']) : ?>
@@ -85,12 +95,12 @@ if (empty($arrPrograma)) {
                         </li>
   
                         <?php if ($showAula) : ?>
-                        <div class="list-group list-group-reset">
+                        <div class="list-group list-group-reset pl-2">
         
                             <?php if ($arrAulas[$step]) : ?>
                                 <?php foreach ($arrAulas[$step] as $aula) : ?>
                                 <?php $arrAula = getDadosAula($aula['ID_AULA'], $aula['FL_RECEITA_AULA']); ?>
-                                <li class="list-group-item py-1">
+                                <li class="list-group-item py-1 <?= $textTaskConcluida ?>">
                                     <?php
                                     if ($aula['FL_RECEITA_AULA']) {
                                         echo $arrAula['NOME_RECEITA'];
@@ -168,10 +178,10 @@ if (empty($arrPrograma)) {
                 <div>
                     <?php if ($arrProximaAula['FL_CONCLUIR']) : ?>
                         <?php $urlProximaAula = "/concluir-etapa.php?programa=".$idPrograma."&etapa=".$_GET['etapa']; ?>
-                        <a href="<?= $urlProximaAula ?>" class="btn btn-dark">Concluir</a>
+                        <a href="<?= $urlProximaAula ?>" class="btn btn-primary">Concluir</a>
                     <?php else : ?>
                         <?php $urlProximaAula = "/programa.php?etapa=".$_GET['etapa']."&aula=".$arrProximaAula['ID_AULA']; ?>
-                        <a href="<?= $urlProximaAula ?>" class="btn btn-dark">Próxima</a>
+                        <a href="<?= $urlProximaAula ?>" class="btn btn-primary">Próxima</a>
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
@@ -210,8 +220,8 @@ if (empty($arrPrograma)) {
 </div><!-- end container -->
 
 <!-- Modal -->
-<?php $showModal = $_GET['show'] ? 'data-show="true"' : ''; ?>
-<div class="modal fade" id="modalConcluirAula" tabindex="-1" <?= $dataShow; ?> aria-labelledby="modalConcluirAula" aria-hidden="true">
+<?php if ($_GET['show']) : ?>
+<div class="modal fade" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header border-bottom-0">
@@ -226,6 +236,7 @@ if (empty($arrPrograma)) {
     </div>
   </div>
 </div>
+<?php endif; ?>
 
 <?php require_once '_footer.php'; ?>
 

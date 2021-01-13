@@ -1,6 +1,6 @@
 <?php
-require_once 'control.php';
-require_once '_header.php';
+session_start();
+require_once './functions.php';
 
 if (empty($_SESSION['USUARIO_ID'])) {
     header("location: /programa.php?status=nosession");
@@ -50,8 +50,8 @@ if (empty($result)) {
     $result = current($stmt->fetchAll(PDO::FETCH_ASSOC));
 }
 
-$redirect = "/programa.php?programa=".$result['FK_PROGRAMA']."&etapa=".$result['FK_ETAPA']."&show=1";
+$redirect = '/programa.php?programa='.$result['FK_PROGRAMA'].'&etapa='.$result['FK_ETAPA'].'&show=1';
 
-header("location: ".$redirect);
-exit;
+header('Location: '. $redirect);
+die();
 ?>
