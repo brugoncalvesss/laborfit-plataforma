@@ -71,30 +71,45 @@ $arTemas = getTemas();
 	</section>
 
 	<?php 
-	$arDestaques = getVideosDestaque();
+	$arCorpoEmAcao = getVideosDestaque(3);
+	$arInsightWow = getVideosDestaque(2);
 	$arReceitasDestaque = getReceitaDestaque();
 	?>
-	<?php if (!empty($arDestaques)) : ?>	
+
 	<section id="destaques" class="destaques my-4">
 		<div class="d-block mb-3 text-center">
 			<h4 class="h6 title-line">Destaques WOW do Dia</h4>
 		</div>
 		<div class="container">
 			<div class="owl-carousel">
-				<?php foreach ($arDestaques as $destaque) : ?>
+				<?php if (!empty($arCorpoEmAcao)) : ?>
 				<div class="col-item">
 					<div class="card card-hover">
 						<div class="card-header bg-blue text-light text-center border-0">
-							<h5 class="font-weight-600 mb-0"><?= $destaque['NOME_DESTAQUE']; ?></h5>
+							<h5 class="font-weight-600 mb-0"><?= $arCorpoEmAcao['NOME_DESTAQUE']; ?></h5>
 						</div>
 						<div class="card-cover">
-							<a href="./video.php?v=<?= $destaque['LINK_VIDEO']; ?>" class="text-decoration-none">
-								<img src="./uploads/<?= $destaque['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $destaque['NOME_VIDEO']; ?>">
+							<a href="./video.php?v=<?= $arCorpoEmAcao['LINK_VIDEO']; ?>" class="text-decoration-none">
+								<img src="./uploads/<?= $arCorpoEmAcao['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $arCorpoEmAcao['NOME_VIDEO']; ?>">
 							</a>
 						</div>
 					</div>
 				</div>
-				<?php endforeach; ?>
+				<?php endif; ?>
+				<?php if (!empty($arInsightWow)) : ?>
+				<div class="col-item">
+					<div class="card card-hover">
+						<div class="card-header bg-blue text-light text-center border-0">
+							<h5 class="font-weight-600 mb-0"><?= $arInsightWow['NOME_DESTAQUE']; ?></h5>
+						</div>
+						<div class="card-cover">
+							<a href="./video.php?v=<?= $arInsightWow['LINK_VIDEO']; ?>" class="text-decoration-none">
+								<img src="./uploads/<?= $arInsightWow['THUMB_VIDEO']; ?>" class="img-cover" alt="<?= $arInsightWow['NOME_VIDEO']; ?>">
+							</a>
+						</div>
+					</div>
+				</div>
+				<?php endif; ?>
 				<?php foreach ($arReceitasDestaque as $receita) : ?>
 					<div class="col-item">
 					<div class="card card-hover">
@@ -118,7 +133,6 @@ $arTemas = getTemas();
 			</div>
 		</div>
 	</section>
-	<?php endif; ?>
 
 	<?php if (!empty($arAlbums)) : ?>
 	<section id="albums" class="albums py-4">

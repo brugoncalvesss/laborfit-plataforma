@@ -41,7 +41,7 @@ function getBannerFrontPage()
     return $arBanners;
 }
 
-function getVideosDestaque()
+function getVideosDestaque($id)
 {
     verificaSeExisteDestaque();
 
@@ -55,15 +55,16 @@ function getVideosDestaque()
                 VIDEOS.ID_VIDEO = DESTAQUES_VIDEOS.ID_VIDEO
             WHERE
                 DESTAQUES_VIDEOS.DATA_EXIBICAO = CURRENT_DATE()
-                AND DESTAQUES_VIDEOS.ID_DESTAQUE != 1
+                AND DESTAQUES_VIDEOS.ID_DESTAQUE = :ID_DESTAQUE
             ORDER BY
                 DESTAQUES.ID_DESTAQUE DESC
-            LIMIT 2";
+            LIMIT 1";
     $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':ID_DESTAQUE', $id);
 
     try{
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = current($stmt->fetchAll(PDO::FETCH_ASSOC));
     } catch(PDOException $e) {
         throw new Exception("Erro ao carregar vídeos: " . $e->getMessage());
     }

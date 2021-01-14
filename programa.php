@@ -58,11 +58,13 @@ if (empty($arrPrograma)) {
 <div class="container-fluid">
     <div class="row">
 
-        <div class="container">
-            <div class="mt-3 text-right d-md-none">
-                <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#sidebarMenu">
-                    <i class="fas fa-bars"></i>
-                </button>
+        <div class="w-100 d-block">
+            <div class="container">
+                <div class="mt-3 text-right d-md-none">
+                    <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#sidebarMenu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -124,7 +126,7 @@ if (empty($arrPrograma)) {
             </div>
         </nav><!-- end sidebar -->
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5 max-container">
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 mb-5 max-container">
 
             <?php
 
@@ -231,7 +233,7 @@ if (empty($arrPrograma)) {
             </button>
         </div>
         <div class="modal-body">
-            <p>Você concluir a aula de hoje</p>
+            <p>Você concluiu a aula de hoje</p>
         </div>
     </div>
   </div>
