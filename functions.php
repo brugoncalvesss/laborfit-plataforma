@@ -43,21 +43,17 @@ function getBannerFrontPage()
 
 function getVideosDestaque($id)
 {
-    verificaSeExisteDestaque();
+    verificaSeExisteDestaque($id);
 
     $PDO = db_connect();
 
     $sql = "SELECT * FROM
-                DESTAQUES
-            INNER JOIN DESTAQUES_VIDEOS ON
-                DESTAQUES_VIDEOS.ID_DESTAQUE = DESTAQUES.ID_DESTAQUE
+                DESTAQUES_VIDEOS
             INNER JOIN VIDEOS ON
                 VIDEOS.ID_VIDEO = DESTAQUES_VIDEOS.ID_VIDEO
             WHERE
                 DESTAQUES_VIDEOS.DATA_EXIBICAO = CURRENT_DATE()
                 AND DESTAQUES_VIDEOS.ID_DESTAQUE = :ID_DESTAQUE
-            ORDER BY
-                DESTAQUES.ID_DESTAQUE DESC
             LIMIT 1";
     $stmt = $PDO->prepare($sql);
     $stmt->bindValue(':ID_DESTAQUE', $id);
@@ -285,57 +281,47 @@ function getAlbumFiltro(int $id, string $filtro)
 	return $result;
 }
 
-function verificaSeExisteDestaque()
+function verificaSeExisteDestaque($idDestaque)
 {
     $PDO = db_connect();
 
-    $sql = "SELECT ID_DESTAQUE FROM DESTAQUES";
+    $sql = "SELECT
+                DATA_EXIBICAO
+            FROM
+                DESTAQUES_VIDEOS
+            WHERE
+                ID_DESTAQUE = :ID_DESTAQUE
+            AND DATA_EXIBICAO >= CURDATE()";
     $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':ID_DESTAQUE', $idDestaque);
     $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $arDestaques = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $idsDestaque = array_values(array_column($result, 'ID_DESTAQUE'));
+    if (empty($arDestaques)) {
 
-    foreach ($idsDestaque as $id) {
-        $sql = "SELECT
-                    DATA_EXIBICAO
-                FROM
+        $sql = "SELECT * FROM
                     DESTAQUES_VIDEOS
                 WHERE
-                    ID_DESTAQUE = :ID_DESTAQUE
-                    AND DATA_EXIBICAO >= CURDATE()";
+                    ID_DESTAQUE = :ID_DESTAQUE";
         $stmt = $PDO->prepare($sql);
-        $stmt->bindParam(':ID_DESTAQUE', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':ID_DESTAQUE', $idDestaque, PDO::PARAM_INT);
         $stmt->execute();
         $arDestaques = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (empty($arDestaques)) {
+        if (!empty($arDestaques)) {
 
-            $sql = "SELECT * FROM
-                        DESTAQUES_VIDEOS
-                    WHERE
-                        ID_DESTAQUE = :ID_DESTAQUE";
-            $stmt = $PDO->prepare($sql);
-            $stmt->bindParam(':ID_DESTAQUE', $id, PDO::PARAM_INT);
-            $stmt->execute();
-            $arDestaques = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $date = date("Y-m-d");
 
-            if (!empty($arDestaques)) {
-
-                $date = date("Y-m-d");
-
-                foreach ($arDestaques as $destaque) {
-                    $sql = "UPDATE DESTAQUES_VIDEOS
-                            SET DATA_EXIBICAO = :DATA_EXIBICAO
-                            WHERE ID_DESTAQUE_VIDEO = :ID_DESTAQUE_VIDEO";
-                    $stmt = $PDO->prepare($sql);
-                    $stmt->bindParam(':ID_DESTAQUE_VIDEO', $destaque['ID_DESTAQUE_VIDEO']);
-                    $stmt->bindParam(':DATA_EXIBICAO', $date);
-                    $stmt->execute();
-                    $date = date('Y-m-d', strtotime("+1 day", strtotime($date)));
-                }
+            foreach ($arDestaques as $destaque) {
+                $sql = "UPDATE DESTAQUES_VIDEOS
+                        SET DATA_EXIBICAO = :DATA_EXIBICAO
+                        WHERE ID_DESTAQUE_VIDEO = :ID_DESTAQUE_VIDEO";
+                $stmt = $PDO->prepare($sql);
+                $stmt->bindParam(':ID_DESTAQUE_VIDEO', $destaque['ID_DESTAQUE_VIDEO']);
+                $stmt->bindParam(':DATA_EXIBICAO', $date);
+                $stmt->execute();
+                $date = date('Y-m-d', strtotime("+1 day", strtotime($date)));
             }
-
         }
 
     }
