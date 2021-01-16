@@ -86,7 +86,7 @@ $arTemas = getTemas();
 				<div class="col-item">
 					<div class="card card-hover">
 						<div class="card-header bg-blue text-light text-center border-0">
-							<h5 class="font-weight-600 mb-0"><?= $arCorpoEmAcao['NOME_DESTAQUE']; ?></h5>
+							<h5 class="font-weight-600 mb-0">Corpo em Ação</h5>
 						</div>
 						<div class="card-cover">
 							<a href="./video.php?v=<?= $arCorpoEmAcao['LINK_VIDEO']; ?>" class="text-decoration-none">
@@ -100,7 +100,7 @@ $arTemas = getTemas();
 				<div class="col-item">
 					<div class="card card-hover">
 						<div class="card-header bg-blue text-light text-center border-0">
-							<h5 class="font-weight-600 mb-0"><?= $arInsightWow['NOME_DESTAQUE']; ?></h5>
+							<h5 class="font-weight-600 mb-0">Insight WoW</h5>
 						</div>
 						<div class="card-cover">
 							<a href="./video.php?v=<?= $arInsightWow['LINK_VIDEO']; ?>" class="text-decoration-none">
