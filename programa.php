@@ -24,6 +24,7 @@ require_once '_header.php';
 
 <?php
 $idPrograma = $_GET['programa'] ?: 1;
+$idUsuario = $_SESSION['USUARIO_ID'];
 
 if (empty($_SESSION['USUARIO_ID'])) {
     echo "Aconteceu algum erro, <a href='/logout.php'>Clique aqui</a> para entrar novamente.";
@@ -31,21 +32,7 @@ if (empty($_SESSION['USUARIO_ID'])) {
 }
 
 $arrProgresso = getAulaAtualDoUsuario($_SESSION['USUARIO_ID'], $idPrograma);
-$aulaAtual = $arrProgresso['AULA_ATUAL'];
-$currentStep = $arrProgresso['ETAPA'];
-
-if ($_GET['etapa'] <= $arrProgresso['ETAPA']) {
-    $currentStep = $_GET['etapa'] ?: $arrProgresso['ETAPA'];
-}
-
 $arrPrograma = getPrograma($idPrograma);
-$arrAulas = agruparPorAula(
-    getAulasDoPrograma($idPrograma)
-);
-
-if (empty($arrPrograma)) {
-    echo "Programa não encontrado.";
-}
 
 ?>
 
@@ -71,53 +58,33 @@ if (empty($arrPrograma)) {
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky pt-3 mb-5">
 
-                <?php if (!empty($arrPrograma)) : ?>
+                <?php $arNavegacaoPrograma = getNavegacaoPrograma($idPrograma); ?>
+                <?php if (!empty($arNavegacaoPrograma)) : ?>
                 <ul class="nav flex-column">
 
-                    <?php $step = 1; ?>
-                    <?php foreach ($arrPrograma as $etapa) : ?>
+                    <a class="nav-link pl-0" href="introducao.php?programa=<?= $idPrograma; ?>">
+                        Introdução
+                    </a>
 
-                        <?php
-                        $showAula = ($currentStep == $step) ? true : false;
-                        $disabledAula = ($arrProgresso['ETAPA'] < $step) ? 'disabled text-dark' : 'text-disabled';
-                        ?>
+                    <?php foreach ($arNavegacaoPrograma as $topico) : ?>
 
-                        <li class="nav-item d-flex justify-content-between align-items-center">
-                            <a href="<?= $_SERVER["PHP_SELF"] ?>?etapa=<?= $step ?>" class="nav-link py-1 font-weight-bold <?= $disabledAula ?>">
-                                <?= $etapa['NOME_ETAPA'] ?>
-                                <?php $textTaskConcluida = ''; ?>
-                                <?php if ($arrProgresso['FL_CONCLUIDO'] && ($arrProgresso['ETAPA'] >= $step)) : ?>
-                                    <?php $textTaskConcluida = 'text-muted'; ?>
-                                    <i class="fas fa-check-circle text-disabled"></i>
-                                <?php endif; ?>
-                            </a>
-                            <?php if ($etapa['FL_PREMIO_ETAPA']) : ?>
-                                <!-- <span><i class="fas fa-medal text-warning"></i></span> -->
-                            <?php endif; ?>
-                        </li>
-  
-                        <?php if ($showAula) : ?>
-                        <div class="list-group list-group-reset pl-2">
-        
-                            <?php if ($arrAulas[$step]) : ?>
-                                <?php foreach ($arrAulas[$step] as $aula) : ?>
-                                <?php $arrAula = getDadosAula($aula['ID_AULA'], $aula['FL_RECEITA_AULA']); ?>
-                                <li class="list-group-item py-1 <?= $textTaskConcluida ?>">
-                                    <?php
-                                    if ($aula['FL_RECEITA_AULA']) {
-                                        echo $arrAula['NOME_RECEITA'];
-                                    } else {
-                                        echo $arrAula['NOME_VIDEO'];
-                                    }
-                                    ?>
-                                </li>
+                        <a class="py-1 text-muted font-weight-bold" data-toggle="collapse" href="#grupo-<?= $topico['ID_ETAPA'] ?>">
+                            <?= $topico['NOME_ETAPA'] ?>
+                        </a>
+
+                        <div class="collapse" id="grupo-<?= $topico['ID_ETAPA'] ?>">
+                            <nav>
+                                <?php $arAulas = getAulaNavegacao($topico['AULAS']); ?>
+                                <?php foreach($arAulas as $aula) : ?>
+                                    <?php $urlAula = "/programa.php?programa=".$aula['FK_PROGRAMA']."&etapa=".$aula['FK_ETAPA']."&aula=".$aula['ID_AULA']; ?>
+                                    
+                                    <a href="<?= $urlAula; ?>" class="nav-link">
+                                        <?= ($aula['FL_RECEITA_AULA']) ? $aula['NOME_RECEITA'] : $aula['NOME_VIDEO']; ?>
+                                    </a>
                                 <?php endforeach; ?>
-                            <?php endif; ?>
-        
+                            </nav>
                         </div>
-                        <?php endif; ?>
 
-                        <?php $step++; ?>
                     <?php endforeach; ?>
 
                 </ul>
@@ -129,100 +96,90 @@ if (empty($arrPrograma)) {
         <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 mb-5 max-container">
 
             <?php
-
-            $programaAtual = array_filter($arrPrograma, function($value) use ($currentStep) {
-                return ($value['ID_ETAPA'] == $currentStep);
-            });
-
-            $dadosPrograma = current($programaAtual);
+            $idAula = $_GET['aula'] ?: getPrimeiraAula($idPrograma)['ID_AULA'];
+            $arConteudoAula = getConteudoAulaId($idAula);
             ?>
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
-                <h2 class="h4 font-weight-bold"><?= $dadosPrograma['NOME_ETAPA'] ?></h2>
+                <h2 class="h4 font-weight-bold"><?= $arConteudoAula['NOME_ETAPA'] ?></h2>
             </div>
 
-            <?php
-
-            if ($_GET['aula']) {
-                $dadosAula = getAulaById($_GET['aula']);
-            }
-
-            if (!empty($dadosAula)) {
-                ?>
-
-                <?php if ($dadosAula['FL_RECEITA_AULA']) : ?>
+            <div class="row">
+                <div class="col-md-10">
+                <?php if ($arConteudoAula['FL_RECEITA_AULA']) : ?>
                     <div class="mb-3">
-                        <h1 class="h2"><?= $dadosAula['NOME_RECEITA'] ?></h1>
-                        <?php if ($dadosAula['IMG_RECEITA']) : ?>
-                        <p><img src="./uploads/<?= $dadosAula['IMG_RECEITA']; ?>" alt="<?= $dadosAula['NOME_RECEITA'] ?>" class="img-fluid"></p>
+                        <h1 class="h2"><?= $arConteudoAula['NOME_RECEITA'] ?></h1>
+                        <?php if ($arConteudoAula['IMG_RECEITA']) : ?>
+                        <p><img src="./uploads/<?= $arConteudoAula['IMG_RECEITA']; ?>" alt="<?= $arConteudoAula['NOME_RECEITA'] ?>" class="img-fluid"></p>
                         <?php endif; ?>
-                        <p><?= $dadosAula['DESCRICAO_RECEITA']; ?></p>
+                        <p><?= $arConteudoAula['DESCRICAO_RECEITA']; ?></p>
                     </div>
                 <?php else : ?>
                     <div class="mb-3">
-                        <h1 class="h3 font-weight-bold"><?= $dadosAula['NOME_VIDEO'] ?></h1>
+                        <h1 class="h3 font-weight-bold"><?= $arConteudoAula['NOME_VIDEO'] ?></h1>
 
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/<?= $dadosAula['LINK_VIDEO']; ?>?title=0&byline=0&portrait=0&badge=0&showinfo=0&modestbranding=0" frameborder="0"></iframe>
+                            <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/<?= $arConteudoAula['LINK_VIDEO']; ?>?title=0&byline=0&portrait=0&badge=0&showinfo=0&modestbranding=0" frameborder="0"></iframe>
                         </div>
                     </div>
                 <?php endif; ?>
+
                 <?php
+                $idEtapa = $_GET['etapa'] ?: null;
+                $arNavegacao = getNavegacaoProximaAula($idPrograma, $idAula, $idEtapa);
+                $urlProximaAula = getUrlProximaAula($arNavegacao);
+                ?>
 
-                    $arrProximaAula = getDadosProximaAula($arrAulas[$currentStep], $dadosAula['ID_AULA']);
-            }
-            ?>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6>Gostou do conteúdo?</h6>
+                            <ul class="list-inline like-aula">
+                                <?php
+                                $meuVoto = getMeuLikeNaAula($idAula, $idUsuario);
 
-            <?php if (!empty($dadosAula)) : ?>
-            <div class="d-flex justify-content-between">
-                <div></div>
-                <?php if (!empty($arrProximaAula)) : ?>
-                <div>
-                    <?php if ($arrProximaAula['FL_CONCLUIR']) : ?>
-                        <?php $urlProximaAula = "/concluir-etapa.php?programa=".$idPrograma."&etapa=".$_GET['etapa']; ?>
-                        <a href="<?= $urlProximaAula ?>" class="btn btn-primary">Concluir</a>
-                    <?php else : ?>
-                        <?php $urlProximaAula = "/programa.php?etapa=".$_GET['etapa']."&aula=".$arrProximaAula['ID_AULA']; ?>
-                        <a href="<?= $urlProximaAula ?>" class="btn btn-primary">Próxima</a>
-                    <?php endif; ?>
+                                if (empty($meuVoto)) {
+                                    $meuVoto = 0;
+                                }
+
+                                if (!empty($meuVoto)) {
+                                    $meuVoto = $meuVoto['NM_LIKE'];
+                                }
+
+                                $heart = 1;
+                                while ($heart <= 5) : ?>
+                                <li class="list-inline-item">
+                                    <?php
+                                    $active = ($meuVoto >= $heart) ? 'active' : '';
+                                    $referencia = base64_encode($_SERVER["REQUEST_URI"]);
+                                    $urlVoto = "/votar.php?usuario=".$idUsuario."&aula=".$idAula."&voto=".$heart."&referencia=".$referencia;
+                                    ?>
+                                    <a class="<?= $active; ?>" href="<?= $urlVoto; ?>">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                </li>
+                                <?php
+                                $heart++;
+                                endwhile;
+                                ?>
+                            </ul>
+                        </div>
+                        <div>
+                            <a class="btn btn-primary" href="<?= $urlProximaAula ?>">
+                                <?= ($arNavegacao['FL_COMPLETO']) ? 'Concluir' : 'Próxima'; ?>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
-                <?php endif; ?>
             </div>
-            <?php endif; ?>
 
-            <?php
-
-            if ($arrAulas[$currentStep] && empty($_GET['aula'])) {
-                foreach ($arrAulas[$currentStep] as $value) {
-                    $dashAula = getDadosAula($value['ID_AULA'], $value['FL_RECEITA_AULA']);
-                    $url = "/programa.php?etapa=".$value['FK_ETAPA']."&aula=".$dashAula['ID_AULA'];
-                    ?>
-                    <a class="d-block mb-3" href="<?= $url ?>">
-                        <?php if ($dashAula['FL_RECEITA_AULA']) : ?>
-                            <?php if ($dashAula['IMG_RECEITA']) : ?>
-                            <img src="./uploads/<?= $dashAula['IMG_RECEITA']; ?>" alt="<?= $dashAula['NOME_RECEITA'] ?>" class="img-fluid">
-                            <?php else : ?>
-                            <?= $dashAula['NOME_RECEITA']; ?>
-                            <?php endif; ?>
-                        <?php else : ?>
-                            <?php if ($dashAula['THUMB_VIDEO']) : ?>
-                            <img src="./uploads/<?= $dashAula['THUMB_VIDEO']; ?>" alt="<?= $dashAula['NOME_VIDEO'] ?>" class="img-fluid">
-                            <?php else : ?>
-                            <?= $dashAula['NOME_VIDEO']; ?>
-                            <?php endif; ?>
-                        <?php endif; ?>
-                    </a>
-                    <?php
-                }
-            }
-            ?>
         </main><!-- end main -->
 
     </div><!-- end row -->
 </div><!-- end container -->
 
 <!-- Modal -->
-<?php if ($_GET['show']) : ?>
+<?php if ($_GET['completo']) : ?>
 <div class="modal fade" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

@@ -371,3 +371,12 @@ a:hover, a:focus {
         max-width: 1200px;
     }
 }
+
+.like-aula a {
+    color: #212529;
+}
+
+.like-aula a.active,
+.like-aula a:hover {
+    color: #d00000;
+}

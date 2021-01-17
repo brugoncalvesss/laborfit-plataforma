@@ -7,15 +7,19 @@ if (empty($data)) {
     die('Erro: Nenhuma informação enviada.');
 }
 
+$data['VIMEO_PROGRAMA'] = getVimeoId($data['VIMEO_PROGRAMA']);
+
 $sql = "INSERT INTO
-            PROGRAMAS (NOME_PROGRAMA, DIAS_PROGRAMA)
+            PROGRAMAS (NOME_PROGRAMA, DIAS_PROGRAMA, VIMEO_PROGRAMA, DESCRICAO_PROGRAMA)
         VALUES
-            (:NOME_PROGRAMA, :DIAS_PROGRAMA)";
+            (:NOME_PROGRAMA, :DIAS_PROGRAMA, :VIMEO_PROGRAMA, :DESCRICAO_PROGRAMA)";
 
 $PDO = db_connect();
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':NOME_PROGRAMA', $data['NOME_PROGRAMA']);
 $stmt->bindParam(':DIAS_PROGRAMA', $data['DIAS_PROGRAMA']);
+$stmt->bindParam(':VIMEO_PROGRAMA', $data['VIMEO_PROGRAMA']);
+$stmt->bindParam(':DESCRICAO_PROGRAMA', $data['DESCRICAO_PROGRAMA']);
 $stmt->execute();
 $idPrograma = $PDO->lastInsertId();
 
@@ -34,3 +38,15 @@ if ($idPrograma) {
 
 header("location: /admin/programas/index.php?status=201");
 exit;
+
+function getVimeoId($link = null) {
+
+    if (!$link) {
+        return null;
+    }
+
+    $partVideo = explode('vimeo.com/', $link);
+    $idVideo = $partVideo[1] ?: null;
+
+    return $idVideo;
+}

@@ -36,7 +36,9 @@
 					<?= $programa['NOME_PROGRAMA']; ?>
 				</div>
 				<div class="col col-auto">
-					
+					<a class="btn-link mx-2" href="/admin/programas/editar.php?id=<?= $programa['ID_PROGRAMA']; ?>">
+						<i class="far fa-edit"></i>
+					</a>
 				</div>
 			</div>
 			<?php endforeach; ?>

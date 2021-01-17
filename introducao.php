@@ -1,22 +1,9 @@
 <?php
-require('control.php');
-require('_header.php');
+require_once 'control.php';
+require_once '_header.php';
 
 $idPrograma = $_GET['programa'] ?: 1;
 $arPrograma = getPrograma($idPrograma);
-
-if (empty($_SESSION['USUARIO_ID'])) {
-    echo "Aconteceu algum erro, <a href='/logout.php'>Clique aqui</a> para entrar novamente.";
-    die();
-}
-
-$redirecionarParaPrograma = redirecionarParaPrograma($idPrograma, $_SESSION['USUARIO_ID']);
-if ($redirecionarParaPrograma) {
-	$url = "/programa.php?programa=".$idPrograma;
-	header('Location: '. $url);
-	exit;
-}
-
 ?>
 
 <main>
