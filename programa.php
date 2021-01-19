@@ -25,6 +25,7 @@ require_once '_header.php';
 <?php
 $idPrograma = $_GET['programa'] ?: 1;
 $idUsuario = $_SESSION['USUARIO_ID'];
+$idEtapa = $_GET['etapa'] ?: null;
 
 if (empty($_SESSION['USUARIO_ID'])) {
     echo "Aconteceu algum erro, <a href='/logout.php'>Clique aqui</a> para entrar novamente.";
@@ -72,7 +73,19 @@ $arrPrograma = getPrograma($idPrograma);
                             <?= $topico['NOME_ETAPA'] ?>
                         </a>
 
-                        <div class="collapse" id="grupo-<?= $topico['ID_ETAPA'] ?>">
+                        <?php
+                        $showCollapse = '';
+                        if (is_null($idEtapa)) {
+                            if ($topico['ID_ETAPA'] == 1) {
+                                $showCollapse = 'show';
+                            }
+                        } else if ($idEtapa && $idEtapa == $topico['ID_ETAPA']) {
+                            $showCollapse = 'show';
+                        }
+                        
+                        ?>
+
+                        <div class="collapse <?= $showCollapse; ?>" id="grupo-<?= $topico['ID_ETAPA'] ?>">
                             <nav>
                                 <?php $arAulas = getAulaNavegacao($topico['AULAS']); ?>
                                 <?php foreach($arAulas as $aula) : ?>
@@ -125,7 +138,6 @@ $arrPrograma = getPrograma($idPrograma);
                 <?php endif; ?>
 
                 <?php
-                $idEtapa = $_GET['etapa'] ?: null;
                 $arNavegacao = getNavegacaoProximaAula($idPrograma, $idAula, $idEtapa);
                 $urlProximaAula = getUrlProximaAula($arNavegacao);
                 ?>
