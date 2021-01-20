@@ -747,7 +747,8 @@ function getNavegacaoPrograma($idPrograma)
     $sql = "SELECT * FROM ETAPAS
             INNER JOIN AULAS
             ON AULAS.FK_ETAPA = ETAPAS.ID_ETAPA
-            WHERE AULAS.FK_PROGRAMA = :FK_PROGRAMA";
+            WHERE AULAS.FK_PROGRAMA = :FK_PROGRAMA
+            ORDER BY ETAPAS.ID_ETAPA ASC";
 
     $PDO = db_connect();
     $stmt = $PDO->prepare($sql);
@@ -767,6 +768,53 @@ function getNavegacaoPrograma($idPrograma)
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['ID_AULA'] = $programa['ID_AULA'];
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['REF_AULA'] = $programa['REF_AULA'];
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['FL_RECEITA_AULA'] = $programa['FL_RECEITA_AULA'];
+    }
+
+    return $newArray;
+}
+
+/*
+ * Melhoria de performance
+ */
+function getNavegacaoProgramaV2($idPrograma)
+{
+    if (empty($idPrograma)) {
+        return [];
+    }
+
+    $sql = "SELECT * FROM ETAPAS
+            INNER JOIN AULAS
+            ON AULAS.FK_ETAPA = ETAPAS.ID_ETAPA
+            LEFT JOIN VIDEOS
+                ON VIDEOS.ID_VIDEO = AULAS.REF_AULA
+                AND AULAS.FL_RECEITA_AULA = 0
+            LEFT JOIN RECEITAS
+                ON RECEITAS.ID_RECEITA = AULAS.REF_AULA
+                AND AULAS.FL_RECEITA_AULA = 1
+            WHERE AULAS.FK_PROGRAMA = :FK_PROGRAMA
+            ORDER BY ETAPAS.ID_ETAPA ASC";
+
+    $PDO = db_connect();
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($result)) {
+        return $result;
+    }
+
+    $newArray = [];
+    foreach ($result as $programa) {
+        $newArray[$programa['ID_ETAPA']]['ID_ETAPA'] = $programa['ID_ETAPA'];
+        $newArray[$programa['ID_ETAPA']]['NOME_ETAPA'] = $programa['NOME_ETAPA'];
+        $newArray[$programa['ID_ETAPA']]['FL_PREMIO_ETAPA'] = $programa['NOME_ETAPA'];
+        $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['ID_AULA'] = $programa['ID_AULA'];
+        $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['REF_AULA'] = $programa['REF_AULA'];
+        $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['FL_RECEITA_AULA'] = $programa['FL_RECEITA_AULA'];
+        $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['NOME'] = ($programa['FL_RECEITA_AULA']) ? $programa['NOME_RECEITA'] : $programa['NOME_VIDEO'];
+        $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['LINK_VIDEO'] = $programa['LINK_VIDEO'];
+        $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['DESCRICAO_RECEITA'] = $programa['DESCRICAO_RECEITA'];
     }
 
     return $newArray;

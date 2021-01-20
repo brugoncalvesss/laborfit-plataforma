@@ -59,7 +59,7 @@ $arrPrograma = getPrograma($idPrograma);
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky pt-3 mb-5">
 
-                <?php $arNavegacaoPrograma = getNavegacaoPrograma($idPrograma); ?>
+                <?php $arNavegacaoPrograma = getNavegacaoProgramaV2($idPrograma); ?>
                 <?php if (!empty($arNavegacaoPrograma)) : ?>
                 <ul class="nav flex-column">
 
@@ -87,12 +87,11 @@ $arrPrograma = getPrograma($idPrograma);
 
                         <div class="collapse <?= $showCollapse; ?>" id="grupo-<?= $topico['ID_ETAPA'] ?>">
                             <nav>
-                                <?php $arAulas = getAulaNavegacao($topico['AULAS']); ?>
-                                <?php foreach($arAulas as $aula) : ?>
+                                <?php foreach($topico['AULAS'] as $aula) : ?>
                                     <?php $urlAula = "/programa.php?programa=".$aula['FK_PROGRAMA']."&etapa=".$aula['FK_ETAPA']."&aula=".$aula['ID_AULA']; ?>
                                     
                                     <a href="<?= $urlAula; ?>" class="nav-link">
-                                        <?= ($aula['FL_RECEITA_AULA']) ? $aula['NOME_RECEITA'] : $aula['NOME_VIDEO']; ?>
+                                        <?= $aula['NOME']; ?>
                                     </a>
                                 <?php endforeach; ?>
                             </nav>
