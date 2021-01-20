@@ -43,8 +43,6 @@ function getBannerFrontPage()
 
 function getVideosDestaque($id)
 {
-    verificaSeExisteDestaque($id);
-
     $PDO = db_connect();
 
     $sql = "SELECT * FROM
@@ -52,7 +50,7 @@ function getVideosDestaque($id)
             INNER JOIN VIDEOS ON
                 VIDEOS.ID_VIDEO = DESTAQUES_VIDEOS.ID_VIDEO
             WHERE
-                DESTAQUES_VIDEOS.DATA_EXIBICAO = CURRENT_DATE()
+                DESTAQUES_VIDEOS.DATA_EXIBICAO >= CURRENT_DATE()
                 AND DESTAQUES_VIDEOS.ID_DESTAQUE = :ID_DESTAQUE
             LIMIT 1";
     $stmt = $PDO->prepare($sql);
