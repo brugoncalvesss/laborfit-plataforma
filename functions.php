@@ -813,6 +813,8 @@ function getNavegacaoProgramaV2($idPrograma)
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['NOME'] = ($programa['FL_RECEITA_AULA']) ? $programa['NOME_RECEITA'] : $programa['NOME_VIDEO'];
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['LINK_VIDEO'] = $programa['LINK_VIDEO'];
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['DESCRICAO_RECEITA'] = $programa['DESCRICAO_RECEITA'];
+        $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['FK_ETAPA'] = $programa['FK_ETAPA'];
+        $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['FK_PROGRAMA'] = $programa['FK_PROGRAMA'];
     }
 
     return $newArray;
@@ -1068,4 +1070,71 @@ function getMeuLikeNaAula($idAula, $idUsuario)
     $stmt->bindValue(':FK_AULA', $idAula);
     $stmt->execute();
     return current($stmt->fetchAll(PDO::FETCH_ASSOC));
+}
+
+function setProgressoUsuario($idUsuario, $idPrograma, $idEtapa)
+{
+    if (!empty(verificarProgressoUsuario($idUsuario, $idPrograma, $idEtapa))) {
+        return true;
+    }
+
+    $PDO = db_connect();
+
+    $sql = "INSERT INTO
+                PROGRESSO_USUARIO (FK_ETAPA, FK_PROGRAMA, FK_USUARIO)
+            VALUES (:FK_ETAPA, :FK_PROGRAMA, :FK_USUARIO)";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_USUARIO', $idUsuario);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+    $stmt->bindValue(':FK_ETAPA', $idEtapa);
+    $stmt->execute();
+}
+
+function verificarProgressoUsuario($idUsuario, $idPrograma, $idEtapa)
+{
+    $PDO = db_connect();
+
+    $sql = "SELECT * FROM
+                PROGRESSO_USUARIO
+            WHERE
+                FK_PROGRAMA = :FK_PROGRAMA
+                AND FK_ETAPA = :FK_ETAPA
+                AND FK_USUARIO = :FK_USUARIO";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+    $stmt->bindValue(':FK_ETAPA', $idEtapa);
+    $stmt->bindValue(':FK_USUARIO', $idUsuario);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getEtapasCompletas($idUsuario, $idPrograma)
+{
+    $PDO = db_connect();
+
+    $sql = "SELECT FK_ETAPA FROM
+                PROGRESSO_USUARIO
+            WHERE
+                FK_PROGRAMA = :FK_PROGRAMA
+                AND FK_USUARIO = :FK_USUARIO";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+    $stmt->bindValue(':FK_USUARIO', $idUsuario);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $newArray = [];
+    
+    if (!empty($result)) {
+        foreach ($result as $etapa) {
+            $newArray[] = $etapa['FK_ETAPA'];
+        }
+    }
+
+    return $newArray;
 }

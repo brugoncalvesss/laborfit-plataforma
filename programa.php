@@ -25,15 +25,15 @@ require_once '_header.php';
 <?php
 $idPrograma = $_GET['programa'] ?: 1;
 $idUsuario = $_SESSION['USUARIO_ID'];
-$idEtapa = $_GET['etapa'] ?: null;
+$idEtapa = $_GET['etapa'] ?: 1;
 
 if (empty($_SESSION['USUARIO_ID'])) {
     echo "Aconteceu algum erro, <a href='/logout.php'>Clique aqui</a> para entrar novamente.";
     die();
 }
 
-$arrProgresso = getAulaAtualDoUsuario($_SESSION['USUARIO_ID'], $idPrograma);
 $arrPrograma = getPrograma($idPrograma);
+$arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
 
 ?>
 
@@ -69,20 +69,22 @@ $arrPrograma = getPrograma($idPrograma);
 
                     <?php foreach ($arNavegacaoPrograma as $topico) : ?>
 
+                        <?php
+                        $etapaCompleta = '';
+                        if (in_array($topico['ID_ETAPA'], $arrEtapasCompletas)) {
+                            $etapaCompleta = '<i class="fas fa-check-circle"></i>';
+                        }
+                        ?>
                         <a class="py-1 text-muted font-weight-bold" data-toggle="collapse" href="#grupo-<?= $topico['ID_ETAPA'] ?>">
-                            <?= $topico['NOME_ETAPA'] ?>
+                            <?= $topico['NOME_ETAPA']; ?>
+                            <?= $etapaCompleta; ?>
                         </a>
 
                         <?php
                         $showCollapse = '';
-                        if (is_null($idEtapa)) {
-                            if ($topico['ID_ETAPA'] == 1) {
-                                $showCollapse = 'show';
-                            }
-                        } else if ($idEtapa && $idEtapa == $topico['ID_ETAPA']) {
+                        if ($idEtapa == $topico['ID_ETAPA']) {
                             $showCollapse = 'show';
                         }
-                        
                         ?>
 
                         <div class="collapse <?= $showCollapse; ?>" id="grupo-<?= $topico['ID_ETAPA'] ?>">
@@ -175,9 +177,16 @@ $arrPrograma = getPrograma($idPrograma);
                             </ul>
                         </div>
                         <div>
+                            <?php
+                            if ($arNavegacao['FL_COMPLETO']) {
+                                $urlProximaAula = "/concluir.php?q=". base64_encode($urlProximaAula);
+                            }
+                            ?>
+
                             <a class="btn btn-primary" href="<?= $urlProximaAula ?>">
                                 <?= ($arNavegacao['FL_COMPLETO']) ? 'Concluir' : 'Próxima'; ?>
                             </a>
+
                         </div>
                     </div>
 
