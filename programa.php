@@ -71,13 +71,26 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
 
                         <?php
                         $etapaCompleta = '';
+                        $etapaClasse = '';
                         if (in_array($topico['ID_ETAPA'], $arrEtapasCompletas)) {
                             $etapaCompleta = '<i class="fas fa-check-circle"></i>';
+                            $etapaClasse = 'active';
                         }
+
+                        $iconEtapaCompleta = getIconEtapaCompleta($topico['ID_ETAPA']);
                         ?>
-                        <a class="py-1 text-muted font-weight-bold" data-toggle="collapse" href="#grupo-<?= $topico['ID_ETAPA'] ?>">
-                            <?= $topico['NOME_ETAPA']; ?>
-                            <?= $etapaCompleta; ?>
+                        <a class="link-etapa d-flex justify-content-between align-items-center <?= $etapaClasse; ?>" data-toggle="collapse" href="#grupo-<?= $topico['ID_ETAPA'] ?>">
+                            <div>
+                                <span class="font-weight-bold">
+                                    <?= $topico['NOME_ETAPA']; ?>
+                                    <?= $etapaCompleta; ?>
+                                </span>
+                            </div>
+                            <?php if ($topico['FL_PREMIO_ETAPA']) : ?>
+                            <div>
+                                <img src="<?= $iconEtapaCompleta; ?>">
+                            </div>
+                            <?php endif; ?>
                         </a>
 
                         <?php
@@ -92,7 +105,7 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                                 <?php foreach($topico['AULAS'] as $aula) : ?>
                                     <?php $urlAula = "/programa.php?programa=".$aula['FK_PROGRAMA']."&etapa=".$aula['FK_ETAPA']."&aula=".$aula['ID_AULA']; ?>
                                     
-                                    <a href="<?= $urlAula; ?>" class="nav-link">
+                                    <a href="<?= $urlAula; ?>" class="nav-link py-1">
                                         <?= $aula['NOME']; ?>
                                     </a>
                                 <?php endforeach; ?>
@@ -146,7 +159,7 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                     <div class="d-flex justify-content-between">
                         <div>
                             <h6>Gostou do conteúdo?</h6>
-                            <ul class="list-inline like-aula">
+                            <ul class="list-inline">
                                 <?php
                                 $meuVoto = getMeuLikeNaAula($idAula, $idUsuario);
 
@@ -162,12 +175,12 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                                 while ($heart <= 5) : ?>
                                 <li class="list-inline-item">
                                     <?php
-                                    $active = ($meuVoto >= $heart) ? 'active' : '';
+                                    $imgLike = ($meuVoto >= $heart) ? './img/ico-like-on.png' : './img/ico-like-off.png';
                                     $referencia = base64_encode($_SERVER["REQUEST_URI"]);
                                     $urlVoto = "/votar.php?usuario=".$idUsuario."&aula=".$idAula."&voto=".$heart."&referencia=".$referencia;
                                     ?>
-                                    <a class="<?= $active; ?>" href="<?= $urlVoto; ?>">
-                                        <i class="fas fa-heart"></i>
+                                    <a href="<?= $urlVoto; ?>">
+                                        <img src="<?= $imgLike; ?>">
                                     </a>
                                 </li>
                                 <?php
@@ -200,21 +213,37 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
 
 <!-- Modal -->
 <?php if ($_GET['completo']) : ?>
-<div class="modal fade" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header border-bottom-0">
-            <h5 class="modal-title">Parabéns</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>Você concluiu a aula de hoje</p>
+<?php
+$modalPersonalizado = getIdModalPersonalizado($idPrograma, $idEtapa);
+?>
+
+    <?php if (empty($modalPersonalizado)) : ?>
+    <div class="modal fade" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title">Parabéns</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Você concluiu a aula de hoje</p>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
-</div>
+    <?php else : ?>
+    <div class="modal fade" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>MOSTRAR IMAGEM DA CONCLUSÃO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 <?php endif; ?>
 
 <?php require_once '_footer.php'; ?>

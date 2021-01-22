@@ -372,11 +372,21 @@ a:hover, a:focus {
     }
 }
 
-.like-aula a {
-    color: #212529;
+.link-etapa {
+    color: #444;
+    min-height: 32px;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
 }
 
-.like-aula a.active,
-.like-aula a:hover {
-    color: #d00000;
+.link-etapa:active {
+    color: #444;
+}
+
+.link-etapa.active, .link-etapa:hover {
+    color: #999;
+}
+
+.link-etapa:hover {
+    text-decoration: none;
 }

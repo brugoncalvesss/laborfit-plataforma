@@ -806,7 +806,7 @@ function getNavegacaoProgramaV2($idPrograma)
     foreach ($result as $programa) {
         $newArray[$programa['ID_ETAPA']]['ID_ETAPA'] = $programa['ID_ETAPA'];
         $newArray[$programa['ID_ETAPA']]['NOME_ETAPA'] = $programa['NOME_ETAPA'];
-        $newArray[$programa['ID_ETAPA']]['FL_PREMIO_ETAPA'] = $programa['NOME_ETAPA'];
+        $newArray[$programa['ID_ETAPA']]['FL_PREMIO_ETAPA'] = $programa['FL_PREMIO_ETAPA'];
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['ID_AULA'] = $programa['ID_AULA'];
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['REF_AULA'] = $programa['REF_AULA'];
         $newArray[$programa['ID_ETAPA']]['AULAS'][$programa['ID_AULA']]['FL_RECEITA_AULA'] = $programa['FL_RECEITA_AULA'];
@@ -1137,4 +1137,41 @@ function getEtapasCompletas($idUsuario, $idPrograma)
     }
 
     return $newArray;
+}
+
+function getIconEtapaCompleta($key = null)
+{
+    $icons = [
+        15 => './uploads/ico-90dias-01.png',
+        30 => './uploads/ico-90dias-02.png',
+        45 => './uploads/ico-90dias-03.png',
+        60 => './uploads/ico-90dias-04.png',
+        75 => './uploads/ico-90dias-05.png',
+        90 => './uploads/ico-90dias-06.png'
+    ];
+
+    if ($key) {
+        return $icons[$key];
+    }
+
+    return $icons;
+}
+
+function getIdModalPersonalizado($idPrograma, $idEtapa)
+{
+    $PDO = db_connect();
+
+    $sql = "SELECT ID_ETAPA FROM
+                ETAPAS
+            WHERE
+                FK_PROGRAMA = :FK_PROGRAMA
+                AND ID_ETAPA = :ID_ETAPA
+                AND FL_PREMIO_ETAPA = 1";
+
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+    $stmt->bindValue(':ID_ETAPA', $idEtapa);
+    $stmt->execute();
+
+    return current($stmt->fetchAll(PDO::FETCH_ASSOC));
 }
