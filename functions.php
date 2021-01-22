@@ -1175,3 +1175,21 @@ function getIdModalPersonalizado($idPrograma, $idEtapa)
 
     return current($stmt->fetchAll(PDO::FETCH_ASSOC));
 }
+
+function getImagemModalPersonalizado($key)
+{
+    $modal = [
+        15 => './uploads/pop-15dias.png',
+        30 => './uploads/pop-30dias.png',
+        45 => './uploads/pop-45dias.png',
+        60 => './uploads/pop-60dias.png',
+        75 => './uploads/pop-75dias.png',
+        90 => './uploads/pop-90dias.png'
+    ];
+
+    if ($key) {
+        return $modal[$key];
+    }
+
+    return $modal;
+}

@@ -390,3 +390,15 @@ a:hover, a:focus {
 .link-etapa:hover {
     text-decoration: none;
 }
+
+/*
+ * Modal
+ */
+.modal-transparent .modal-content {
+    background: transparent!important;
+    border: 0!important;
+}
+
+.opacity-80 {
+    opacity: .8;
+}

@@ -180,7 +180,7 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                                     $urlVoto = "/votar.php?usuario=".$idUsuario."&aula=".$idAula."&voto=".$heart."&referencia=".$referencia;
                                     ?>
                                     <a href="<?= $urlVoto; ?>">
-                                        <img src="<?= $imgLike; ?>">
+                                        <img width="24" src="<?= $imgLike; ?>">
                                     </a>
                                 </li>
                                 <?php
@@ -218,7 +218,7 @@ $modalPersonalizado = getIdModalPersonalizado($idPrograma, $idEtapa);
 ?>
 
     <?php if (empty($modalPersonalizado)) : ?>
-    <div class="modal fade" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
+    <div class="modal fade opacity-80" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">
@@ -234,11 +234,11 @@ $modalPersonalizado = getIdModalPersonalizado($idPrograma, $idEtapa);
         </div>
     </div>
     <?php else : ?>
-    <div class="modal fade" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
+    <div class="modal fade modal-transparent" id="modalConcluirAula" tabindex="-1" data-show="true" aria-labelledby="modalConcluirAula" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body">
-                    <p>MOSTRAR IMAGEM DA CONCLUSÃO</p>
+                <div class="modal-body p-0 text-center">
+                    <img data-dismiss="modal" src="<?= getImagemModalPersonalizado($modalPersonalizado['ID_ETAPA']); ?>" class="img-fluid">
                 </div>
             </div>
         </div>
