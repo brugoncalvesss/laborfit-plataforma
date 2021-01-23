@@ -402,3 +402,8 @@ a:hover, a:focus {
 .opacity-80 {
     opacity: .8;
 }
+
+.nav-scroll {
+    height: 600px;
+    overflow-y: scroll;
+}

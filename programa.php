@@ -56,67 +56,67 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
             </div>
         </div>
 
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light pr-0 sidebar collapse">
             <div class="position-sticky pt-3 mb-5">
+                <div class="nav-scroll">
+                    <?php $arNavegacaoPrograma = getNavegacaoProgramaV2($idPrograma); ?>
+                    <?php if (!empty($arNavegacaoPrograma)) : ?>
+                    <ul class="nav flex-column">
 
-                <?php $arNavegacaoPrograma = getNavegacaoProgramaV2($idPrograma); ?>
-                <?php if (!empty($arNavegacaoPrograma)) : ?>
-                <ul class="nav flex-column">
-
-                    <a class="nav-link pl-0" href="introducao.php?programa=<?= $idPrograma; ?>">
-                        Introdução
-                    </a>
-
-                    <?php foreach ($arNavegacaoPrograma as $topico) : ?>
-
-                        <?php
-                        $etapaCompleta = '';
-                        $etapaClasse = '';
-                        if (in_array($topico['ID_ETAPA'], $arrEtapasCompletas)) {
-                            $etapaCompleta = '<i class="fas fa-check-circle"></i>';
-                            $etapaClasse = 'active';
-                        }
-
-                        $iconEtapaCompleta = getIconEtapaCompleta($topico['ID_ETAPA']);
-                        ?>
-                        <a class="link-etapa d-flex justify-content-between align-items-center <?= $etapaClasse; ?>" data-toggle="collapse" href="#grupo-<?= $topico['ID_ETAPA'] ?>">
-                            <div>
-                                <span class="font-weight-bold">
-                                    <?= $topico['NOME_ETAPA']; ?>
-                                    <?= $etapaCompleta; ?>
-                                </span>
-                            </div>
-                            <?php if ($topico['FL_PREMIO_ETAPA'] && $etapaCompleta) : ?>
-                            <div>
-                                <img src="<?= $iconEtapaCompleta; ?>">
-                            </div>
-                            <?php endif; ?>
+                        <a class="nav-link pl-0" href="introducao.php?programa=<?= $idPrograma; ?>">
+                            Introdução
                         </a>
 
-                        <?php
-                        $showCollapse = '';
-                        if ($idEtapa == $topico['ID_ETAPA']) {
-                            $showCollapse = 'show';
-                        }
-                        ?>
+                        <?php foreach ($arNavegacaoPrograma as $topico) : ?>
 
-                        <div class="collapse <?= $showCollapse; ?>" id="grupo-<?= $topico['ID_ETAPA'] ?>">
-                            <nav>
-                                <?php foreach($topico['AULAS'] as $aula) : ?>
-                                    <?php $urlAula = "/programa.php?programa=".$aula['FK_PROGRAMA']."&etapa=".$aula['FK_ETAPA']."&aula=".$aula['ID_AULA']; ?>
-                                    
-                                    <a href="<?= $urlAula; ?>" class="nav-link py-1">
-                                        <?= $aula['NOME']; ?>
-                                    </a>
-                                <?php endforeach; ?>
-                            </nav>
-                        </div>
+                            <?php
+                            $etapaCompleta = '';
+                            $etapaClasse = '';
+                            if (in_array($topico['ID_ETAPA'], $arrEtapasCompletas)) {
+                                $etapaCompleta = '<i class="fas fa-check-circle"></i>';
+                                $etapaClasse = 'active';
+                            }
 
-                    <?php endforeach; ?>
+                            $iconEtapaCompleta = getIconEtapaCompleta($topico['ID_ETAPA']);
+                            ?>
+                            <a class="link-etapa d-flex justify-content-between align-items-center <?= $etapaClasse; ?>" data-toggle="collapse" href="#grupo-<?= $topico['ID_ETAPA'] ?>">
+                                <div>
+                                    <span class="font-weight-bold">
+                                        <?= $topico['NOME_ETAPA']; ?>
+                                        <?= $etapaCompleta; ?>
+                                    </span>
+                                </div>
+                                <?php if ($topico['FL_PREMIO_ETAPA'] && $etapaCompleta) : ?>
+                                <div>
+                                    <img src="<?= $iconEtapaCompleta; ?>">
+                                </div>
+                                <?php endif; ?>
+                            </a>
 
-                </ul>
-                <?php endif; ?>
-                
+                            <?php
+                            $showCollapse = '';
+                            if ($idEtapa == $topico['ID_ETAPA']) {
+                                $showCollapse = 'show';
+                            }
+                            ?>
+
+                            <div class="collapse <?= $showCollapse; ?>" id="grupo-<?= $topico['ID_ETAPA'] ?>">
+                                <nav>
+                                    <?php foreach($topico['AULAS'] as $aula) : ?>
+                                        <?php $urlAula = "/programa.php?programa=".$aula['FK_PROGRAMA']."&etapa=".$aula['FK_ETAPA']."&aula=".$aula['ID_AULA']; ?>
+                                        
+                                        <a href="<?= $urlAula; ?>" class="nav-link py-1">
+                                            <?= $aula['NOME']; ?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </nav>
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    </ul>
+                    <?php endif; ?>
+                </div><!-- end scroll -->
             </div>
         </nav><!-- end sidebar -->
 
