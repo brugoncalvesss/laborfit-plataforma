@@ -1161,6 +1161,8 @@ function getIdModalPersonalizado($idPrograma, $idEtapa)
 {
     $PDO = db_connect();
 
+    $idEtapa--;
+
     $sql = "SELECT ID_ETAPA FROM
                 ETAPAS
             WHERE

@@ -86,7 +86,7 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                                     <?= $etapaCompleta; ?>
                                 </span>
                             </div>
-                            <?php if ($topico['FL_PREMIO_ETAPA']) : ?>
+                            <?php if ($topico['FL_PREMIO_ETAPA'] && $etapaCompleta) : ?>
                             <div>
                                 <img src="<?= $iconEtapaCompleta; ?>">
                             </div>
