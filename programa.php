@@ -36,6 +36,14 @@ $arrPrograma = getPrograma($idPrograma);
 $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
 $iconEtapaCompleta = getIconEtapaCompleta($idPrograma);
 $arModalPersonalizado = getModalPersonalizado($idPrograma);
+
+$arProgresso = $arrEtapasCompletas;
+if (empty($arrEtapasCompletas)) {
+    $arProgresso[] = 1;
+} else {
+    $arProgresso[] = end($arProgresso) + 1;
+}
+
 ?>
 
 <div class="bg-wave-primary w-100 py-5 text-center">
@@ -73,9 +81,15 @@ $arModalPersonalizado = getModalPersonalizado($idPrograma);
                             <?php
                             $etapaCompleta = '';
                             $etapaClasse = '';
+                            $disabled = 'disabled';
+
                             if (in_array($topico['ID_ETAPA'], $arrEtapasCompletas)) {
                                 $etapaCompleta = '<i class="fas fa-check-circle"></i>';
                                 $etapaClasse = 'active';
+                            }
+
+                            if ($topico['ID_ETAPA'] <= end($arProgresso)) {
+                                $disabled = '';
                             }
 
                             ?>
@@ -107,7 +121,7 @@ $arModalPersonalizado = getModalPersonalizado($idPrograma);
                                     <?php foreach($topico['AULAS'] as $aula) : ?>
                                         <?php $urlAula = "/programa.php?programa=".$aula['FK_PROGRAMA']."&etapa=".$aula['FK_ETAPA']."&aula=".$aula['ID_AULA']; ?>
                                         
-                                        <a href="<?= $urlAula; ?>" class="nav-link py-1">
+                                        <a href="<?= $urlAula; ?>" class="nav-link py-1 <?= $disabled; ?>">
                                             <?= $aula['NOME']; ?>
                                         </a>
                                     <?php endforeach; ?>
