@@ -158,6 +158,8 @@ $arModalPersonalizado = getModalPersonalizado($idPrograma);
                 $urlProximaAula = getUrlProximaAula($arNavegacao);
                 ?>
 
+                <hr class="mt-4 hr">
+
                     <div class="d-flex justify-content-between">
                         <div>
                             <h6>Gostou do conteúdo?</h6>
@@ -177,12 +179,12 @@ $arModalPersonalizado = getModalPersonalizado($idPrograma);
                                 while ($heart <= 5) : ?>
                                 <li class="list-inline-item">
                                     <?php
-                                    $imgLike = ($meuVoto >= $heart) ? './img/ico-like-on.png' : './img/ico-like-off.png';
+                                    $imgLike = ($meuVoto >= $heart) ? 'active' : '';
                                     $referencia = base64_encode($_SERVER["REQUEST_URI"]);
                                     $urlVoto = "/votar.php?usuario=".$idUsuario."&aula=".$idAula."&voto=".$heart."&referencia=".$referencia;
                                     ?>
                                     <a href="<?= $urlVoto; ?>">
-                                        <img width="24" src="<?= $imgLike; ?>">
+                                        <span class="d-block ico-fav <?= $imgLike; ?>"></span>
                                     </a>
                                 </li>
                                 <?php

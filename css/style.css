@@ -407,3 +407,16 @@ a:hover, a:focus {
     height: 600px;
     overflow-y: scroll;
 }
+
+.ico-fav {
+    width: 24px;
+    height: 24px;
+    background: url(../img/ico-like-off.png) center center no-repeat;
+    background-size: cover;
+}
+
+.ico-fav:hover,
+.ico-fav.active {
+    background: url(../img/ico-like-on.png) center center no-repeat;
+    background-size: cover;
+}
