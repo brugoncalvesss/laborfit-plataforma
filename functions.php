@@ -1139,19 +1139,51 @@ function getEtapasCompletas($idUsuario, $idPrograma)
     return $newArray;
 }
 
-function getIconEtapaCompleta($key = null)
+function getIconEtapaCompleta($idPrograma)
 {
-    $icons = [
-        15 => './uploads/ico-90dias-01.png',
-        30 => './uploads/ico-90dias-02.png',
-        45 => './uploads/ico-90dias-03.png',
-        60 => './uploads/ico-90dias-04.png',
-        75 => './uploads/ico-90dias-05.png',
-        90 => './uploads/ico-90dias-06.png'
-    ];
+    $PDO = db_connect();
 
-    if ($key) {
-        return $icons[$key];
+    $sql = "SELECT * FROM ETAPAS WHERE FK_PROGRAMA = :FK_PROGRAMA";
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+    $stmt->execute();
+    $arIcons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $icons = [];
+
+    if (empty($arIcons)) {
+        return $icons;
+    }
+
+    foreach ($arIcons as $etapa) {
+        if ($etapa['FL_PREMIO_ETAPA']) {
+            $icons[$etapa['ID_ETAPA']] = './uploads/' . $etapa['ICON_ETAPA'];
+        }
+    }
+
+    return $icons;
+}
+
+function getModalPersonalizado($idPrograma)
+{
+    $PDO = db_connect();
+
+    $sql = "SELECT * FROM ETAPAS WHERE FK_PROGRAMA = :FK_PROGRAMA";
+    $stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+    $stmt->execute();
+    $arIcons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $icons = [];
+
+    if (empty($arIcons)) {
+        return $icons;
+    }
+
+    foreach ($arIcons as $etapa) {
+        if ($etapa['FL_PREMIO_ETAPA']) {
+            $icons[$etapa['ID_ETAPA']] = './uploads/' . $etapa['POPUP_ETAPA'];
+        }
     }
 
     return $icons;
@@ -1176,22 +1208,4 @@ function getIdModalPersonalizado($idPrograma, $idEtapa)
     $stmt->execute();
 
     return current($stmt->fetchAll(PDO::FETCH_ASSOC));
-}
-
-function getImagemModalPersonalizado($key)
-{
-    $modal = [
-        15 => './uploads/pop-15dias.png',
-        30 => './uploads/pop-30dias.png',
-        45 => './uploads/pop-45dias.png',
-        60 => './uploads/pop-60dias.png',
-        75 => './uploads/pop-75dias.png',
-        90 => './uploads/pop-90dias.png'
-    ];
-
-    if ($key) {
-        return $modal[$key];
-    }
-
-    return $modal;
 }

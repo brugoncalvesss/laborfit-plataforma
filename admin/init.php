@@ -448,3 +448,15 @@ function getReceitaDoPrograma($id = null)
 	$stmt->execute();
 	return current($stmt->fetchAll(PDO::FETCH_ASSOC));
 }
+
+function getEtapa($idEtapa, $idPrograma)
+{
+	$PDO = db_connect();
+	$sql = "SELECT * FROM ETAPAS WHERE ID_ETAPA = :ID_ETAPA AND FK_PROGRAMA = :FK_PROGRAMA;";
+	
+	$stmt = $PDO->prepare($sql);
+    $stmt->bindValue(':ID_ETAPA', $idEtapa);
+    $stmt->bindValue(':FK_PROGRAMA', $idPrograma);
+	$stmt->execute();
+	return current($stmt->fetchAll(PDO::FETCH_ASSOC));
+}

@@ -7,6 +7,11 @@ $(document).ready(function(){
         $(this).next('.custom-file-label').html(fileName);
     });
 
+    $('#inputGroupFiles').on('change',function(e){
+        var fileName = e.target.files[0].name;
+        $(this).next('.custom-file-label').html(fileName);
+    });
+
     $("#sortable").sortable({
         items : ".row",
         update: function () {

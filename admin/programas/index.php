@@ -33,7 +33,9 @@
 			<?php foreach ($arProgramas as $programa) : ?>
 			<div class="row align-items-center no-gutters border-bottom mb-2 pb-2">
 				<div class="col">
+					<a href="/admin/etapas/?id=<?= $programa['ID_PROGRAMA']; ?>">
 					<?= $programa['NOME_PROGRAMA']; ?>
+					</a>
 				</div>
 				<div class="col col-auto">
 					<a class="btn-link mx-2" href="/admin/programas/editar.php?id=<?= $programa['ID_PROGRAMA']; ?>">

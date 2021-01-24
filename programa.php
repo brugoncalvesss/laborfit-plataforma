@@ -34,7 +34,8 @@ if (empty($_SESSION['USUARIO_ID'])) {
 
 $arrPrograma = getPrograma($idPrograma);
 $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
-
+$iconEtapaCompleta = getIconEtapaCompleta($idPrograma);
+$arModalPersonalizado = getModalPersonalizado($idPrograma);
 ?>
 
 <div class="bg-wave-primary w-100 py-5 text-center">
@@ -63,7 +64,7 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                     <?php if (!empty($arNavegacaoPrograma)) : ?>
                     <ul class="nav flex-column">
 
-                        <a class="nav-link pl-0" href="introducao.php?programa=<?= $idPrograma; ?>">
+                        <a class="nav-link pl-0 font-weight-bold" href="introducao.php?programa=<?= $idPrograma; ?>">
                             Introdução
                         </a>
 
@@ -77,7 +78,6 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                                 $etapaClasse = 'active';
                             }
 
-                            $iconEtapaCompleta = getIconEtapaCompleta($topico['ID_ETAPA']);
                             ?>
                             <a class="link-etapa d-flex justify-content-between align-items-center <?= $etapaClasse; ?>" data-toggle="collapse" href="#grupo-<?= $topico['ID_ETAPA'] ?>">
                                 <div>
@@ -88,7 +88,9 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                                 </div>
                                 <?php if ($topico['FL_PREMIO_ETAPA'] && $etapaCompleta) : ?>
                                 <div>
-                                    <img src="<?= $iconEtapaCompleta; ?>">
+                                    <?php if ($iconEtapaCompleta[$topico['ID_ETAPA']]) : ?>
+                                    <img src="<?= $iconEtapaCompleta[$topico['ID_ETAPA']]; ?>">
+                                    <?php endif; ?>
                                 </div>
                                 <?php endif; ?>
                             </a>
@@ -135,7 +137,7 @@ $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
                 <div class="col-md-10">
                 <?php if ($arConteudoAula['FL_RECEITA_AULA']) : ?>
                     <div class="mb-3">
-                        <h1 class="h2"><?= $arConteudoAula['NOME_RECEITA'] ?></h1>
+                        <h1 class="h3 font-weight-bold"><?= $arConteudoAula['NOME_RECEITA'] ?></h1>
                         <?php if ($arConteudoAula['IMG_RECEITA']) : ?>
                         <p><img src="./uploads/<?= $arConteudoAula['IMG_RECEITA']; ?>" alt="<?= $arConteudoAula['NOME_RECEITA'] ?>" class="img-fluid"></p>
                         <?php endif; ?>
@@ -238,7 +240,7 @@ $modalPersonalizado = getIdModalPersonalizado($idPrograma, $idEtapa);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body p-0 text-center">
-                    <img data-dismiss="modal" src="<?= getImagemModalPersonalizado($modalPersonalizado['ID_ETAPA']); ?>" class="img-fluid">
+                    <img data-dismiss="modal" src="<?= $arModalPersonalizado[$modalPersonalizado['ID_ETAPA']]; ?>" class="img-fluid">
                 </div>
             </div>
         </div>

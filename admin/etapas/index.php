@@ -24,15 +24,23 @@
 		<?php if (count($arEtapas) > 0) : ?>
 		<div class="table-responsive datatable-custom">
 			<table class="table table-hover card-table">
+				<thead>
+					<tr>
+						<th>Dia</th>
+						<th class="text-right">Badget</th>
+					</tr>
+				</thead>
 				<tbody>
 					<?php foreach ($arEtapas as $etapa) : ?>
 					<tr>
-						<td><?= $etapa['NOME_ETAPA']; ?></td>
+						<td>
+							<a href="/admin/etapas/editar.php?idPrograma=<?= $etapa['FK_PROGRAMA']; ?>&idEtapa=<?= $etapa['ID_ETAPA']; ?>">
+								<?= $etapa['NOME_ETAPA']; ?>
+							</a>
+						</td>
 						<td class="text-right">
 							<?php if ($etapa['FL_PREMIO_ETAPA']) : ?>
 							<i class="fas fa-star text-warning"></i>
-							<?php else: ?>
-							<i class="far fa-star text-warning"></i>
 							<?php endif; ?>
 						</td>
 					</tr>
