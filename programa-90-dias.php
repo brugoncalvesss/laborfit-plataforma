@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once './functions.php';
 
 $idPrograma = $_GET['programa'] ?: 1;
