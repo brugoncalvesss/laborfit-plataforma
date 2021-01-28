@@ -192,7 +192,7 @@ if (empty($arrEtapasCompletas)) {
                                     $referencia = base64_encode($_SERVER["REQUEST_URI"]);
                                     $urlVoto = "/votar.php?usuario=".$idUsuario."&aula=".$idAula."&voto=".$heart."&referencia=".$referencia;
                                     ?>
-                                    <a href="<?= $urlVoto; ?>">
+                                    <a id="votar-aula" href="<?= $urlVoto; ?>" nm-like="<?= $heart; ?>" st-aula="<?= $arConteudoAula['NOME_ETAPA'] ?>">
                                         <span class="d-block ico-fav <?= $imgLike; ?>"></span>
                                     </a>
                                 </li>
