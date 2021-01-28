@@ -24,13 +24,8 @@ require_once '_header.php';
 
 <?php
 $idPrograma = $_GET['programa'] ?: 1;
-$idUsuario = $_SESSION['USUARIO_ID'];
+$idUsuario = $_COOKIE['USUARIO_ID'];
 $idEtapa = $_GET['etapa'] ?: 1;
-
-if (empty($_SESSION['USUARIO_ID'])) {
-    echo "Aconteceu algum erro, <a href='/logout.php'>Clique aqui</a> para entrar novamente.";
-    die();
-}
 
 $arrPrograma = getPrograma($idPrograma);
 $arrEtapasCompletas = getEtapasCompletas($idUsuario, $idPrograma);
